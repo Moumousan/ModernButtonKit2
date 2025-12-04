@@ -13,7 +13,7 @@
 import SwiftUI
 
 @available(macOS 12.0, iOS 15.0, *)
-public enum MBGToolbarStyle: Equatable, Sendable {
+public enum MBGToolbarStyle: Equatable {
     /// 完全透明（背景なし）
     case clear
     /// macOS / iPadOS の .ultraThinMaterial
@@ -32,7 +32,7 @@ public struct MBGToolbarBackground: ViewModifier {
     public func body(content: Content) -> some View {
         content
             .background(backgroundView(for: style))
-            .overlay(Divider(), alignment: .bottom)
+            .overlay(alignment: .bottom) { Divider() }
     }
 
     @ViewBuilder
@@ -41,14 +41,14 @@ public struct MBGToolbarBackground: ViewModifier {
         case .clear:
             Color.clear
         case .material:
-            if #available(macOS 12.0, iOS 15.0, *) {
-                Rectangle().fill(.ultraThinMaterial)
-            } else {
-                Rectangle().fill(Color.gray.opacity(0.1))
-            }
+            // ファイルスコープの @available により追加の #available は不要
+            Rectangle().fill(.ultraThinMaterial)
         case .glass:
-            Rectangle().fill(Color.white.opacity(0.25))
-                .background(Color.white.opacity(0.05))
+            // ZStack でレイヤー順を明示（background の重ねを避ける）
+            ZStack {
+                Color.white.opacity(0.05)
+                Rectangle().fill(Color.white.opacity(0.25))
+            }
         case .solid(let color):
             Rectangle().fill(color)
         }
