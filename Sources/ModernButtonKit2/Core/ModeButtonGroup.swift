@@ -95,23 +95,26 @@ public enum CornerStyle {
     case capsule
 }
 
+#if os(macOS)
+// Provide a UIKit-like UIRectCorner for macOS
+fileprivate struct UIRectCorner: OptionSet {
+    let rawValue: Int
+    static let topLeft     = UIRectCorner(rawValue: 1 << 0)
+    static let topRight    = UIRectCorner(rawValue: 1 << 1)
+    static let bottomLeft  = UIRectCorner(rawValue: 1 << 2)
+    static let bottomRight = UIRectCorner(rawValue: 1 << 3)
+    static let allCorners: UIRectCorner = [.topLeft, .topRight, .bottomLeft, .bottomRight]
+}
+#endif
+
 @inline(__always)
 private func segmentCornerSet(isFirst: Bool, isLast: Bool) -> UIRectCorner {
-#if os(iOS)
     switch (isFirst, isLast) {
     case (true, false):  return [.topLeft, .bottomLeft]
     case (false, true):  return [.topRight, .bottomRight]
     case (true, true):   return [.allCorners]
     default:             return []
     }
-#else
-    switch (isFirst, isLast) {
-    case (true, false):  return [.topLeft, .bottomLeft]
-    case (false, true):  return [.topRight, .bottomRight]
-    case (true, true):   return [.allCorners]
-    default:             return []
-    }
-#endif
 }
 
 fileprivate struct RoundedCornerShape: Shape {
@@ -127,73 +130,44 @@ fileprivate struct RoundedCornerShape: Shape {
         )
         return Path(path.cgPath)
         #else
-        let bezier = NSBezierPath()
-        let r = radius
+        // Build a path rounding only selected corners (NSBezierPath lacks corner-specific API)
+        let r = min(radius, min(rect.width, rect.height) / 2)
         let minX = rect.minX, maxX = rect.maxX
         let minY = rect.minY, maxY = rect.maxY
 
-        bezier.move(to: CGPoint(x: minX + r, y: minY))
-        bezier.line(to: CGPoint(x: maxX - r, y: minY))
-        if corners.contains(.topRight) {
-            bezier.curve(to: CGPoint(x: maxX, y: minY + r),
-                         controlPoint1: CGPoint(x: maxX, y: minY),
-                         controlPoint2: CGPoint(x: maxX, y: minY))
-        } else {
-            bezier.line(to: CGPoint(x: maxX, y: minY))
-        }
+        let path = CGMutablePath()
+        // Start at left-bottom edge
+        path.move(to: CGPoint(x: minX + (corners.contains(.bottomLeft) ? r : 0), y: minY))
 
-        bezier.line(to: CGPoint(x: maxX, y: maxY - r))
+        // bottom edge to bottom-right corner
+        path.addLine(to: CGPoint(x: maxX - (corners.contains(.bottomRight) ? r : 0), y: minY))
         if corners.contains(.bottomRight) {
-            bezier.curve(to: CGPoint(x: maxX - r, y: maxY),
-                         controlPoint1: CGPoint(x: maxX, y: maxY),
-                         controlPoint2: CGPoint(x: maxX, y: maxY))
-        } else {
-            bezier.line(to: CGPoint(x: maxX, y: maxY))
+            path.addRelativeArc(center: CGPoint(x: maxX - r, y: minY + r), radius: r, startAngle: .pi * 1.5, delta: .pi/2)
         }
 
-        bezier.line(to: CGPoint(x: minX + r, y: maxY))
-        if corners.contains(.bottomLeft) {
-            bezier.curve(to: CGPoint(x: minX, y: maxY - r),
-                         controlPoint1: CGPoint(x: minX, y: maxY),
-                         controlPoint2: CGPoint(x: minX, y: maxY))
-        } else {
-            bezier.line(to: CGPoint(x: minX, y: maxY))
+        // right edge to top-right corner
+        path.addLine(to: CGPoint(x: maxX, y: maxY - (corners.contains(.topRight) ? r : 0)))
+        if corners.contains(.topRight) {
+            path.addRelativeArc(center: CGPoint(x: maxX - r, y: maxY - r), radius: r, startAngle: 0, delta: .pi/2)
         }
 
-        bezier.line(to: CGPoint(x: minX, y: minY + r))
+        // top edge to top-left corner
+        path.addLine(to: CGPoint(x: minX + (corners.contains(.topLeft) ? r : 0), y: maxY))
         if corners.contains(.topLeft) {
-            bezier.curve(to: CGPoint(x: minX + r, y: minY),
-                         controlPoint1: CGPoint(x: minX, y: minY),
-                         controlPoint2: CGPoint(x: minX, y: minY))
-        } else {
-            bezier.line(to: CGPoint(x: minX, y: minY))
+            path.addRelativeArc(center: CGPoint(x: minX + r, y: maxY - r), radius: r, startAngle: .pi/2, delta: .pi/2)
         }
 
-        bezier.close()
-        return Path(bezier.cgPath)
+        // left edge to bottom-left corner
+        path.addLine(to: CGPoint(x: minX, y: minY + (corners.contains(.bottomLeft) ? r : 0)))
+        if corners.contains(.bottomLeft) {
+            path.addRelativeArc(center: CGPoint(x: minX + r, y: minY + r), radius: r, startAngle: .pi, delta: .pi/2)
+        }
+
+        path.closeSubpath()
+        return Path(path)
         #endif
     }
 }
-
-#if os(macOS)
-fileprivate extension NSBezierPath {
-    var cgPath: CGPath {
-        let path = CGMutablePath()
-        let points = UnsafeMutablePointer<NSPoint>.allocate(capacity: 3)
-        defer { points.deallocate() }
-        for i in 0 ..< elementCount {
-            switch element(at: i, associatedPoints: points) {
-            case .moveTo: path.move(to: points[0])
-            case .lineTo: path.addLine(to: points[0])
-            case .curveTo: path.addCurve(to: points[2], control1: points[0], control2: points[1])
-            case .closePath: path.closeSubpath()
-            @unknown default: break
-            }
-        }
-        return path
-    }
-}
-#endif
 
 @available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
 public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
@@ -294,7 +268,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         @ViewBuilder middleContent: () -> Middle
     ) {
         self.modes = modes
-        self._selected = selected
+               self._selected = selected
         self.themeColor = themeColor
         self.cornerRadius = cornerRadius
         self.font = font
@@ -398,7 +372,10 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
             let effRadius = Self.effectiveCornerRadius(base: cornerRadius, style: cornerStyle, height: buttonHeight)
 
             HStack(spacing: 0) {
-                ForEach(Array(modes.enumerated()), id: \.1) { index, mode in
+                let enumerated = Array(modes.enumerated())
+                ForEach(enumerated, id: \.offset) { pair in
+                    let index = pair.offset
+                    let mode = pair.element
                     let isSelected = (mode == selected)
                     let raw = mode.displayName
                     let display = truncationLimit.map { limit in
@@ -534,7 +511,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
     @ViewBuilder
     private func buttons(for slice: ArraySlice<Mode>) -> some View {
         let effRadius = Self.effectiveCornerRadius(base: cornerRadius, style: cornerStyle, height: buttonHeight)
-        ForEach(slice, id: \.self) { mode in
+        ForEach(Array(slice), id: \.self) { mode in
             let raw = mode.displayName
             let display = truncationLimit.map { limit in
                 truncatedText(raw, limit: limit, ellipsisMode: ellipsisMode)
@@ -554,11 +531,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                     .clipShape(RoundedRectangle(cornerRadius: effRadius))
                     .onTapGesture { selected = mode }
 
-                if #available(iOS 14.0, macOS 11.0, *) {
-                    base.accessibilityLabel(Text(display))
-                } else {
-                    base
-                }
+                base.accessibilityLabel(Text(display))
             }
         }
     }
@@ -648,3 +621,4 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
 }
 
 // End of ModeButtonGroup version 1.6
+
