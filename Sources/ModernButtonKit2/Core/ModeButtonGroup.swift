@@ -15,6 +15,9 @@
 import SwiftUI
 import Foundation
 
+#if canImport(UIKit)
+import UIKit
+#endif
 #if os(iOS)
 import UIKit
 public typealias PlatformFont = UIFont
