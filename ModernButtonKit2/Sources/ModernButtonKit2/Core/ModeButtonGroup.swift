@@ -412,18 +412,16 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                         ? (labelColors?.selected ?? Color.primary)
                         : (labelColors?.unselected ?? Color.primary)
 
+                    let segShape = RoundedCornerShape(
+                        radius: effRadius,
+                        corners: segmentCornerSet(isFirst: isFirst, isLast: isLast)
+                    )
+
                     ZStack {
-                        Rectangle()
-                            .fill(isSelected ? themeFill(isSelected: true) : themeFill(isSelected: false))
+                        segShape
+                            .fill(themeFill(isSelected: isSelected))
                             .overlay(
-                                Rectangle()
-                                    .stroke(themeColor, lineWidth: isSelected ? 2 : 0.6)
-                            )
-                            .clipShape(
-                                RoundedCornerShape(
-                                    radius: effRadius,
-                                    corners: segmentCornerSet(isFirst: isFirst, isLast: isLast)
-                                )
+                                segShape.stroke(themeColor, lineWidth: isSelected ? 2 : 0.6)
                             )
 
                         Text(display)
@@ -450,6 +448,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
             .frame(width: totalWidth, height: buttonHeight)
             .background(outerBackground(cornerRadius: effRadius))
             .overlay(outerOverlay(cornerRadius: effRadius))
+            .compositingGroup()
 
         case .split(let splitGap):
             let count = modes.count
@@ -481,14 +480,14 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         case .none:
             Color.clear
         case .flat:
-            RoundedRectangle(cornerRadius: r)
+            RoundedRectangle(cornerRadius: r, style: .continuous)
                 .fill(Color.gray.opacity(0.1))
         case .systemLike:
             if #available(iOS 15.0, macOS 12.0, *) {
-                RoundedRectangle(cornerRadius: r)
+                RoundedRectangle(cornerRadius: r, style: .continuous)
                     .fill(.ultraThinMaterial)
             } else {
-                RoundedRectangle(cornerRadius: r)
+                RoundedRectangle(cornerRadius: r, style: .continuous)
                     .fill(Color.white.opacity(0.06))
             }
         }
@@ -501,18 +500,18 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         case .none:
             EmptyView()
         case .flat:
-            RoundedRectangle(cornerRadius: r)
+            RoundedRectangle(cornerRadius: r, style: .continuous)
                 .stroke(themeColor.opacity(0.3), lineWidth: 0.6)
         case .systemLike:
             ZStack {
-                RoundedRectangle(cornerRadius: r)
+                RoundedRectangle(cornerRadius: r, style: .continuous)
                     .stroke(themeColor.opacity(0.35), lineWidth: 0.6)
                 LinearGradient(
                     colors: [Color.white.opacity(0.18), Color.white.opacity(0.02)],
                     startPoint: .top,
                     endPoint: .bottom
                 )
-                .clipShape(RoundedRectangle(cornerRadius: r))
+                .clipShape(RoundedRectangle(cornerRadius: r, style: .continuous))
                 .allowsHitTesting(false)
             }
         }
@@ -607,7 +606,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                 .foregroundColor(fgColor)
                 .cornerRadius(cornerRadius)
                 .overlay(
-                    RoundedRectangle(cornerRadius: cornerRadius)
+                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                         .stroke(themeColor, lineWidth: isSelected ? 2 : 1)
                 )
 
