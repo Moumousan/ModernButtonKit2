@@ -392,17 +392,19 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                         ? (labelColors?.selected ?? Color.primary)
                         : (labelColors?.unselected ?? Color.primary)
 
+                    // ここから中身を差し替え
+                    let segShape = RoundedCornerShape(
+                        radius: effRadius,
+                        corners: segmentCornerSet(isFirst: isFirst, isLast: isLast)
+                    )
+
                     ZStack {
-                        Rectangle()
-                            .fill(isSelected ? themeFill(isSelected: true) : themeFill(isSelected: false))
+                        segShape
+                            .fill(themeFill(isSelected: isSelected))
                             .overlay(
-                                Rectangle()
-                                    .stroke(themeColor, lineWidth: isSelected ? 2 : 0.6)
-                            )
-                            .clipShape(
-                                RoundedCornerShape(
-                                    radius: effRadius,
-                                    corners: segmentCornerSet(isFirst: isFirst, isLast: isLast)
+                                segShape.stroke(
+                                    themeColor,
+                                    lineWidth: isSelected ? 2 : 0.6
                                 )
                             )
 
@@ -430,7 +432,9 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
             .frame(width: totalWidth, height: buttonHeight)
             .background(outerBackground(cornerRadius: effRadius))
             .overlay(outerOverlay(cornerRadius: effRadius))
-
+            .compositingGroup()   // これも付けておくと角の欠けが出にくい
+            
+            
         case .split(let splitGap):
             let count = modes.count
             let splitIndex = max(0, min(count, count / 2))
