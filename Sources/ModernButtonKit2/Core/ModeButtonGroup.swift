@@ -183,8 +183,8 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
     let spacing: CGFloat
     let layout: ModeButtonLayout
     let sizeMode: SizeMode
-    let truncationLimit: Int?
-    let ellipsisMode: Int
+    private let truncationLimit: Int?
+    private let showsEllipsis: Bool   // ← 新しい名前＆Bool
 
     public var backgroundColors: (normal: Color, unselected: Color)? = nil
     public var labelColors: (selected: Color, unselected: Color)? = nil
@@ -211,7 +211,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         layout: ModeButtonLayout = .horizontal,
         sizeMode: SizeMode = .auto,
         truncationLimit: Int? = nil,
-        ellipsisMode: Int = 1,
+        showsEllipsis: Bool = true,
         backgroundColors: (normal: Color, unselected: Color)? = nil,
         labelColors: (selected: Color, unselected: Color)? = nil,
         chromeStyle: ChromeStyle = .flat,
@@ -227,7 +227,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         self.layout = layout
         self.sizeMode = sizeMode
         self.truncationLimit = truncationLimit
-        self.ellipsisMode = ellipsisMode
+        self.showsEllipsis = showsEllipsis
         self.backgroundColors = backgroundColors
         self.labelColors = labelColors
         self.chromeStyle = chromeStyle
@@ -262,7 +262,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         layout: ModeButtonLayout = .horizontal,
         sizeMode: SizeMode = .auto,
         truncationLimit: Int? = nil,
-        ellipsisMode: Int = 1,
+        showsEllipsis: Bool = true,
         backgroundColors: (normal: Color, unselected: Color)? = nil,
         labelColors: (selected: Color, unselected: Color)? = nil,
         chromeStyle: ChromeStyle = .flat,
@@ -279,7 +279,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         self.layout = layout
         self.sizeMode = sizeMode
         self.truncationLimit = truncationLimit
-        self.ellipsisMode = ellipsisMode
+        self.showsEllipsis = showsEllipsis
         self.backgroundColors = backgroundColors
         self.labelColors = labelColors
         self.chromeStyle = chromeStyle
@@ -382,7 +382,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                     let isSelected = (mode == selected)
                     let raw = mode.displayName
                     let display = truncationLimit.map { limit in
-                        truncatedText(raw, limit: limit, ellipsisMode: ellipsisMode)
+                        truncatedText(raw, limit: limit, showsEllipsis: showsEllipsis)
                     } ?? raw
 
                     let isFirst = index == 0
@@ -521,7 +521,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         ForEach(Array(slice), id: \.self) { mode in
             let raw = mode.displayName
             let display = truncationLimit.map { limit in
-                truncatedText(raw, limit: limit, ellipsisMode: ellipsisMode)
+                truncatedText(raw, limit: limit, showsEllipsis: showsEllipsis)
             } ?? raw
 
             if #available(iOS 17.0, macOS 11.0, *) {
@@ -619,13 +619,14 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
 #endif
     }
 
-    func truncatedText(_ text: String, limit: Int, ellipsisMode: Int) -> String {
+    func truncatedText(_ text: String, limit: Int, showsEllipsis: Bool) -> String {
         guard limit > 0 else { return text }
         guard text.count > limit else { return text }
         let head = String(text.prefix(limit))
-        return ellipsisMode != 0 ? head + "..." : head
+        return showsEllipsis ? head + "…" : head   // ← Bool で分岐
+        }
     }
-}
+
 
 // End of ModeButtonGroup version 1.6
 
