@@ -6,27 +6,35 @@
 //
 
 // ModernButtonKit2/Config/MBGDefaults.swift
+
 import SwiftUI
 
-enum _MBGDefaults {
+// 追加の設定は extension でぶら下げる
+public extension MBGDefaults {
+
+    // MARK: - Segment
+
     enum Segment {
-        static let preset: MBGSegmentPreset = .large   // ← 今は large を標準に
-        static var buttonHeight: CGFloat     { preset.buttonHeight }
-        static var baseCornerRadius: CGFloat { preset.baseCornerRadius }
-        static var font: UIFont              { preset.font }
+        public static let preset: MBGSegmentPreset = .large   // 標準サイズ
+        public static var buttonHeight: CGFloat     { preset.buttonHeight }
+        public static var baseCornerRadius: CGFloat { preset.baseCornerRadius }
+        public static var font: PlatformFont        { preset.font }
     }
+
     enum SegmentSize {
-        static let compactHeight: CGFloat  = 28
-        static let standardHeight: CGFloat = 40
-        static let largeHeight: CGFloat    = 52
+        public static let compactHeight:  CGFloat = 28
+        public static let standardHeight: CGFloat = 40
+        public static let largeHeight:    CGFloat = 52
     }
-    
+
+    // MARK: - Glow
+
     enum Glow {
-        static let preset: MBGGlowPreset = .normal
-        
-        static var scale: CGFloat        { preset.scale }
-        static var widthFactor: CGFloat  { preset.widthFactor }
-        static var fillOpacity: Double   { preset.fillOpacity }
-        static var strokeOpacity: Double { preset.strokeOpacity }
+        public static let preset: MBGGlowPreset = .normal
+
+        public static var scale: CGFloat        { preset.scale }
+        public static var widthFactor: CGFloat  { preset.widthFactor }
+        public static var fillOpacity: Double   { preset.fillOpacity }
+        public static var strokeOpacity: Double { preset.strokeOpacity }
     }
 }
