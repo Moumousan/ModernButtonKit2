@@ -32,11 +32,11 @@ public enum MBGSegmentPreset: Sendable {
         }
     }
 
-    public var font: UIFont {
+    public var font: PlatformFont {
         switch self {
         case .compact:  return .systemFont(ofSize: 11, weight: .medium)
         case .standard: return .systemFont(ofSize: 13, weight: .medium)
-        case .large:    return .systemFont(ofSize: 14, weight: .medium)
+        case .large:    return .systemFont(ofSize: 15, weight: .medium)
         }
     }
 }
