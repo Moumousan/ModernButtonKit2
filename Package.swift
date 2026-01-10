@@ -12,7 +12,13 @@ let package = Package(
     targets: [
         .target(
             name: "ModernButtonKit2",
-            path: "Sources"
+            path: "Sources",
+            swiftSettings: [
+                .unsafeFlags([
+                    "-Xfrontend",
+                    "-disable-round-trip-debug-types"
+                ], .when(platforms: [.macOS]))
+            ]
         )
     ]
 )
