@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+ #if canImport(UIKit)
+ import UIKit
+ #endif
 
 // Config/MBGSegmentPreset.swift
 public enum MBGSegmentPreset: Sendable {
