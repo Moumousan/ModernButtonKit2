@@ -439,17 +439,17 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
             let count = modes.count
             let splitIndex = max(0, min(count, count / 2))
 
-            HStack(spacing: spacing) {
+            let gap = max(splitGap, 0)
+
+            HStack(spacing: 0) {
                 buttons(for: modes.prefix(splitIndex))
 
                 if let middleContent {
-                    HStack(spacing: 0) {
-                        Spacer(minLength: splitGap / 2)
-                        middleContent.fixedSize()
-                        Spacer(minLength: splitGap / 2)
-                    }
+                    Spacer().frame(width: gap / 2)
+                    middleContent.fixedSize()
+                    Spacer().frame(width: gap / 2)
                 } else {
-                    Spacer(minLength: splitGap)
+                    Spacer().frame(width: gap)
                 }
 
                 buttons(for: modes.suffix(count - splitIndex))
