@@ -74,7 +74,15 @@ public enum ModeButtonLayout {
     case multiRow(columns: Int, horizontalGap : CGFloat)
     case scrollableHorizontal(bottomBarSpacing: CGFloat)
     case scrollableVertical(rightBarSpacing: CGFloat)
-    case segmentary(separatorColor: Color)
+    /// iOS の UISegmentedControl 風のレイアウト。
+    ///
+    /// - Parameters:
+    ///   - separatorColor: セグメント間の区切り線カラー
+    ///   - glow: セグメント全体の周囲に与えるハロー（光芒）エフェクト
+    case segmentary(
+        separatorColor: Color,
+        glow: MBGSegmentGlow? = nil
+    )
     case split(splitGap: CGFloat)
 }
 
@@ -96,6 +104,33 @@ public enum ChromeStyle {
 public enum CornerStyle {
     case fixed(CGFloat)
     case capsule
+}
+
+/// Glow configuration for segment-style button groups.
+///
+/// `glow: .halo(color: .yellow, strength: .strong)` のようにレイアウト時に指定して、
+/// セグメント全体の周囲に光のハロー（光芒）を与えることを想定した小さな設定型。
+public enum MBGSegmentGlow {
+    /// 光の強さ（輝度 + コントラスト感）。
+    public enum Strength {
+        case subtle   // ほのかに光る
+        case normal   // 標準的な光り方
+        case strong   // しっかり強く光る
+    }
+
+    /// 光のにじみの広がり具合。
+    public enum Spread {
+        case tight    // にじみを抑えたタイトなハロー
+        case medium   // 標準的な広がり
+        case wide     // 広くぼかしてふわっと光らせる
+    }
+
+    /// ハロー型の glow。セグメントグループの外周に沿って光芒を描画する。
+    case halo(
+        color: Color,
+        strength: Strength = .normal,
+        spread: Spread = .medium
+    )
 }
 
 #if os(macOS)
@@ -368,12 +403,44 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                 .frame(width: buttonWidth + rightBarSpacing * 2)
             }
 
-        case .segmentary(let separatorColor):
-            let separatorWidth: CGFloat = 1
-            let totalWidth = buttonWidth * CGFloat(modes.count)
-                            + separatorWidth * CGFloat(max(modes.count - 1, 0))
-            let effRadius = Self.effectiveCornerRadius(base: cornerRadius, style: cornerStyle, height: buttonHeight)
+        case .segmentary(let separatorColor, let glow):
+            segmentaryLayout(separatorColor: separatorColor, glow: glow)
 
+        case .split(let splitGap):
+            let count = modes.count
+            let splitIndex = max(0, min(count, count / 2))
+
+            let gap = max(splitGap, 0)
+
+            HStack(spacing: 0) {
+                buttons(for: modes.prefix(splitIndex))
+
+                if let middleContent {
+                    Spacer().frame(width: gap / 2)
+                    middleContent.fixedSize()
+                    Spacer().frame(width: gap / 2)
+                } else {
+                    Spacer().frame(width: gap)
+                }
+
+                buttons(for: modes.suffix(count - splitIndex))
+            }
+        }
+    }
+
+    /// Segment-style layout implementation extracted to avoid `@ViewBuilder` local declaration issues.
+    private func segmentaryLayout(separatorColor: Color, glow: MBGSegmentGlow?) -> some View {
+        let separatorWidth: CGFloat = 1
+        let totalWidth = buttonWidth * CGFloat(modes.count)
+                        + separatorWidth * CGFloat(max(modes.count - 1, 0))
+        let effRadius = Self.effectiveCornerRadius(
+            base: cornerRadius,
+            style: cornerStyle,
+            height: buttonHeight
+        )
+
+        // セグメント本体の描画を一旦 AnyView にまとめ、あとから glow でラップする。
+        let core = AnyView(
             HStack(spacing: 0) {
                 let enumerated = Array(modes.enumerated())
                 ForEach(enumerated, id: \.offset) { pair in
@@ -392,7 +459,6 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                         ? (labelColors?.selected ?? Color.primary)
                         : (labelColors?.unselected ?? Color.primary)
 
-                    // ここから中身を差し替え
                     let segShape = RoundedCornerShape(
                         radius: effRadius,
                         corners: segmentCornerSet(isFirst: isFirst, isLast: isLast)
@@ -429,32 +495,13 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                     }
                 }
             }
+        )
+
+        return applySegmentGroupGlowIfNeeded(core, glow: glow, cornerRadius: effRadius)
             .frame(width: totalWidth, height: buttonHeight)
             .background(outerBackground(cornerRadius: effRadius))
             .overlay(outerOverlay(cornerRadius: effRadius))
-            .compositingGroup()   // これも付けておくと角の欠けが出にくい
-            
-            
-        case .split(let splitGap):
-            let count = modes.count
-            let splitIndex = max(0, min(count, count / 2))
-
-            let gap = max(splitGap, 0)
-
-            HStack(spacing: 0) {
-                buttons(for: modes.prefix(splitIndex))
-
-                if let middleContent {
-                    Spacer().frame(width: gap / 2)
-                    middleContent.fixedSize()
-                    Spacer().frame(width: gap / 2)
-                } else {
-                    Spacer().frame(width: gap)
-                }
-
-                buttons(for: modes.suffix(count - splitIndex))
-            }
-        }
+            .compositingGroup()   // 角の欠け防止用
     }
 
     // MARK: - Helpers for chrome style
@@ -508,6 +555,77 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
             return isSelected ? themeColor.opacity(0.25) : .clear
         case .systemLike:
             return isSelected ? themeColor.opacity(0.30) : Color.white.opacity(0.04)
+        }
+    }
+    // MARK: - Segment glow helpers
+
+    /// セグメントグループ全体に対して、必要であれば glow（ハロー）を適用する。
+    @ViewBuilder
+    private func applySegmentGroupGlowIfNeeded<Content: View>(
+        _ content: Content,
+        glow: MBGSegmentGlow?,
+        cornerRadius: CGFloat
+    ) -> some View {
+        if let glow {
+            switch glow {
+            case .halo(let color, let strength, let spread):
+                haloGroup(
+                    content: content,
+                    color: color,
+                    cornerRadius: cornerRadius,
+                    strength: strength,
+                    spread: spread
+                )
+            }
+        } else {
+            content
+        }
+    }
+
+    /// ハロー型 glow の実装。外周に沿ってぼかし + シャドウを重ねる。
+   
+    private func haloGroup<Content: View>(
+        content: Content,
+        color: Color,
+        cornerRadius: CGFloat,
+        strength: MBGSegmentGlow.Strength,
+        spread: MBGSegmentGlow.Spread
+    ) -> some View {
+        // 強さプリセットから、不透明度とベースのブラー量を決める。
+        let opacity: Double
+        let baseBlur: CGFloat
+        switch strength {
+        case .subtle:
+            opacity = 0.40
+            baseBlur = cornerRadius * 0.6
+        case .normal:
+            opacity = 0.70
+            baseBlur = cornerRadius * 0.9
+        case .strong:
+            opacity = 0.90
+            baseBlur = cornerRadius * 1.2
+        }
+
+        // Spread に応じてさらにブラー量をスケール。
+        let spreadFactor: CGFloat
+        switch spread {
+        case .tight:
+            spreadFactor = 0.6
+        case .medium:
+            spreadFactor = 1.0
+        case .wide:
+            spreadFactor = 1.4
+        }
+
+        let blurRadius = baseBlur * spreadFactor
+
+       return ZStack {
+            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                .stroke(color.opacity(opacity), lineWidth: 1.5)
+                .shadow(color: color.opacity(opacity), radius: blurRadius)
+                .blur(radius: blurRadius * 0.30)
+
+            content
         }
     }
 
