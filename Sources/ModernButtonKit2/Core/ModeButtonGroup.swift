@@ -622,7 +622,10 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
        return ZStack {
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .stroke(color.opacity(opacity), lineWidth: 1.5)
-                .shadow(color: color.opacity(opacity), radius: blurRadius)
+                //.shadow(color: color.opacity(opacity), radius: blurRadius)
+           //上、以前の設定。下、影を二重に重ねて縁だけが光ってる設定。
+                .shadow(color: color.opacity(opacity), radius: blurRadius * 0.6)
+                .shadow(color: color.opacity(opacity * 0.7), radius: blurRadius)
                 .blur(radius: blurRadius * 0.30)
 
             content
