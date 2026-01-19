@@ -1,3 +1,11 @@
+//
+//  MBGSegmentGlow.swift
+//  ModernButtonKit2
+//
+//  Created by SNI on 2026/01/20.
+//
+
+
 import SwiftUI
 
 /// セグメンタリー用の glow 設定。

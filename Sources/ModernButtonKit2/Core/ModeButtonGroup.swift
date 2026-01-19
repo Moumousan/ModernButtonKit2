@@ -106,32 +106,7 @@ public enum CornerStyle {
     case capsule
 }
 
-/// Glow configuration for segment-style button groups.
-///
-/// `glow: .halo(color: .yellow, strength: .strong)` のようにレイアウト時に指定して、
-/// セグメント全体の周囲に光のハロー（光芒）を与えることを想定した小さな設定型。
-public enum MBGSegmentGlow {
-    /// 光の強さ（輝度 + コントラスト感）。
-    public enum Strength {
-        case subtle   // ほのかに光る
-        case normal   // 標準的な光り方
-        case strong   // しっかり強く光る
-    }
 
-    /// 光のにじみの広がり具合。
-    public enum Spread {
-        case tight    // にじみを抑えたタイトなハロー
-        case medium   // 標準的な広がり
-        case wide     // 広くぼかしてふわっと光らせる
-    }
-
-    /// ハロー型の glow。セグメントグループの外周に沿って光芒を描画する。
-    case halo(
-        color: Color,
-        strength: Strength = .normal,
-        spread: Spread = .medium
-    )
-}
 
 #if os(macOS)
 // Provide a UIKit-like UIRectCorner for macOS
@@ -564,7 +539,8 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
     private func applySegmentGroupGlowIfNeeded<Content: View>(
         _ content: Content,
         glow: MBGSegmentGlow?,
-        cornerRadius: CGFloat
+        cornerRadius: CGFloat,
+        tuning: MBGGlowTuning = .standard
     ) -> some View {
         if let glow {
             switch glow {
@@ -574,7 +550,8 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                     color: color,
                     cornerRadius: cornerRadius,
                     strength: strength,
-                    spread: spread
+                    spread: spread,
+                    tuning: tuning
                 )
             }
         } else {
@@ -584,54 +561,57 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
 
     /// ハロー型 glow の実装。外周に沿ってぼかし + シャドウを重ねる。
    
+    @ViewBuilder
     private func haloGroup<Content: View>(
         content: Content,
         color: Color,
         cornerRadius: CGFloat,
         strength: MBGSegmentGlow.Strength,
-        spread: MBGSegmentGlow.Spread
+        spread: MBGSegmentGlow.Spread,
+        tuning: MBGGlowTuning
     ) -> some View {
-        // 強さプリセットから、不透明度とベースのブラー量を決める。
-        let opacity: Double
-        let baseBlur: CGFloat
-        switch strength {
-        case .subtle:
-            opacity = 0.40
-            baseBlur = cornerRadius * 0.6
-        case .normal:
-            opacity = 0.70
-            baseBlur = cornerRadius * 0.9
-        case .strong:
-            opacity = 0.90
-            baseBlur = cornerRadius * 1.2
-        }
 
-        // Spread に応じてさらにブラー量をスケール。
-        let spreadFactor: CGFloat
-        switch spread {
-        case .tight:
-            spreadFactor = 0.6
-        case .medium:
-            spreadFactor = 1.0
-        case .wide:
-            spreadFactor = 1.4
-        }
+        // 不透明度と blur を tuning から決める
+        let (fillOpacity, strokeOpacity): (Double, Double) = {
+            switch strength {
+            case .subtle:
+                return (tuning.fillSubtle, tuning.strokeSubtle)
+            case .normal:
+                return (tuning.fillNormal, tuning.strokeNormal)
+            case .strong:
+                return (tuning.fillStrong, tuning.strokeStrong)
+            }
+        }()
+        let baseBlur = cornerRadius * tuning.baseBlurScale
+
+        let spreadFactor: CGFloat = {
+            switch spread {
+            case .tight:
+                return 0.6
+            case .medium:
+                return 1.0
+            case .wide:
+                return 1.4
+            }
+        }()
 
         let blurRadius = baseBlur * spreadFactor
 
-       return ZStack {
+        ZStack {
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                .stroke(color.opacity(opacity), lineWidth: 1.5)
-                //.shadow(color: color.opacity(opacity), radius: blurRadius)
-           //上、以前の設定。下、影を二重に重ねて縁だけが光ってる設定。
-                .shadow(color: color.opacity(opacity), radius: blurRadius * 0.6)
-                .shadow(color: color.opacity(opacity * 0.7), radius: blurRadius)
+                .stroke(color.opacity(strokeOpacity), lineWidth: 1.5)
+                .shadow(color: color.opacity(strokeOpacity), radius: blurRadius * 0.6)
+                .shadow(color: color.opacity(strokeOpacity * 0.7), radius: blurRadius)
                 .blur(radius: blurRadius * 0.30)
 
             content
         }
     }
-
+    //上、以前の設定。下、影を二重に重ねて縁だけが光ってる設定。
+     //    .shadow(color: color.opacity(opacity), radius: blurRadius * 0.6)
+      //   .shadow(color: color.opacity(opacity * 0.7), radius: blurRadius)
+    
+    
     // MARK: - Button Builder
     @ViewBuilder
     private func buttons() -> some View { buttons(for: modes[...]) }

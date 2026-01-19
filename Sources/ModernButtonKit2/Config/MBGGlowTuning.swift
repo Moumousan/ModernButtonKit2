@@ -1,5 +1,15 @@
+//
+//  MBGGlowTuning.swift
+//  ModernButtonKit2
+//
+//  Created by SNI on 2026/01/18.
+//
+
+import SwiftUI
+
+
 // Kit2 内（Core か Config フォルダ）
-public struct MBGGlowTuning {
+public struct MBGGlowTuning: Sendable {
     // 各プリセットの内側・外側の不透明度
     public var fillSubtle: Double
     public var fillNormal: Double
