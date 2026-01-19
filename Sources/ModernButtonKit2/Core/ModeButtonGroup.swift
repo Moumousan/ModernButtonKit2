@@ -572,14 +572,14 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
     ) -> some View {
 
         // 不透明度と blur を tuning から決める
-        let strokeOpacity: Double = {
+        let (_, strokeOpacity): (Double, Double) = {
             switch strength {
             case .subtle:
-                return tuning.strokeSubtle
+                return (tuning.fillSubtle, tuning.strokeSubtle)
             case .normal:
-                return tuning.strokeNormal
+                return (tuning.fillNormal, tuning.strokeNormal)
             case .strong:
-                return tuning.strokeStrong
+                return (tuning.fillStrong, tuning.strokeStrong)
             }
         }()
         let baseBlur = cornerRadius * tuning.baseBlurScale
