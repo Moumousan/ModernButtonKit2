@@ -22,11 +22,8 @@ public struct MBGGlowTuning: Sendable {
     public var spreadTight: CGFloat
     public var spreadMedium: CGFloat
     public var spreadWide: CGFloat
-}
-// カスタム init ＋ プリセット
-public extension MBGGlowTuning {
 
-    public init(
+public init(
         fillSubtle: Double,
         fillNormal: Double,
         fillStrong: Double,
