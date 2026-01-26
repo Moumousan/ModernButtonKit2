@@ -1,4 +1,14 @@
+//
+//  MBGGlowTuning+Defaults.swift
+//  ModernButtonKit2
+//
+//  Created by SNI on 2026/01/26.
+//
+
+
 // Sources/ModernButtonKit2/Config/Glow/MBGGlowTuning+Defaults.swift
+
+import SwiftUI
 
 public extension MBGGlowTuning {
     /// セグメンタリ系の標準ハロー

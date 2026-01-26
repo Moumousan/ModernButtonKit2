@@ -1,5 +1,7 @@
 // Sources/ModernButtonKit2/Config/MBGDefaults.swift
 
+import SwiftUI
+
 public extension MBGGlowTuning {
     static let standard = MBGGlowTuning(
         fillSubtle: 0.18,
