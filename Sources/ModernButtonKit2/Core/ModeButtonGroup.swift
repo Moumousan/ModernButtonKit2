@@ -571,8 +571,8 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         tuning: MBGGlowTuning
     ) -> some View {
 
-        // 不透明度と blur を tuning から決める
-        let (_, strokeOpacity): (Double, Double) = {
+        // 1. 強度ごとの fill / stroke を取り出す
+        let (fillOpacity, strokeOpacity): (Double, Double) = {
             switch strength {
             case .subtle:
                 return (tuning.fillSubtle, tuning.strokeSubtle)
@@ -582,35 +582,35 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                 return (tuning.fillStrong, tuning.strokeStrong)
             }
         }()
+
+        // 2. ぼかし半径
         let baseBlur = cornerRadius * tuning.baseBlurScale
 
         let spreadFactor: CGFloat = {
             switch spread {
-            case .tight:
-                return 0.6
-            case .medium:
-                return 1.0
-            case .wide:
-                return 1.4
+            case .tight:   return tuning.spreadTight
+            case .medium:  return tuning.spreadMedium
+            case .wide:    return tuning.spreadWide
             }
         }()
 
         let blurRadius = baseBlur * spreadFactor
 
         ZStack {
+            // 内側の「ふわっと光る塗り」
+            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                .fill(color.opacity(fillOpacity))
+                // 内側からにじむ光
+                .shadow(color: color.opacity(fillOpacity * 0.7),
+                        radius: blurRadius)
+                .shadow(color: color.opacity(fillOpacity * 0.4),
+                        radius: blurRadius * 1.4)
+
+            // 外枠の輪郭線
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .stroke(color.opacity(strokeOpacity), lineWidth: 1.5)
-                .shadow(color: color.opacity(strokeOpacity), radius: blurRadius * 0.6)
-                .shadow(color: color.opacity(strokeOpacity * 0.7), radius: blurRadius)
-                .blur(radius: blurRadius * 0.30)
-
-            content
         }
     }
-    //上、以前の設定。下、影を二重に重ねて縁だけが光ってる設定。
-     //    .shadow(color: color.opacity(opacity), radius: blurRadius * 0.6)
-      //   .shadow(color: color.opacity(opacity * 0.7), radius: blurRadius)
-    
     
     // MARK: - Button Builder
     @ViewBuilder
