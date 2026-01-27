@@ -13,9 +13,9 @@ public enum MBGSegmentGlow: Sendable {
     /// ハロー型 glow（光芒）。
     case halo(
         color: Color,
-        strength: Strength,
-        spread: Spread,
-        tuning: MBGGlowTuning
+        strength: Strength = .normal,
+        spread: Spread = .medium,
+        tuning: MBGGlowTuning = .standard
     )
     case none
     /// 光の強さプリセット

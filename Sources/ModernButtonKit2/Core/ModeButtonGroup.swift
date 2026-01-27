@@ -475,8 +475,8 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         return applySegmentGroupGlowIfNeeded(
             core,
             glow: glow,
-            cornerRadius: effRadius,
-            tuning: .standard
+            cornerRadius: effRadius//,
+            //tuning: .standard
         )
             .frame(width: totalWidth, height: buttonHeight)
             .background(outerBackground(cornerRadius: effRadius))
@@ -544,22 +544,20 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
     private func applySegmentGroupGlowIfNeeded<Content: View>(
         _ content: Content,
         glow: MBGSegmentGlow?,
-        cornerRadius: CGFloat,
-        tuning: MBGGlowTuning
+        cornerRadius: CGFloat
     ) -> some View {
-        if let glow {
-            switch glow {
-            case .halo(let color, let strength, let spread):
-                haloGroup(
-                    content: content,
-                    color: color,
-                    cornerRadius: cornerRadius,
-                    strength: strength,
-                    spread: spread,
-                    tuning: tuning
-                )
-            }
-        } else {
+        switch glow {
+        case .some(.halo(let color, let strength, let spread, let tuning)):
+            haloGroup(
+                content: content,
+                color: color,
+                cornerRadius: cornerRadius,
+                strength: strength,
+                spread: spread,
+                tuning: tuning
+            )
+
+        case .some(.none), nil:
             content
         }
     }
