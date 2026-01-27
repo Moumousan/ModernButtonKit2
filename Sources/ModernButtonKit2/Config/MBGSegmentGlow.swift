@@ -11,8 +11,13 @@ import SwiftUI
 /// セグメンタリー用の glow 設定。
 public enum MBGSegmentGlow: Sendable {
     /// ハロー型 glow（光芒）。
-    case halo(color: Color, strength: Strength, spread: Spread)
-
+    case halo(
+            color: Color,
+            strength: MBGGlowStrength,
+            spread: MBGGlowSpread,
+            tuning: MBGGlowTuning = .standard 
+        )
+    case none
     /// 光の強さプリセット
     public enum Strength: Sendable {
         case subtle

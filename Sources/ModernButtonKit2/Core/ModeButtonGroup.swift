@@ -568,7 +568,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         cornerRadius: CGFloat,
         strength: MBGSegmentGlow.Strength,
         spread: MBGSegmentGlow.Spread,
-        tuning: MBGGlowTuning
+        tuning: MBGGlowTuning = .standard
     ) -> some View {
 
         // 1. 強度ごとの fill / stroke を取り出す
