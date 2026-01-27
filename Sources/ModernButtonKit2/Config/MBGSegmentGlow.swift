@@ -12,11 +12,11 @@ import SwiftUI
 public enum MBGSegmentGlow: Sendable {
     /// ハロー型 glow（光芒）。
     case halo(
-            color: Color,
-            strength: MBGGlowStrength,
-            spread: MBGGlowSpread,
-            tuning: MBGGlowTuning = .standard 
-        )
+        color: Color,
+        strength: Strength,
+        spread: Spread,
+        tuning: MBGGlowTuning
+    )
     case none
     /// 光の強さプリセット
     public enum Strength: Sendable {
@@ -24,11 +24,15 @@ public enum MBGSegmentGlow: Sendable {
         case normal
         case strong
     }
-
+    
     /// 光の広がり具合プリセット
     public enum Spread: Sendable {
         case tight
         case medium
         case wide
     }
+    
+    public typealias MBGGlowStrength = MBGSegmentGlow.Strength
+    public typealias MBGGlowSpread  = MBGSegmentGlow.Spread
 }
+

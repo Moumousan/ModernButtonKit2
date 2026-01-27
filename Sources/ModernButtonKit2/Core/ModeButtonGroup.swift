@@ -472,7 +472,12 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
             }
         )
 
-        return applySegmentGroupGlowIfNeeded(core, glow: glow, cornerRadius: effRadius)
+        return applySegmentGroupGlowIfNeeded(
+            core,
+            glow: glow,
+            cornerRadius: effRadius,
+            tuning: .standard
+        )
             .frame(width: totalWidth, height: buttonHeight)
             .background(outerBackground(cornerRadius: effRadius))
             .overlay(outerOverlay(cornerRadius: effRadius))
@@ -540,7 +545,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         _ content: Content,
         glow: MBGSegmentGlow?,
         cornerRadius: CGFloat,
-        tuning: MBGGlowTuning = .standard
+        tuning: MBGGlowTuning
     ) -> some View {
         if let glow {
             switch glow {
@@ -568,7 +573,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         cornerRadius: CGFloat,
         strength: MBGSegmentGlow.Strength,
         spread: MBGSegmentGlow.Spread,
-        tuning: MBGGlowTuning = .standard
+        tuning: MBGGlowTuning
     ) -> some View {
 
         // 1. 強度ごとの fill / stroke を取り出す

@@ -48,7 +48,7 @@ public init(
     }
 
     /// Segmentary デモなどで使う標準値
-    static let standard = MBGGlowTuning(
+    public static let standard = MBGGlowTuning(
         fillSubtle: 0.18,
         fillNormal: 0.60,
         fillStrong: 1.0,
