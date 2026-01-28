@@ -22,8 +22,8 @@ public struct MBGGlowTuning: Sendable {
     public var spreadTight: CGFloat
     public var spreadMedium: CGFloat
     public var spreadWide: CGFloat
-
-public init(
+    
+    public init(
         fillSubtle: Double,
         fillNormal: Double,
         fillStrong: Double,
@@ -46,7 +46,42 @@ public init(
         self.spreadMedium  = spreadMedium
         self.spreadWide    = spreadWide
     }
+}
+    // デフォルトプリセット
 
+public extension MBGGlowTuning {
+
+    /// Segmentary の標準ハロー設定。
+    /// 内部の発光は無効（fill 系は 0）、枠＋外側の光芒のみを使う。
+    static let standard = MBGGlowTuning(
+        fillSubtle:   0.0,   // ← 内部は触らない
+        fillNormal:   0.0,
+        fillStrong:   0.0,
+        strokeSubtle: 0.30,
+        strokeNormal: 0.60,
+        strokeStrong: 0.90,
+        baseBlurScale: 0.60,
+        spreadTight:   0.70,
+        spreadMedium:  1.00,
+        spreadWide:    1.30
+    )
+
+    /// 以前の「内部も光る」プリセットを残したい場合は別名で退避しておく。
+    static let legacyInnerGlow = MBGGlowTuning(
+        fillSubtle:   0.09,
+        fillNormal:   0.18,
+        fillStrong:   0.27,
+        strokeSubtle: 0.30,
+        strokeNormal: 0.60,
+        strokeStrong: 0.90,
+        baseBlurScale: 0.60,
+        spreadTight:   0.70,
+        spreadMedium:  1.00,
+        spreadWide:    1.30
+    )
+}
+
+/*
     /// Segmentary デモなどで使う標準値
     public static let standard = MBGGlowTuning(
         fillSubtle: 0.18,
@@ -61,21 +96,7 @@ public init(
         spreadWide: 1.40
     )
 }
-// デフォルトプリセット
-/*
-public extension MBGGlowTuning {
-    static let standard = MBGGlowTuning(
-        fillSubtle:  0.20,
-        fillNormal:  0.45,
-        fillStrong:  0.70,
-        strokeSubtle: 0.65,
-        strokeNormal: 0.90,
-        strokeStrong: 1.00,
-        baseBlurScale: 0.90,
-        spreadTight:   0.60,
-        spreadMedium:  1.00,
-        spreadWide:    1.40
-    )
-}
-*/
+ */
+
+
 
