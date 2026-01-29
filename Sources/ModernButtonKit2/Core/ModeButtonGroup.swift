@@ -537,6 +537,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
             return isSelected ? themeColor.opacity(0.30) : Color.white.opacity(0.04)
         }
     }
+
     // MARK: - Segment glow helpers
 
     /// セグメントグループ全体に対して、必要であれば glow（ハロー）を適用する。
