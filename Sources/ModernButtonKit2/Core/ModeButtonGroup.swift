@@ -407,32 +407,38 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
     private func segmentaryLayout(separatorColor: Color, glow: MBGSegmentGlow?) -> some View {
         let separatorWidth: CGFloat = 1
         let totalWidth = buttonWidth * CGFloat(modes.count)
-                        + separatorWidth * CGFloat(max(modes.count - 1, 0))
+            + separatorWidth * CGFloat(max(modes.count - 1, 0))
+
         let effRadius = Self.effectiveCornerRadius(
             base: cornerRadius,
             style: cornerStyle,
             height: buttonHeight
         )
 
-        // セグメント本体の描画を一旦 AnyView にまとめ、あとから glow でラップする。
-        let core = AnyView(
+        // ループで使い回すためにあらかじめ配列化
+        let enumerated = Array(modes.enumerated())
+
+        // 各モードごとの表示テキストを先に計算しておく
+        let titles: [String] = enumerated.map { pair in
+            let raw = pair.element.displayName
+            if let limit = truncationLimit {
+                return truncatedText(raw, limit: limit, showsEllipsis: showsEllipsis)
+            } else {
+                return raw
+            }
+        }
+
+        // MARK: - 1. 背景・枠レイヤー（Glow 対象）
+
+        let backgroundCore = AnyView(
             HStack(spacing: 0) {
-                let enumerated = Array(modes.enumerated())
                 ForEach(enumerated, id: \.offset) { pair in
                     let index = pair.offset
                     let mode = pair.element
                     let isSelected = (mode == selected)
-                    let raw = mode.displayName
-                    let display = truncationLimit.map { limit in
-                        truncatedText(raw, limit: limit, showsEllipsis: showsEllipsis)
-                    } ?? raw
 
                     let isFirst = index == 0
                     let isLast = index == modes.count - 1
-
-                    let fgColor = isSelected
-                        ? (labelColors?.selected ?? Color.primary)
-                        : (labelColors?.unselected ?? Color.primary)
 
                     let segShape = RoundedCornerShape(
                         radius: effRadius,
@@ -448,7 +454,39 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                                     lineWidth: isSelected ? 2 : 0.6
                                 )
                             )
+                    }
+                    .frame(width: buttonWidth, height: buttonHeight)
+                    .zIndex(isSelected ? 1 : 0)
 
+                    // セパレータ（こちらは背景側で描画）
+                    if !isLast {
+                        Rectangle()
+                            .fill(separatorColor)
+                            .frame(width: separatorWidth)
+                            .frame(height: buttonHeight)
+                            .padding(.vertical, 4)
+                    }
+                }
+            }
+        )
+
+        // MARK: - 2. ラベルレイヤー（Glow から守る）
+
+        let labelCore = AnyView(
+            HStack(spacing: 0) {
+                ForEach(enumerated, id: \.offset) { pair in
+                    let index = pair.offset
+                    let mode = pair.element
+                    let isSelected = (mode == selected)
+                    let display = titles[index]
+
+                    let fgColor = isSelected
+                        ? (labelColors?.selected ?? Color.primary)
+                        : (labelColors?.unselected ?? Color.primary)
+
+                    let isLast = index == modes.count - 1
+
+                    ZStack {
                         Text(display)
                             .font(Font(font))
                             .lineLimit(1)
@@ -461,9 +499,9 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                     .accessibilityLabel(Text(display))
                     .onTapGesture { selected = mode }
 
+                    // 背景と横位置を合わせるための“透明セパレータ”
                     if !isLast {
-                        Rectangle()
-                            .fill(separatorColor)
+                        Color.clear
                             .frame(width: separatorWidth)
                             .frame(height: buttonHeight)
                             .padding(.vertical, 4)
@@ -472,16 +510,23 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
             }
         )
 
-        return applySegmentGroupGlowIfNeeded(
-            core,
+        // MARK: - 3. Glow は背景だけに掛け、その上にラベルを重ねる
+
+        let glowingBackground = applySegmentGroupGlowIfNeeded(
+            backgroundCore,
             glow: glow,
-            cornerRadius: effRadius//,
-            //tuning: .standard
+            cornerRadius: effRadius
         )
-            .frame(width: totalWidth, height: buttonHeight)
-            .background(outerBackground(cornerRadius: effRadius))
-            .overlay(outerOverlay(cornerRadius: effRadius))
-            .compositingGroup()   // 角の欠け防止用
+        .allowsHitTesting(false)   // タップはラベル側で取る
+
+        return ZStack {
+            glowingBackground
+            labelCore
+        }
+        .frame(width: totalWidth, height: buttonHeight)
+        .background(outerBackground(cornerRadius: effRadius))
+        .overlay(outerOverlay(cornerRadius: effRadius))
+        .compositingGroup()   // 角の欠け防止用（従来どおり）
     }
 
     // MARK: - Helpers for chrome style
