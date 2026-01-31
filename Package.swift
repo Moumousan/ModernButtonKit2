@@ -4,7 +4,8 @@ import PackageDescription
 let package = Package(
     name: "ModernButtonKit2",
     platforms: [
-        .macOS(.v13), .iOS(.v15)
+        .macOS(.v13),
+        .iOS(.v18)
     ],
     products: [
         .library(name: "ModernButtonKit2", targets: ["ModernButtonKit2"])
