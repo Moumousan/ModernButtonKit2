@@ -1,0 +1,27 @@
+{
+  "object" : {
+    "artifacts" : [
+
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "mbgworldstandardkit",
+          "kind" : "fileSystem",
+          "location" : "/Users/sni/Packages/MBGWorldStandardKit",
+          "name" : "MBGWorldStandardKit"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/sni/Packages/MBGWorldStandardKit"
+        },
+        "subpath" : "mbgworldstandardkit"
+      }
+    ],
+    "prebuilts" : [
+
+    ]
+  },
+  "version" : 7
+}

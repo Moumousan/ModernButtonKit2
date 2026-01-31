@@ -9,6 +9,9 @@ let package = Package(
     products: [
         .library(name: "ModernButtonKit2", targets: ["ModernButtonKit2"])
     ],
+    dependencies: [
+        .package(path: "../MBGWorldStandardKit")
+    ],
     targets: [
         .target(
             name: "ModernButtonKit2",
