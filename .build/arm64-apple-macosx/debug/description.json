@@ -1,0 +1,788 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.MBGWorldStandardKit-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/sources",
+      "importPath" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Config/ColorPlatform.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldCheckerboardBackground.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldColors.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldPlatformStage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldStageShell.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldStageSquare.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/View/StandardA.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/View/StandardV.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/swift-version--462F16DF01E7470F.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/Modules/ModernButtonKit2.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "MBGWorldStandardKit",
+      "moduleOutputPath" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/Modules/MBGWorldStandardKit.swiftmodule",
+      "objects" : [
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/ColorPlatform.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldCheckerboardBackground.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldColors.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldPlatformStage.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldStageShell.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldStageSquare.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/StandardA.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/StandardV.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx15.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/include/MBGWorldStandardKit-Swift.h",
+        "-color-diagnostics",
+        "-swift-version",
+        "6",
+        "-I",
+        "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/lib/swift/macosx/testing",
+        "-L",
+        "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/lib/swift/macosx/testing",
+        "-plugin-path",
+        "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "mbgworldstandardkit"
+      ],
+      "outputFileMapPath" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/ColorPlatform.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldCheckerboardBackground.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldColors.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldPlatformStage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldStageShell.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldStageSquare.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/StandardA.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/StandardV.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/Modules/MBGWorldStandardKit.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Config/ColorPlatform.swift",
+        "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldCheckerboardBackground.swift",
+        "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldColors.swift",
+        "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldPlatformStage.swift",
+        "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldStageShell.swift",
+        "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldStageSquare.swift",
+        "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/View/StandardA.swift",
+        "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/View/StandardV.swift"
+      ],
+      "tempsPath" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.ModernButtonKit2-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/sources",
+      "importPath" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Config/Glow/MBGGlowPreset.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Config/Glow/MBGGlowTuning+Defaults.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGDefaults.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGSegmentGlow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGSegmentPreset.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGActionBar.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGGlowTuning.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGLayoutProtocol.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGSwapToggle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggleGroup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/ModeButtonGroup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/FOnChangeCompat.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGHybridToolbar.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/swift-version--462F16DF01E7470F.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "ModernButtonKit2",
+      "moduleOutputPath" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/Modules/ModernButtonKit2.swiftmodule",
+      "objects" : [
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowPreset.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning+Defaults.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGDefaults.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentGlow.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentPreset.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGActionBar.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGLayoutProtocol.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSwapToggle.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggle.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggleGroup.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModeButtonGroup.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/FOnChangeCompat.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGHybridToolbar.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGRadioGroup.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToolbarStyle.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx15.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/include/ModernButtonKit2-Swift.h",
+        "-color-diagnostics",
+        "-swift-version",
+        "6",
+        "-Xfrontend",
+        "-disable-round-trip-debug-types",
+        "-I",
+        "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/lib/swift/macosx/testing",
+        "-L",
+        "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/lib/swift/macosx/testing",
+        "-plugin-path",
+        "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "modernbuttonkit2"
+      ],
+      "outputFileMapPath" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowPreset.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning+Defaults.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGDefaults.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentGlow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentPreset.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGActionBar.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGLayoutProtocol.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSwapToggle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggleGroup.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModeButtonGroup.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/FOnChangeCompat.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGHybridToolbar.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGRadioGroup.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToolbarStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/Modules/ModernButtonKit2.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Config/Glow/MBGGlowPreset.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Config/Glow/MBGGlowTuning+Defaults.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGDefaults.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGSegmentGlow.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGSegmentPreset.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGActionBar.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGGlowTuning.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGLayoutProtocol.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGSwapToggle.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggle.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggleGroup.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Core/ModeButtonGroup.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/FOnChangeCompat.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGHybridToolbar.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift"
+      ],
+      "tempsPath" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "MBGWorldStandardKit" : [
+      "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "MBGWorldStandardKit",
+      "-package-name",
+      "mbgworldstandardkit",
+      "-c",
+      "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Config/ColorPlatform.swift",
+      "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldCheckerboardBackground.swift",
+      "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldColors.swift",
+      "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldPlatformStage.swift",
+      "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldStageShell.swift",
+      "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldStageSquare.swift",
+      "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/View/StandardA.swift",
+      "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/View/StandardV.swift",
+      "-I",
+      "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx15.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/include/MBGWorldStandardKit-Swift.h",
+      "-color-diagnostics",
+      "-swift-version",
+      "6",
+      "-I",
+      "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/lib/swift/macosx/testing",
+      "-L",
+      "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/lib/swift/macosx/testing",
+      "-plugin-path",
+      "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "mbgworldstandardkit",
+      "-driver-use-frontend-path",
+      "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/bin/swiftc"
+    ],
+    "ModernButtonKit2" : [
+      "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "ModernButtonKit2",
+      "-package-name",
+      "modernbuttonkit2",
+      "-c",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Config/Glow/MBGGlowPreset.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Config/Glow/MBGGlowTuning+Defaults.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGDefaults.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGSegmentGlow.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGSegmentPreset.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGActionBar.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGGlowTuning.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGLayoutProtocol.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGSwapToggle.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggle.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggleGroup.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Core/ModeButtonGroup.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/FOnChangeCompat.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGHybridToolbar.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift",
+      "-I",
+      "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx15.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/include/ModernButtonKit2-Swift.h",
+      "-color-diagnostics",
+      "-swift-version",
+      "6",
+      "-Xfrontend",
+      "-disable-round-trip-debug-types",
+      "-I",
+      "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/lib/swift/macosx/testing",
+      "-L",
+      "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/lib/swift/macosx/testing",
+      "-plugin-path",
+      "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "modernbuttonkit2",
+      "-driver-use-frontend-path",
+      "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "MBGWorldStandardKit" : [
+      "ModernButtonKit2"
+    ],
+    "ModernButtonKit2" : [
+
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Config/ColorPlatform.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldCheckerboardBackground.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldColors.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldPlatformStage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldStageShell.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldStageSquare.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/View/StandardA.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/View/StandardV.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/sources"
+    },
+    "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Config/Glow/MBGGlowPreset.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Config/Glow/MBGGlowTuning+Defaults.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGDefaults.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGSegmentGlow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGSegmentPreset.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGActionBar.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGGlowTuning.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGLayoutProtocol.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGSwapToggle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggleGroup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/ModeButtonGroup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/FOnChangeCompat.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGHybridToolbar.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/sources"
+    },
+    "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/swift-version--462F16DF01E7470F.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Library/Developer/Toolchains/swift-6.2-RELEASE.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/swift-version--462F16DF01E7470F.txt"
+    }
+  }
+}

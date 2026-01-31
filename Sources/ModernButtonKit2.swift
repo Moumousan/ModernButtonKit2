@@ -8,15 +8,23 @@
 //  Kyoto Denno Kogei Kobo-sha, 2025
 //
 
-#if canImport(MBGWorldStandardKit)
-@_exported import MBGWorldStandardKit
-#else
-// Fallback shim when MBGWorldStandardKit is unavailable so clients still compile.
-@_exported import Foundation
+// This source file is part of the MBGWorld project.
+// See the LICENSE file for licensing information.
 
-// Define minimal placeholders that your package expects from MBGWorldStandardKit (if any).
-// Add more shims here as needed to satisfy references when the module is absent.
-public enum MBGWorldStandardKitUnavailable: Error { case missing }
+// Swift Package support
+// Only attempt to import MBGWorldStandardKit when it is available to the build.
+#if canImport(MBGWorldStandardKit)
+  #if os(macOS)
+    // Gate usage on macOS 15+ to avoid deployment target mismatch.
+    @available(macOS 15, *)
+    @_exported import MBGWorldStandardKit
+  #else
+    // On non-macOS platforms, just export the module when it exists.
+    @_exported import MBGWorldStandardKit
+  #endif
+#else
+  // Provide minimal shims so clients compile if MBGWorldStandardKit isn't present.
+  public enum MBGWorldStandardKitUnavailable: Error { case missing }
 #endif
 
 @_exported import SwiftUI

@@ -1,0 +1,61 @@
+{
+  "": {
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/master.swiftdeps"
+  },
+  "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Config/ColorPlatform.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/ColorPlatform.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/ColorPlatform.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/ColorPlatform~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/ColorPlatform.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/ColorPlatform.dia"
+  },
+  "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldCheckerboardBackground.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldCheckerboardBackground.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldCheckerboardBackground.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldCheckerboardBackground~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldCheckerboardBackground.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldCheckerboardBackground.dia"
+  },
+  "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldColors.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldColors.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldColors.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldColors~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldColors.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldColors.dia"
+  },
+  "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldPlatformStage.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldPlatformStage.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldPlatformStage.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldPlatformStage~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldPlatformStage.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldPlatformStage.dia"
+  },
+  "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldStageShell.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldStageShell.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldStageShell.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldStageShell~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldStageShell.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldStageShell.dia"
+  },
+  "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/Foundation/MBGWorldStageSquare.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldStageSquare.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldStageSquare.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldStageSquare~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldStageSquare.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/MBGWorldStageSquare.dia"
+  },
+  "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/View/StandardA.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/StandardA.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/StandardA.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/StandardA~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/StandardA.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/StandardA.dia"
+  },
+  "/Users/sni/Packages/MBGWorldStandardKit/Sources/MBGWorldStandardKit/View/StandardV.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/StandardV.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/StandardV.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/StandardV~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/StandardV.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/MBGWorldStandardKit.build/StandardV.dia"
+  }
+}

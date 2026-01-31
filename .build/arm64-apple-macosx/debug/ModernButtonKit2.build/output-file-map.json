@@ -1,0 +1,124 @@
+{
+  "": {
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/master.swiftdeps"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Config/Glow/MBGGlowPreset.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowPreset.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowPreset.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowPreset~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowPreset.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowPreset.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Config/Glow/MBGGlowTuning+Defaults.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning+Defaults.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning+Defaults.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning+Defaults~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning+Defaults.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning+Defaults.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGDefaults.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGDefaults.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGDefaults.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGDefaults~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGDefaults.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGDefaults.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGSegmentGlow.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentGlow.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentGlow.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentGlow~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentGlow.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentGlow.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGSegmentPreset.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentPreset.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentPreset.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentPreset~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentPreset.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentPreset.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGActionBar.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGActionBar.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGActionBar.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGActionBar~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGActionBar.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGActionBar.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGGlowTuning.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGLayoutProtocol.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGLayoutProtocol.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGLayoutProtocol.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGLayoutProtocol~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGLayoutProtocol.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGLayoutProtocol.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGSwapToggle.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSwapToggle.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSwapToggle.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSwapToggle~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSwapToggle.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSwapToggle.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggle.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggle.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggle.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggle~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggle.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggle.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggleGroup.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggleGroup.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggleGroup.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggleGroup~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggleGroup.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggleGroup.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Core/ModeButtonGroup.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModeButtonGroup.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModeButtonGroup.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModeButtonGroup~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModeButtonGroup.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModeButtonGroup.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/FOnChangeCompat.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/FOnChangeCompat.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/FOnChangeCompat.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/FOnChangeCompat~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/FOnChangeCompat.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/FOnChangeCompat.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGHybridToolbar.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGHybridToolbar.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGHybridToolbar.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGHybridToolbar~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGHybridToolbar.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGHybridToolbar.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGRadioGroup.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGRadioGroup.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGRadioGroup~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGRadioGroup.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGRadioGroup.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToolbarStyle.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToolbarStyle.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToolbarStyle~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToolbarStyle.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToolbarStyle.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.dia"
+  }
+}
