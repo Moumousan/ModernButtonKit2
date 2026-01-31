@@ -18,7 +18,6 @@ public enum _MBGWorldStandardKitAvailabilityGate {
 
 // Only export the module on supported platforms to prevent the compiler from attempting
 // to resolve the module when the deployment target is lower than the module supports.
-@available(macOS 15.0, iOS 18.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
 @_exported import MBGWorldStandardKit
 #else
 // Fallback shim when MBGWorldStandardKit is unavailable so clients still compile.
