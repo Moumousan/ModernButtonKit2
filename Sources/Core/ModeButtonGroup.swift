@@ -26,27 +26,6 @@ import AppKit
 public typealias PlatformFont = NSFont
 #endif
 
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
-public protocol SelectableModeProtocol: Identifiable, Hashable {
-    var displayName: String { get }
-}
-
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
-public protocol MBGEnumProtocol: Identifiable, Hashable, CaseIterable {
-    var displayName: String { get }
-}
-
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
-extension MBGEnumProtocol where Self: RawRepresentable, RawValue == String {
-    public var id: Self { self }
-    public var displayName: String { rawValue }
-}
-
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
-extension MBGEnumProtocol where Self: RawRepresentable, RawValue == Int {
-    public var id: Self { self }
-    public var displayName: String { String(rawValue) }
-}
 
 public enum MBGDefaults {
     @MainActor public static let font: PlatformFont = .systemFont(ofSize: 16)
@@ -119,14 +98,6 @@ public enum MBGIconPlacement {
     /// アイコンのみを表示（テキストは非表示）
     case iconOnly
 }
-
-/// （任意）アイコンを持つモードに実装してもらうためのプロトコル。
-/// ここで返した SF Symbols 名が MBG の iconPlacement で利用される。
-public protocol MBGIconMode {
-    /// 例: "rectangle.and.pencil.and.ellipsis"
-    var systemImageName: String? { get }
-}
-
 
 
 #if os(macOS)
