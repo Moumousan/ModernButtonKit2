@@ -103,6 +103,15 @@ public protocol MBGIconMode {
     var systemImageName: String? { get }
 }
 
+public enum MBGIconTextStyle: String, CaseIterable, MBGEnumProtocol {
+    case titleOnly      // テキストだけ
+    case iconOnly       // アイコンだけ
+    case iconLeading    // アイコン + テキスト（左アイコン）
+    case iconTrailing   // テキスト + アイコン（右アイコン）
+    // 将来:
+    // case iconTop, iconBottom などもアリ
+}
+
 // MARK: - 配列ベースのモード用プロトコル
 
 /// enum ではなく「配列で Mode のリストを持ちたい」場合のためのプロトコル。
