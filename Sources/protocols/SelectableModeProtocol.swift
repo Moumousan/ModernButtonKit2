@@ -102,3 +102,87 @@ public protocol MBGIconMode {
     /// アイコン不要なケースでは `nil` を返してもよい。
     var systemImageName: String? { get }
 }
+
+// MARK: - 配列ベースのモード用プロトコル
+
+/// enum ではなく「配列で Mode のリストを持ちたい」場合のためのプロトコル。
+///
+/// - SelectableModeProtocol を継承するだけの薄いラッパー。
+/// - CaseIterable や RawRepresentable を要求しないので、
+///   struct / class / String ラッパーなどにも自由に使える。
+@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
+public protocol MBGArrayModeProtocol: SelectableModeProtocol { }
+
+
+// MARK: - 汎用の配列モード型（id + displayName）
+
+/// 単純な「id + displayName」を持つ配列モード用のデフォルト実装。
+///
+/// 例:
+/// ```swift
+/// let labels = ["One", "Two", "Three"]
+/// let modes  = labels.asMBGModes()
+/// ```
+///
+/// そのまま:
+/// ```swift
+/// @State private var selected = modes.first!
+/// MBG(modes: modes, selected: $selected, themeColor: .red)
+/// ```
+@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
+public struct MBGArrayMode: MBGArrayModeProtocol {
+    public typealias ID = Int
+
+    public let id: Int
+    public let displayName: String
+
+    public init(id: Int, title: String) {
+        self.id = id
+        self.displayName = title
+    }
+}
+
+
+// MARK: - String 配列 → MBGArrayMode 配列 変換ヘルパー
+
+@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
+public extension Array where Element == String {
+    /// 文字列配列をそのまま MBG 用モード配列に変換するユーティリティ。
+    ///
+    /// 例:
+    /// ```swift
+    /// let modes = ["One", "Two", "Three"].asMBGModes()
+    /// ```
+    func asMBGModes() -> [MBGArrayMode] {
+        self.enumerated().map { index, title in
+            MBGArrayMode(id: index, title: title)
+        }
+    }
+}
+
+
+// MARK: - おまけ: アイコン付き配列モード
+
+/// 配列ベースでも SF Symbols アイコンを使いたい場合のラッパー。
+///
+/// 例:
+/// ```swift
+/// let modes: [MBGIconArrayMode] = [
+///     .init(id: 0, title: "Edit", systemImageName: "rectangle.and.pencil.and.ellipsis"),
+///     .init(id: 1, title: "View", systemImageName: "eye")
+/// ]
+/// ```
+@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
+public struct MBGIconArrayMode: MBGArrayModeProtocol, MBGIconMode {
+    public typealias ID = Int
+
+    public let id: Int
+    public let displayName: String
+    public let systemImageName: String?
+
+    public init(id: Int, title: String, systemImageName: String? = nil) {
+        self.id = id
+        self.displayName = title
+        self.systemImageName = systemImageName
+    }
+}
