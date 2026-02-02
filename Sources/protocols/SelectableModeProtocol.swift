@@ -5,7 +5,6 @@
 //  Created by SNI on 2026/02/02.
 //
 
-
 //
 //  MBGProtocols.swift
 //  ModernButtonKit2
@@ -37,13 +36,22 @@ public protocol SelectableModeProtocol: Identifiable, Hashable {
 
 /// MBG 系で「enum をそのままモードとして使う」ためのプロトコル。
 ///
-/// - SelectableModeProtocol を内包しているので、ModeButtonGroup などの
-///   `Mode: Hashable & SelectableModeProtocol` 制約をそのまま満たせる。
-/// - CaseIterable なので、必要なら `.allCases` も使える。
-/// - `where ID == Self` によって、`id` は「自分自身」を返す前提になる。
 @available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
-public protocol MBGEnumProtocol: SelectableModeProtocol, CaseIterable
-where ID == Self { }
+public protocol MBGEnumProtocol:
+    CaseIterable,
+    Identifiable,
+    Sendable
+where ID == String
+{
+    /// ラベル表示用
+    var displayName: String { get }
+
+    /// SF Symbols などのアイコン名（なければ nil）
+    var iconName: String? { get }
+
+    /// MBG 内部で使う生の値（必要なら）
+    var rawValueForMBG: String { get }
+}
 
 /// デフォルト実装:
 /// - `id` は `self`
@@ -51,22 +59,26 @@ where ID == Self { }
 ///
 /// RawValue を持たない enum でも、このまま ModeButtonGroup に渡して使える。
 @available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
-public extension MBGEnumProtocol {
-    /// Identifiable.ID は Self に固定
-    var id: Self { self }
+public extension MBGEnumProtocol where Self: RawRepresentable, RawValue == String {
+    var id: String { rawValue }                   // Identifiable 満たす
+    var displayName: String { rawValue }          // デフォルト表示名
+    var rawValueForMBG: String { rawValue }
+    var iconName: String? { nil }                 // デフォルトではアイコンなし
+}
 
+@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
+public extension MBGEnumProtocol {
     /// デフォルトの表示名。
     /// RawValue が無い enum でも、それなりに読める文字列になる。
     var displayName: String {
         String(describing: self)
     }
-}
 
-// RawValue = String の enum のための「ごほうび」実装。
-// 例: `enum Theme: String, MBGEnumProtocol { case light = "Light" }` の displayName が "Light" になる。
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
-public extension MBGEnumProtocol where Self: RawRepresentable, RawValue == String {
-    var displayName: String { rawValue }
+    /// MBG 内部で使う生の値（必要なら）
+    var rawValueForMBG: String { String(describing: self) }
+
+    /// デフォルトではアイコンなし
+    var iconName: String? { nil }
 }
 
 // RawValue = Int の enum 向け。
