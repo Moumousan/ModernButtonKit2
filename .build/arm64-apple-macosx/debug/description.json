@@ -92,6 +92,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/SelectableModeProtocol.swift"
         },
         {
@@ -124,6 +128,7 @@
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGRadioGroup.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToolbarStyle.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGIconTextStyle + extension.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/SelectableModeProtocol.swift.o"
       ],
       "otherArguments" : [
@@ -260,6 +265,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGIconTextStyle + extension.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/SelectableModeProtocol.swift.o"
         },
         {
@@ -286,6 +295,7 @@
         "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/SelectableModeProtocol.swift"
       ],
       "tempsPath" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build",
@@ -320,6 +330,7 @@
       "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/SelectableModeProtocol.swift",
       "-I",
       "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/Modules",
@@ -478,6 +489,10 @@
         {
           "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift"
         },
         {
           "kind" : "file",
