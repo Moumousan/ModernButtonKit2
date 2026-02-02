@@ -106,6 +106,27 @@ public enum CornerStyle {
     case capsule
 }
 
+// MARK: - Icon support
+
+/// ボタンラベルに SF Symbols アイコンを添えるための配置指定。
+public enum MBGIconPlacement {
+    /// アイコンを使用しない（従来どおりテキストのみ）
+    case none
+    /// テキストの左側にアイコンを表示
+    case leading
+    /// テキストの右側にアイコンを表示
+    case trailing
+    /// アイコンのみを表示（テキストは非表示）
+    case iconOnly
+}
+
+/// （任意）アイコンを持つモードに実装してもらうためのプロトコル。
+/// ここで返した SF Symbols 名が MBG の iconPlacement で利用される。
+public protocol MBGIconMode {
+    /// 例: "rectangle.and.pencil.and.ellipsis"
+    var systemImageName: String? { get }
+}
+
 
 
 #if os(macOS)
@@ -190,6 +211,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
     // keep for backward compatibility; used when cornerStyle == .fixed
     let cornerRadius: CGFloat
     let font: PlatformFont
+    let iconPlacement: MBGIconPlacement
     let spacing: CGFloat
     let layout: ModeButtonLayout
     let sizeMode: SizeMode
@@ -217,6 +239,8 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         themeColor: Color = .blue,
         cornerRadius: CGFloat = 12,
         font: PlatformFont = MBGDefaults.font,
+        /// アイコンの配置指定（.none なら従来どおりテキストのみ）
+        iconPlacement: MBGIconPlacement = .none,
         spacing: CGFloat = MBGDefaults.spacing,
         layout: ModeButtonLayout = .horizontal,
         sizeMode: SizeMode = .auto,
@@ -233,6 +257,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         self.themeColor = themeColor
         self.cornerRadius = cornerRadius
         self.font = font
+        self.iconPlacement = iconPlacement
         self.spacing = spacing
         self.layout = layout
         self.sizeMode = sizeMode
@@ -257,7 +282,8 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                 font: font,
                 backgroundColors: self.backgroundColors ?? (normal: .gray.opacity(0.2), unselected: .gray.opacity(0.2)),
                 labelColors: self.labelColors,
-                chromeStyle: self.chromeStyle
+                chromeStyle: self.chromeStyle,
+                iconPlacement: iconPlacement
             )
         }
     }
@@ -268,6 +294,8 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         themeColor: Color = .blue,
         cornerRadius: CGFloat = 12,
         font: PlatformFont = MBGDefaults.font,
+        /// アイコンの配置指定（.none なら従来どおりテキストのみ）
+        iconPlacement: MBGIconPlacement = .none,
         spacing: CGFloat = MBGDefaults.spacing,
         layout: ModeButtonLayout = .horizontal,
         sizeMode: SizeMode = .auto,
@@ -281,10 +309,11 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         @ViewBuilder middleContent: () -> Middle
     ) {
         self.modes = modes
-               self._selected = selected
+        self._selected = selected
         self.themeColor = themeColor
         self.cornerRadius = cornerRadius
         self.font = font
+        self.iconPlacement = iconPlacement
         self.spacing = spacing
         self.layout = layout
         self.sizeMode = sizeMode
@@ -309,7 +338,8 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                 font: font,
                 backgroundColors: self.backgroundColors ?? (normal: .gray.opacity(0.2), unselected: .gray.opacity(0.2)),
                 labelColors: self.labelColors,
-                chromeStyle: self.chromeStyle
+                chromeStyle: self.chromeStyle,
+                iconPlacement: iconPlacement
             )
         }
     }
@@ -403,7 +433,7 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         }
     }
 
-    /// Segment-style layout implementation extracted to avoid `@ViewBuilder` local declaration issues.
+    /// Segment-style layout implementation extracted to avoid `@ViewBuilder` local declaration issues。
     private func segmentaryLayout(separatorColor: Color, glow: MBGSegmentGlow?) -> some View {
         let separatorWidth: CGFloat = 1
         let totalWidth = buttonWidth * CGFloat(modes.count)
@@ -480,6 +510,9 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                     let isSelected = (mode == selected)
                     let display = titles[index]
 
+                    // MBGIconMode に準拠していれば SF Symbols 名を拾う
+                    let iconName = (mode as? MBGIconMode)?.systemImageName
+
                     let fgColor = isSelected
                         ? (labelColors?.selected ?? Color.primary)
                         : (labelColors?.unselected ?? Color.primary)
@@ -487,13 +520,17 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                     let isLast = index == modes.count - 1
 
                     ZStack {
-                        Text(display)
-                            .font(Font(font))
-                            .lineLimit(1)
-                            .truncationMode(.tail)
-                            .frame(width: buttonWidth, height: buttonHeight)
-                            .foregroundColor(fgColor)
-                            .contentShape(Rectangle())
+                        Self.buildLabel(
+                            title: display,
+                            iconName: iconName,
+                            iconPlacement: iconPlacement,
+                            font: font
+                        )
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .frame(width: buttonWidth, height: buttonHeight)
+                        .foregroundColor(fgColor)
+                        .contentShape(Rectangle())
                     }
                     .zIndex(isSelected ? 1 : 0)
                     .accessibilityLabel(Text(display))
@@ -580,6 +617,53 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
             return isSelected ? themeColor.opacity(0.25) : .clear
         case .systemLike:
             return isSelected ? themeColor.opacity(0.30) : Color.white.opacity(0.04)
+        }
+    }
+
+    // MARK: - Label builder (text + optional icon)
+
+    /// モードに MBGIconMode が実装されている場合、そのアイコンとテキストを組み合わせたラベルを生成する。
+    @ViewBuilder
+    private static func buildLabel(
+        title: String,
+        iconName: String?,
+        iconPlacement: MBGIconPlacement,
+        font: PlatformFont
+    ) -> some View {
+        let text = Text(title)
+        switch iconPlacement {
+        case .none:
+            text.font(Font(font))
+
+        case .iconOnly:
+            if let iconName {
+                Image(systemName: iconName)
+                    .font(Font(font))
+            } else {
+                text.font(Font(font))
+            }
+
+        case .leading:
+            if let iconName {
+                HStack(spacing: 4) {
+                    Image(systemName: iconName)
+                    text
+                }
+                .font(Font(font))
+            } else {
+                text.font(Font(font))
+            }
+
+        case .trailing:
+            if let iconName {
+                HStack(spacing: 4) {
+                    text
+                    Image(systemName: iconName)
+                }
+                .font(Font(font))
+            } else {
+                text.font(Font(font))
+            }
         }
     }
 
@@ -710,12 +794,15 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
 
     // MARK: - Default Button Builder
     private static func defaultButton(
-        themeColor: Color, cornerRadius: CGFloat, font: PlatformFont,
+        themeColor: Color,
+        cornerRadius: CGFloat,
+        font: PlatformFont,
         backgroundColors: (normal: Color, unselected: Color)?,
         labelColors: (selected: Color, unselected: Color)?,
-        chromeStyle: ChromeStyle
+        chromeStyle: ChromeStyle,
+        iconPlacement: MBGIconPlacement
     ) -> ButtonBuilder<Mode> {
-        return { _, isSelected, width, height, label in
+        return { mode, isSelected, width, height, label in
             let baseNormal = backgroundColors?.normal ?? Color.gray.opacity(0.2)
             let bgFlat = isSelected ? themeColor : baseNormal
             let bgSystem = isSelected ? themeColor.opacity(0.95) : Color.white.opacity(0.08)
@@ -730,8 +817,16 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                 ? (labelColors?.selected ?? Color.primary)
                 : (labelColors?.unselected ?? Color.primary)
 
-            let base = Text(label)
-                .font(Font(font))
+            // モードが MBGIconMode を実装していれば、そのアイコン名を拾う
+            let iconName = (mode as? MBGIconMode)?.systemImageName
+
+            let base = AnyView(
+                Self.buildLabel(
+                    title: label,
+                    iconName: iconName,
+                    iconPlacement: iconPlacement,
+                    font: font
+                )
                 .frame(width: width, height: height)
                 .background(bgColor)
                 .foregroundColor(fgColor)
@@ -740,14 +835,20 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(themeColor, lineWidth: isSelected ? 2 : 1)
                 )
+            )
 
             if chromeStyle == .systemLike {
                 return AnyView(
                     base
-                        .shadow(color: Color.black.opacity(0.25), radius: isSelected ? 2 : 1, x: 0, y: isSelected ? 1 : 0)
+                        .shadow(
+                            color: Color.black.opacity(0.25),
+                            radius: isSelected ? 2 : 1,
+                            x: 0,
+                            y: isSelected ? 1 : 0
+                        )
                 )
             } else {
-                return AnyView(base)
+                return base
             }
         }
     }
