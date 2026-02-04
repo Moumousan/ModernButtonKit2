@@ -2,73 +2,25 @@
 //  SelectableModeProtocol.swift
 //  ModernButtonKit2
 //
-//  Created by SNI on 2026/02/02.
-//
-//  - MBGIconMode
+//  Base protocol for selectable “modes” used by MBG buttons.
+//  This covers both enum-based modes and array/struct-based modes.
 //
 
 import Foundation
-import SwiftUI
 
-// MARK: - アイコン付きモード
-
-/// ボタンラベルに SF Symbols アイコンを持たせたいモード用の任意プロトコル。
+/// Common requirements for any selectable mode used with MBG.
 ///
-/// Mode がこれに準拠していれば、ModeButtonGroup 側で
-/// `systemImageName` を拾ってアイコン付きラベルを描画する。
+/// - `ID` is the stable identifier type used for selection.
+/// - `displayName` is the human-readable label shown in the UI.
 ///
-/// 例:
-/// ```swift
-/// enum EditorMode: String, MBGEnumProtocol, MBGIconMode {
-///     case edit   = "Edit"
-///     case view   = "View"
-///
-///     var systemImageName: String? {
-///         switch self {
-///         case .edit: return "rectangle.and.pencil.and.ellipsis"
-///         case .view: return "eye"
-///         }
-///     }
-/// }
-/// ```
-public protocol MBGIconMode {
-    /// SF Symbols 名（例: "rectangle.and.pencil.and.ellipsis"）。
-    /// アイコン不要なケースでは `nil` を返してもよい。
-    var systemImageName: String? { get }
-}
+/// Types conforming to this protocol must also be `Hashable` and `Sendable`
+/// so that they can safely participate in SwiftUI state and collections.
+public protocol SelectableModeProtocol: Identifiable, Hashable, Sendable {
+    associatedtype ID: Hashable
 
-public enum MBGIconTextStyle: String, CaseIterable, MBGEnumProtocol {
-    case titleOnly      // テキストだけ
-    case iconOnly       // アイコンだけ
-    case iconLeading    // アイコン + テキスト（左アイコン）
-    case iconTrailing   // テキスト + アイコン（右アイコン）
-    // 将来:
-    // case iconTop, iconBottom などもアリ
-}
+    /// Stable identifier for the mode.
+    var id: ID { get }
 
-
-// MARK: - おまけ: アイコン付き配列モード
-
-/// 配列ベースでも SF Symbols アイコンを使いたい場合のラッパー。
-///
-/// 例:
-/// ```swift
-/// let modes: [MBGIconArrayMode] = [
-///     .init(id: 0, title: "Edit", systemImageName: "rectangle.and.pencil.and.ellipsis"),
-///     .init(id: 1, title: "View", systemImageName: "eye")
-/// ]
-/// ```
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
-public struct MBGIconArrayMode: MBGArrayModeProtocol, MBGIconMode {
-    public typealias ID = Int
-
-    public let id: Int
-    public let displayName: String
-    public let systemImageName: String?
-
-    public init(id: Int, title: String, systemImageName: String? = nil) {
-        self.id = id
-        self.displayName = title
-        self.systemImageName = systemImageName
-    }
+    /// Human-readable label for the mode.
+    var displayName: String { get }
 }
