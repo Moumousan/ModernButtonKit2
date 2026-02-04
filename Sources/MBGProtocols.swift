@@ -1,72 +1,93 @@
 //
 //  MBGProtocols.swift
-//
 //  ModernButtonKit2
 //
-//  Created by SNI on 2026/02/04.
+//  Higher-level protocols and helper types used by MBG buttons.
+//  These build on top of `SelectableModeProtocol` to support
+//  enum-based and array/struct-based mode definitions.
 //
-
-
-// MBGProtocols.swift
-// Shared protocol foundations for MBG-style mode enums and arrays.
-//
-// Place this file inside the ModernButtonKit2 target.
-// For example: Sources/ModernButtonKit2/MBGProtocols.swift
 
 import Foundation
 
-/// Core enumeration protocol for MBG-style mode enums.
+// MARK: - Enum-based modes
+
+/// Convenience protocol for enum-based modes used with MBG.
 ///
-/// Typical usage:
+/// Recommended usage:
 ///
-/// enum ThemeMode: String, CaseIterable, Sendable, MBGEnumProtocol {
-///     case light, dark
+/// ```swift
+/// enum ThemeMode: String, MBGEnumModeProtocol {
+///     case light
+///     case dark
+///     case system
 /// }
+/// ```
 ///
-/// // …or:
-/// enum ThemeMode: String, CaseIterable, Sendable, SelectableModeProtocol { … }
-public protocol MBGEnumProtocol: CaseIterable, Identifiable, Sendable where ID == Self {
-    associatedtype ID = Self
+/// Requirements:
+/// - The type is an `enum`.
+/// - It is `CaseIterable` so you can use `ThemeMode.allCases`.
+/// - It conforms to `SelectableModeProtocol`.
+///
+/// The default extension below provides `id` and `displayName`
+/// automatically when the enum has a `String` raw value.
+public protocol MBGEnumModeProtocol: SelectableModeProtocol, CaseIterable
+where ID == Self { }
 
-    /// Human-friendly label used in buttons and menus.
-    var displayName: String { get }
-
-    /// Identifier for the mode – by default, the case itself.
-    var id: Self { get }
-}
-
-public extension MBGEnumProtocol {
+public extension MBGEnumModeProtocol where Self: RawRepresentable, RawValue == String {
+    /// Use the enum case itself as the identifier.
     var id: Self { self }
 
-    /// Default implementation: prettify the case name.
+    /// Use the raw string value as the display name.
+    var displayName: String { rawValue }
+}
+
+// MARK: - Array / struct-based modes
+
+/// Protocol for struct- or array-based mode definitions.
+///
+/// This is useful when you want to construct modes dynamically
+/// (e.g. from configuration) instead of hard-coding enum cases.
+///
+/// Example:
+///
+/// ```swift
+/// let modes: [MBGIconArrayMode] = [
+///     .init(id: 0, title: "Edit",  systemImageName: "rectangle.and.pencil.and.ellipsis"),
+///     .init(id: 1, title: "Share", systemImageName: "square.and.arrow.up")
+/// ]
+/// ```
+public protocol MBGArrayModeProtocol: SelectableModeProtocol {
+    /// Optional SF Symbols name to use as an icon.
+    var systemImageName: String? { get }
+}
+
+// MARK: - Simple icon mode implementation
+
+/// Simple “id + title + optional system image” mode.
+///
+/// This is a lightweight helper struct that already conforms to
+/// `MBGArrayModeProtocol` and (optionally) your icon style protocol
+/// such as `MBGIconMode`.
+///
+/// Recommended for quick prototypes and QAC-style tools.
+public struct MBGIconArrayMode: MBGArrayModeProtocol, MBGIconMode {
+    public typealias ID = Int
+
+    public let id: Int
+    public let displayName: String
+    public let systemImageName: String?
+
+    /// Create a new icon mode.
     ///
-    /// - Replaces "_" with " "
-    /// - Capitalises each word
-    var displayName: String {
-        String(describing: self)
-            .replacingOccurrences(of: "_", with: " ")
-            .capitalized
+    /// - Parameters:
+    ///   - id: Stable integer identifier.
+    ///   - title: Label text shown in the button.
+    ///   - systemImageName: Optional SF Symbol name to display next to the title.
+    public init(id: Int,
+                title: String,
+                systemImageName: String? = nil) {
+        self.id = id
+        self.displayName = title
+        self.systemImageName = systemImageName
     }
-}
-
-/// Marker protocol for “selectable modes” used in MBG().
-///
-/// This is what most app-side enums should conform to.
-public protocol SelectableModeProtocol: MBGEnumProtocol { }
-
-/// Simple protocol for array-backed modes (non-enum).
-///
-/// Useful when the user wants to drive MBG() from arbitrary data models
-/// instead of enums.
-public protocol MBGArrayModeProtocol: Identifiable, Sendable, Hashable {
-    /// A stable identifier – often a key, slug or raw value.
-    var id: String { get }
-
-    /// Human-friendly label.
-    var displayName: String { get }
-}
-
-public extension MBGArrayModeProtocol {
-    /// Default identifier: use the display name.
-    var id: String { displayName }
 }
