@@ -30,7 +30,10 @@ import Foundation
 ///
 /// The default extension below provides `id` and `displayName`
 /// automatically when the enum has a `String` raw value.
-public protocol MBGEnumModeProtocol: SelectableModeProtocol, CaseIterable
+/// Note: Refining `Self: Hashable` (via the where-clause) is required because of the same-type constraint `ID == Self`.
+public protocol MBGEnumModeProtocol: SelectableModeProtocol,
+                                     CaseIterable,
+                                     Hashable
 where ID == Self { }
 
 public extension MBGEnumModeProtocol where Self: RawRepresentable, RawValue == String {

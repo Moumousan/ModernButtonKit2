@@ -52,6 +52,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGIconArrayMode.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGLayoutProtocol.swift"
         },
         {
@@ -88,6 +92,14 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/MBGNamespace.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/MBGProtocols.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift"
         },
         {
@@ -118,6 +130,7 @@
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSegmentPreset.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGActionBar.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGGlowTuning.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGIconArrayMode.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGLayoutProtocol.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSwapToggle.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggle.swift.o",
@@ -127,6 +140,8 @@
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGHybridToolbar.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGRadioGroup.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToolbarStyle.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGNamespace.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGProtocols.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGIconTextStyle + extension.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/SelectableModeProtocol.swift.o"
@@ -225,6 +240,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGIconArrayMode.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGLayoutProtocol.swift.o"
         },
         {
@@ -261,6 +280,14 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGNamespace.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGProtocols.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.swift.o"
         },
         {
@@ -285,6 +312,7 @@
         "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGSegmentPreset.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGActionBar.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGGlowTuning.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGIconArrayMode.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGLayoutProtocol.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGSwapToggle.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggle.swift",
@@ -294,6 +322,8 @@
         "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGHybridToolbar.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/MBGNamespace.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/MBGProtocols.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/SelectableModeProtocol.swift"
@@ -320,6 +350,7 @@
       "/Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGSegmentPreset.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGActionBar.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGGlowTuning.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGIconArrayMode.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGLayoutProtocol.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGSwapToggle.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggle.swift",
@@ -329,6 +360,8 @@
       "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGHybridToolbar.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/MBGNamespace.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/MBGProtocols.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/SelectableModeProtocol.swift",
@@ -452,6 +485,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGIconArrayMode.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGLayoutProtocol.swift"
         },
         {
@@ -485,6 +522,14 @@
         {
           "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/MBGNamespace.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/MBGProtocols.swift"
         },
         {
           "kind" : "file",

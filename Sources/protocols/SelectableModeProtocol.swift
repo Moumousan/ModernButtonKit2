@@ -15,12 +15,7 @@ import Foundation
 ///
 /// Types conforming to this protocol must also be `Hashable` and `Sendable`
 /// so that they can safely participate in SwiftUI state and collections.
-public protocol SelectableModeProtocol: Identifiable, Hashable, Sendable {
-    associatedtype ID: Hashable
-
-    /// Stable identifier for the mode.
+public protocol SelectableModeProtocol: Identifiable, Equatable where ID: Hashable {
     var id: ID { get }
-
-    /// Human-readable label for the mode.
     var displayName: String { get }
 }

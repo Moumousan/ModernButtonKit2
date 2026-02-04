@@ -5,6 +5,7 @@
 /Users/sni/Packages/ModernButtonKit2/Sources/Config/MBGSegmentPreset.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGActionBar.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGGlowTuning.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGIconArrayMode.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGLayoutProtocol.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGSwapToggle.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggle.swift
@@ -14,6 +15,8 @@
 /Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGHybridToolbar.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/MBGNamespace.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/MBGProtocols.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift
 '/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift'
 /Users/sni/Packages/ModernButtonKit2/Sources/protocols/SelectableModeProtocol.swift
