@@ -8,9 +8,24 @@
 //  共通プロトコル拡張Bar系UI：
 //  - MBGIconTextStyle
 //
+//
+// - MBGIconTextStyle
+//
 
 import Foundation
 
+/// Text–icon relationship for MBG buttons / bars.
+///
+/// - `titleOnly`     : テキストだけ
+/// - `iconOnly`      : アイコンだけ
+/// - `iconLeading`   : アイコン＋テキスト（アイコンが先頭）
+/// - `iconTrailing`  : テキスト＋アイコン（アイコンが末尾）
+public enum MBGIconTextStyle: Sendable {
+    case titleOnly
+    case iconOnly
+    case iconLeading
+    case iconTrailing
+}
 extension MBGIconTextStyle {
     var showsTitle: Bool {
         switch self {

@@ -2,61 +2,51 @@
 //  MBGNamespace.swift
 //  ModernButtonKit2
 //
-//  Created by SNI on 2026/02/04.
+//  Logical namespace and documentation for the MBG API family.
+//
+//  IMPORTANT:
+//  This file must NOT declare another type named `MBG`, because the
+//  core builder is already defined elsewhere as:
+//
+//      public struct MBG<Mode, Layout, SizeMode>: View { ... }
+//
+//  If you want a logical namespace, use `MBGNamespace` (this type)
+//  and keep the `MBG` identifier reserved for the generic builder.
 //
 
+import Foundation
 
-// MBGNamespace.swift
-// Root namespace for shared MBG configuration types.
-//
-// Place this file inside the ModernButtonKit2 target.
-
-import SwiftUI
-
-/// Root namespace for shared MBG configuration types.
+/// Logical namespace for MBG-related helpers and presets.
 ///
-/// Example usage:
-///
-/// MBG(
-///     modes: ThemeMode.allCases,
-///     selected: $theme,
-///     iconPlacement: .leading,
-///     pressEffect: .standard,
-///     themeColor: .green
-/// )
-public enum MBG {
+/// This is intentionally lightweight. It exists mainly as a place to hang
+/// documentation and future “catalogue-style” APIs without colliding with
+/// the main `MBG` builder type.
+public enum MBGNamespace {
 
-    // MARK: - Press effect
+    // MARK: - Design manifesto (summary)
 
-    /// Press / tap behaviour for MBG buttons.
-    public enum PressEffect: Equatable, Sendable {
-        /// No visual feedback on tap (not recommended in most UIs).
-        case none
-
-        /// Scale the button down slightly while pressed.
-        case scaleDown(factor: CGFloat = 0.96)
-
-        /// Blink the glow on and off over the given duration.
-        ///
-        /// If you set the duration to `0`, the glow will not blink.
-        case blink(duration: Double = 0.4)
-    }
-
-    // MARK: - Icon placement
-
-    /// Placement of the SF Symbol icon relative to the label.
-    public enum IconPlacement: Equatable, Sendable {
-        /// No icon at all – label only.
-        case labelOnly
-
-        /// Icon leading, label trailing.
-        case leading
-
-        /// Label leading, icon trailing.
-        case trailing
-
-        /// Icon only – no label.
-        case iconOnly
+    /// MBG buttons are built around three ideas:
+    ///
+    /// 1. **Modes** – What choices the user can make.
+    /// 2. **Layout** – How those choices are arranged (horizontal, vertical,
+    ///    segmented, scrollable, etc.).
+    /// 3. **Size** – How big each button appears (standard, compact, large).
+    ///
+    /// The generic builder:
+    ///
+    /// ```swift
+    /// MBG(modes:  ThemeMode.allCases,
+    ///     selected: $theme,
+    ///     iconPlacement: .leading,
+    ///     pressEffect: .scaleDown(),
+    ///     themeColor: .green)
+    /// ```
+    ///
+    /// glues these concepts together in a predictable way.  Protocols such as
+    /// `MBGEnumModeProtocol` and `MBGArrayModeProtocol` keep the call-sites
+    /// tidy while remaining fully type-safe.
+    public static func manifesto() {
+        // This function is intentionally empty.
+        // It exists only as an anchor for documentation.
     }
 }
-
