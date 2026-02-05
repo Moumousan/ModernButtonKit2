@@ -824,15 +824,20 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
         }
     }
 
-    public static func calculateMaxWidth(modes: [Mode], font: PlatformFont) -> CGFloat {
-        let widths = modes.map { mode in
-            let label = mode.displayName as NSString
-            let attributes: [NSAttributedString.Key: Any] = [.font: font]
-            return label.size(withAttributes: attributes).width
-        }
-        return (widths.max() ?? 44) + MBGDefaults.revisionValue
-    }
+    public static func calculateMaxWidth(
+        modes: [Mode],
+        font: PlatformFont
+    ) -> CGFloat {
+        let maxLabelWidth = MBGTextMetrics.maxTextWidth(
+            in: modes,
+            text: \.displayName,
+            font: font
+        )
 
+        // ここだけは MBG 独自の“安全マージン”
+        return maxLabelWidth + MBGDefaults.revisionValue
+    }
+    
     public static func calculateButtonHeight(font: PlatformFont) -> CGFloat {
 #if os(iOS)
         return font.lineHeight + 16
