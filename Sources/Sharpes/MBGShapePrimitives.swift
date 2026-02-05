@@ -1,162 +1,98 @@
-//  ShapePrimitives.swift
-//  ModernButtonKit2
-//
-//  Core shape primitives used across MBG World.
-//  These types describe geometry only; colours, strokes and shadows
-//  are applied by higher-level styles / modifiers.
-
 import SwiftUI
 
-/// Vertical “D” shape panel: one straight side, one rounded side.
-///
-/// Typical usage:
-/// ```swift
-/// DSidePanel(cornerRadius: 32, side: .left)
-///     .fill(Color.platformBackground)
-/// ```
-///
-/// This shape knows nothing about colours or shadows; those are
-/// handled by modifiers such as `mbgShadowBlock(…)`.
-public struct DSidePanel: Shape {
+/// 左右どちらか片側だけが丸い「D字型」パネル。
+/// - `side == .right`  : 左が直線 / 右が上下だけ角丸
+/// - `side == .left`   : 右が直線 / 左が上下だけ角丸
+public struct DSidePanel: Shape, Sendable {
 
-    /// Side selection for “D-shaped” panels (one rounded side).
     public enum Side: Sendable {
         case left
         case right
     }
 
+    /// 丸める角の半径
     public var cornerRadius: CGFloat
+
+    /// どちら側を丸めるか
     public var side: Side
 
-    public init(cornerRadius: CGFloat = 24, side: Side) {
+    public init(cornerRadius: CGFloat = 32, side: Side = .right) {
         self.cornerRadius = cornerRadius
         self.side = side
     }
 
     public func path(in rect: CGRect) -> Path {
-        let r = min(cornerRadius, rect.height / 2)
+        // パネルのサイズに収まるように R をクランプ
+        let r = max(0, min(cornerRadius,
+                           rect.width / 2,
+                           rect.height / 2))
+
+        let minX = rect.minX
+        let maxX = rect.maxX
+        let minY = rect.minY
+        let maxY = rect.maxY
+
         var path = Path()
 
         switch side {
-        case .left:
-            // Start at top-right and walk counter-clockwise.
-            path.move(to: CGPoint(x: rect.maxX, y: rect.minY))
+        case .right:
+            // 左がまっすぐ・右だけ上下が丸い
+            path.move(to: CGPoint(x: minX, y: minY))                 // 左上
+            path.addLine(to: CGPoint(x: maxX - r, y: minY))          // 上辺（右手前まで）
 
-            // Top edge towards left, stopping before the arc.
-            path.addLine(to: CGPoint(x: rect.minX + r, y: rect.minY))
-
-            // Left semi-circle (vertical “D”).
+            // 右上角の 1/4 円弧
             path.addArc(
-                center: CGPoint(x: rect.minX + r, y: rect.midY),
+                center: CGPoint(x: maxX - r, y: minY + r),
                 radius: r,
                 startAngle: .degrees(-90),
+                endAngle: .degrees(0),
+                clockwise: false
+            )
+
+            path.addLine(to: CGPoint(x: maxX, y: maxY - r))          // 右辺（下手前まで）
+
+            // 右下角の 1/4 円弧
+            path.addArc(
+                center: CGPoint(x: maxX - r, y: maxY - r),
+                radius: r,
+                startAngle: .degrees(0),
                 endAngle: .degrees(90),
                 clockwise: false
             )
 
-            // Bottom edge back to the right side.
-            path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+            path.addLine(to: CGPoint(x: minX, y: maxY))              // 下辺
+            path.addLine(to: CGPoint(x: minX, y: minY))              // 左辺で上へ戻る
 
-            // Close along the right edge.
-            path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
-            path.closeSubpath()
+        case .left:
+            // 右がまっすぐ・左だけ上下が丸い
+            path.move(to: CGPoint(x: maxX, y: minY))                 // 右上
+            path.addLine(to: CGPoint(x: minX + r, y: minY))          // 上辺（左手前まで）
 
-        case .right:
-            // Start at top-left and walk clockwise.
-            path.move(to: CGPoint(x: rect.minX, y: rect.minY))
-
-            // Top edge towards right, stopping before the arc.
-            path.addLine(to: CGPoint(x: rect.maxX - r, y: rect.minY))
-
-            // Right semi-circle (vertical “D”).
+            // 左上角の 1/4 円弧
             path.addArc(
-                center: CGPoint(x: rect.maxX - r, y: rect.midY),
+                center: CGPoint(x: minX + r, y: minY + r),
                 radius: r,
                 startAngle: .degrees(-90),
-                endAngle: .degrees(90),
+                endAngle: .degrees(-180),
                 clockwise: true
             )
 
-            // Bottom edge back to the left side.
-            path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+            path.addLine(to: CGPoint(x: minX, y: maxY - r))          // 左辺
 
-            // Close along the left edge.
-            path.addLine(to: CGPoint(x: rect.minX, y: rect.minY))
-            path.closeSubpath()
+            // 左下角の 1/4 円弧
+            path.addArc(
+                center: CGPoint(x: minX + r, y: maxY - r),
+                radius: r,
+                startAngle: .degrees(-180),
+                endAngle: .degrees(-90),
+                clockwise: true
+            )
+
+            path.addLine(to: CGPoint(x: maxX, y: maxY))              // 下辺
+            path.addLine(to: CGPoint(x: maxX, y: minY))              // 右辺で上へ戻る
         }
 
-        return path
-    }
-}
-
-/// Rounded rectangle frame with no top border.
-///
-/// Intended to be used with `stroke` to create “open-top” boxes
-/// for titles / labels, similar to LaTeX packages that leave room
-/// for a heading on the top edge.
-public struct NoTopBorderBox: Shape {
-
-    public var cornerRadius: CGFloat
-
-    public init(cornerRadius: CGFloat = 12) {
-        self.cornerRadius = cornerRadius
-    }
-
-    public func path(in rect: CGRect) -> Path {
-        let r = min(cornerRadius, min(rect.width, rect.height) / 2)
-        var path = Path()
-
-        // Start at bottom-left (after the radius).
-        path.move(to: CGPoint(x: rect.minX + r, y: rect.maxY))
-
-        // Bottom edge → bottom-right.
-        path.addLine(to: CGPoint(x: rect.maxX - r, y: rect.maxY))
-
-        // Bottom-right corner.
-        path.addArc(
-            center: CGPoint(x: rect.maxX - r, y: rect.maxY - r),
-            radius: r,
-            startAngle: .degrees(90),
-            endAngle: .degrees(0),
-            clockwise: true
-        )
-
-        // Right edge → top-right (just before the radius).
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY + r))
-
-        // Top-right corner, but *do not* draw the top edge.
-        path.addArc(
-            center: CGPoint(x: rect.maxX - r, y: rect.minY + r),
-            radius: r,
-            startAngle: .degrees(0),
-            endAngle: .degrees(-90),
-            clockwise: true
-        )
-
-        // Leftwards along the (hidden) top edge to the other corner.
-        path.addLine(to: CGPoint(x: rect.minX + r, y: rect.minY))
-
-        // Top-left corner.
-        path.addArc(
-            center: CGPoint(x: rect.minX + r, y: rect.minY + r),
-            radius: r,
-            startAngle: .degrees(-90),
-            endAngle: .degrees(-180),
-            clockwise: true
-        )
-
-        // Left edge back down towards the start.
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY - r))
-
-        // Bottom-left corner.
-        path.addArc(
-            center: CGPoint(x: rect.minX + r, y: rect.maxY - r),
-            radius: r,
-            startAngle: .degrees(-180),
-            endAngle: .degrees(90),
-            clockwise: true
-        )
-
+        path.closeSubpath()
         return path
     }
 }
