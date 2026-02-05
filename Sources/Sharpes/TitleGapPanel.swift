@@ -55,6 +55,7 @@ public struct TitleGapPanel: Shape, InsettableShape, Sendable {
         }
     
     public func path(in rect: CGRect) -> Path {
+        let rect = rect.insetBy(dx: insetAmount, dy: insetAmount)
         var path = Path()
 
         let w = rect.width
@@ -86,7 +87,7 @@ public struct TitleGapPanel: Shape, InsettableShape, Sendable {
         // 上辺の「右側」からスタートして時計回りに一周
         path.move(to: CGPoint(x: gapEndX, y: topY))
 
-        // 上辺 → 右上コーナー
+        // 上辺 → 右上角
         path.addLine(to: CGPoint(x: rightX, y: topY))
         path.addArc(
             center: CGPoint(x: rightX, y: topY + r),
@@ -99,7 +100,7 @@ public struct TitleGapPanel: Shape, InsettableShape, Sendable {
         // 右辺
         path.addLine(to: CGPoint(x: maxX, y: bottomY - r))
 
-        // 右下コーナー
+        // 右下角
         path.addArc(
             center: CGPoint(x: rightX, y: bottomY - r),
             radius: r,
@@ -111,7 +112,7 @@ public struct TitleGapPanel: Shape, InsettableShape, Sendable {
         // 下辺
         path.addLine(to: CGPoint(x: leftX, y: bottomY))
 
-        // 左下コーナー
+        // 左下角
         path.addArc(
             center: CGPoint(x: leftX, y: bottomY - r),
             radius: r,
@@ -123,7 +124,7 @@ public struct TitleGapPanel: Shape, InsettableShape, Sendable {
         // 左辺
         path.addLine(to: CGPoint(x: minX, y: topY + r))
 
-        // 左上コーナー
+        // 左上角
         path.addArc(
             center: CGPoint(x: leftX, y: topY + r),
             radius: r,
