@@ -1,8 +1,8 @@
 import SwiftUI
 
-/// 左右どちらか片側だけ丸めた「D 型」パネル.
-/// - left: 左側が直線、右側が丸.
-/// - right: 右側が直線、左側が丸.
+/// 左右どちらか片側だけ丸めた「D 型」パネル。
+/// - `.left`  : 左側の上下だけ角丸（右側は直角）
+/// - `.right` : 右側の上下だけ角丸（左側は直角）
 public struct DSidePanel: Shape, Sendable {
 
     public enum Side: Sendable {
@@ -19,45 +19,91 @@ public struct DSidePanel: Shape, Sendable {
     }
 
     public func path(in rect: CGRect) -> Path {
-        // パネルのサイズをはみ出さないように半径を制限
-        let r = min(cornerRadius, rect.width / 2, rect.height / 2)
-        let midY = rect.midY
+        let x0 = rect.minX
+        let x1 = rect.maxX
+        let y0 = rect.minY
+        let y1 = rect.maxY
+
+        // はみ出さないように半径を制限
+        let r = max(0, min(cornerRadius, (y1 - y0) / 2, (x1 - x0) / 2))
 
         var path = Path()
 
         switch side {
         case .left:
-            // 左がまるい D（右が直線）
-            path.move(to: CGPoint(x: rect.minX + r, y: rect.minY))                // 上の丸み開始
-            path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))                 // 上辺（右端へ）
-            path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))                 // 右辺（下へ）
-            path.addLine(to: CGPoint(x: rect.minX + r, y: rect.maxY))             // 下辺（左へ）
-            // 左側の半円
+            // 左側だけ上下が角丸
+
+            // スタート: 上辺の左角丸の右端
+            path.move(to: CGPoint(x: x0 + r, y: y0))
+
+            // 上辺 → 右上
+            path.addLine(to: CGPoint(x: x1, y: y0))
+
+            // 右辺 ↓
+            path.addLine(to: CGPoint(x: x1, y: y1))
+
+            // 下辺 → 左下角丸の右端
+            path.addLine(to: CGPoint(x: x0 + r, y: y1))
+
+            // 左下の角丸（90°→180°）
             path.addArc(
-                center: CGPoint(x: rect.minX + r, y: midY),
+                center: CGPoint(x: x0 + r, y: y1 - r),
                 radius: r,
                 startAngle: .degrees(90),
+                endAngle: .degrees(180),
+                clockwise: false
+            )
+
+            // 左辺 ↑
+            path.addLine(to: CGPoint(x: x0, y: y0 + r))
+
+            // 左上の角丸（180°→270°）
+            path.addArc(
+                center: CGPoint(x: x0 + r, y: y0 + r),
+                radius: r,
+                startAngle: .degrees(180),
                 endAngle: .degrees(270),
-                clockwise: true
+                clockwise: false
             )
 
         case .right:
-            // 右がまるい D（左が直線）
-            path.move(to: CGPoint(x: rect.minX, y: rect.minY))                    // 左上
-            path.addLine(to: CGPoint(x: rect.maxX - r, y: rect.minY))             // 上辺（右側の丸みの手前）
-            // 右側の半円
+            // 右側だけ上下が角丸
+
+            // スタート: 左上
+            path.move(to: CGPoint(x: x0, y: y0))
+
+            // 上辺 → 右上角丸の左端
+            path.addLine(to: CGPoint(x: x1 - r, y: y0))
+
+            // 右上の角丸（270°→360°）
             path.addArc(
-                center: CGPoint(x: rect.maxX - r, y: midY),
+                center: CGPoint(x: x1 - r, y: y0 + r),
                 radius: r,
                 startAngle: .degrees(270),
-                endAngle: .degrees(90),
-                clockwise: true
+                endAngle: .degrees(0),
+                clockwise: false
             )
-            path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))                 // 下辺（左端へ戻る）
+
+            // 右辺 ↓
+            path.addLine(to: CGPoint(x: x1, y: y1 - r))
+
+            // 右下の角丸（0°→90°）
+            path.addArc(
+                center: CGPoint(x: x1 - r, y: y1 - r),
+                radius: r,
+                startAngle: .degrees(0),
+                endAngle: .degrees(90),
+                clockwise: false
+            )
+
+            // 下辺 ←
+            path.addLine(to: CGPoint(x: x0, y: y1))
+
+            // 左辺 ↑
+            path.addLine(to: CGPoint(x: x0, y: y0))
         }
 
         path.closeSubpath()
         return path
     }
 }
-
