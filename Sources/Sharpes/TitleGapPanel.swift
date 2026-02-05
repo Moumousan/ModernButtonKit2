@@ -26,19 +26,34 @@ import SwiftUI
 /// ```
 ///
 /// The missing segment on the top edge is centred horizontally.
-public struct TitleGapPanel: Shape, Sendable {
+public struct TitleGapPanel: Shape, InsettableShape, Sendable {
     /// 角丸の半径。
     public var cornerRadius: CGFloat
 
     /// 上辺で線を抜く幅（中央に配置される）。
     public var gapWidth: CGFloat
+    
+    // strokeBorder 用の inset 量
+    public var insetAmount: CGFloat = 0
 
-    public init(cornerRadius: CGFloat = 16,
-                gapWidth: CGFloat = 120) {
-        self.cornerRadius = cornerRadius
-        self.gapWidth = gapWidth
-    }
+    public init(
+            cornerRadius: CGFloat = 16,
+            gapWidth: CGFloat = 120,
+            inset: CGFloat = 0
+        ) {
+            self.cornerRadius = cornerRadius
+            self.gapWidth = gapWidth
+            self.insetAmount = inset
+        }
 
+        // MARK: - InsettableShape
+
+        public func inset(by amount: CGFloat) -> some InsettableShape {
+            var copy = self
+            copy.insetAmount += amount
+            return copy
+        }
+    
     public func path(in rect: CGRect) -> Path {
         var path = Path()
 
