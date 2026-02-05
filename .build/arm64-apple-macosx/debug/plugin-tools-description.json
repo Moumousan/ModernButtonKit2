@@ -104,6 +104,14 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Modifiers/MBGShadowBlockStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/MBGShapePrimitives.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift"
         },
         {
@@ -143,6 +151,8 @@
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGNamespace.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGProtocols.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShadowBlockStyle.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGIconTextStyle + extension.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/SelectableModeProtocol.swift.o"
       ],
@@ -292,6 +302,14 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShadowBlockStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGIconTextStyle + extension.swift.o"
         },
         {
@@ -325,6 +343,8 @@
         "/Users/sni/Packages/ModernButtonKit2/Sources/MBGNamespace.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/MBGProtocols.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Modifiers/MBGShadowBlockStyle.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/MBGShapePrimitives.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/SelectableModeProtocol.swift"
       ],
@@ -363,6 +383,8 @@
       "/Users/sni/Packages/ModernButtonKit2/Sources/MBGNamespace.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/MBGProtocols.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Modifiers/MBGShadowBlockStyle.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/MBGShapePrimitives.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/SelectableModeProtocol.swift",
       "-I",
@@ -534,6 +556,14 @@
         {
           "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Modifiers/MBGShadowBlockStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/MBGShapePrimitives.swift"
         },
         {
           "kind" : "file",

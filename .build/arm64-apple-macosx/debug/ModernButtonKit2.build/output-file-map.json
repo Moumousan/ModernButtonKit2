@@ -142,6 +142,20 @@
     "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.swiftdeps",
     "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.dia"
   },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Modifiers/MBGShadowBlockStyle.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShadowBlockStyle.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShadowBlockStyle.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShadowBlockStyle~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShadowBlockStyle.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShadowBlockStyle.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/MBGShapePrimitives.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.dia"
+  },
   "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift": {
     "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGIconTextStyle + extension.d",
     "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGIconTextStyle + extension.swift.o",
