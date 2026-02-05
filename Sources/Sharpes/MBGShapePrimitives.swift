@@ -1,4 +1,4 @@
-//  MBGShapePrimitives.swift
+//  ShapePrimitives.swift
 //  ModernButtonKit2
 //
 //  Core shape primitives used across MBG World.
@@ -7,28 +7,28 @@
 
 import SwiftUI
 
-/// Side selection for “D-shaped” panels (one rounded side).
-public enum MBGSide {
-    case left
-    case right
-}
-
 /// Vertical “D” shape panel: one straight side, one rounded side.
 ///
 /// Typical usage:
 /// ```swift
-/// MBGDSidePanel(cornerRadius: 32, side: .left)
+/// DSidePanel(cornerRadius: 32, side: .left)
 ///     .fill(Color.platformBackground)
 /// ```
 ///
 /// This shape knows nothing about colours or shadows; those are
 /// handled by modifiers such as `mbgShadowBlock(…)`.
-public struct MBGDSidePanel: Shape {
+public struct DSidePanel: Shape {
+
+    /// Side selection for “D-shaped” panels (one rounded side).
+    public enum Side: Sendable {
+        case left
+        case right
+    }
 
     public var cornerRadius: CGFloat
-    public var side: MBGSide
+    public var side: Side
 
-    public init(cornerRadius: CGFloat = 24, side: MBGSide) {
+    public init(cornerRadius: CGFloat = 24, side: Side) {
         self.cornerRadius = cornerRadius
         self.side = side
     }
@@ -45,7 +45,7 @@ public struct MBGDSidePanel: Shape {
             // Top edge towards left, stopping before the arc.
             path.addLine(to: CGPoint(x: rect.minX + r, y: rect.minY))
 
-            // Left semi-circle (vertical “D”)
+            // Left semi-circle (vertical “D”).
             path.addArc(
                 center: CGPoint(x: rect.minX + r, y: rect.midY),
                 radius: r,
@@ -68,7 +68,7 @@ public struct MBGDSidePanel: Shape {
             // Top edge towards right, stopping before the arc.
             path.addLine(to: CGPoint(x: rect.maxX - r, y: rect.minY))
 
-            // Right semi-circle (vertical “D”)
+            // Right semi-circle (vertical “D”).
             path.addArc(
                 center: CGPoint(x: rect.maxX - r, y: rect.midY),
                 radius: r,
@@ -94,7 +94,7 @@ public struct MBGDSidePanel: Shape {
 /// Intended to be used with `stroke` to create “open-top” boxes
 /// for titles / labels, similar to LaTeX packages that leave room
 /// for a heading on the top edge.
-public struct MBGNoTopBorderBox: Shape {
+public struct NoTopBorderBox: Shape {
 
     public var cornerRadius: CGFloat
 
