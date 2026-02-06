@@ -15,58 +15,66 @@ import SwiftUI
 /// 左右どちらか片側だけ丸めた「D 型」パネル。
 /// - `.left`  : 左側の上下だけ角丸（右側は直角）
 /// - `.right` : 右側の上下だけ角丸（左側は直角）
-public struct DSidePanel: Shape, Sendable {
+public struct DSidePanel: Shape, InsettableShape, Sendable {
 
     public enum Side: Sendable {
         case left
         case right
     }
-    
-    // MBGWorldStandardKit 内の Shapes 基盤あたりに
 
     public enum CornerKind: Equatable, Sendable {
         case square
-        case convex(CGFloat)     // いまの「普通の角丸」
-        case concave(CGFloat)    // 将来の「内側にえぐる角丸」
-        case capsule             // 高さに応じたカプセル
+        case convex(CGFloat)
+        case concave(CGFloat)
+        case capsule
     }
-    
+
     public var cornerRadius: CGFloat
     public var side: Side
 
-    public init(cornerRadius: CGFloat, side: Side) {
+    // strokeBorder 用のインセット量
+    public var insetAmount: CGFloat = 0
+
+    public init(
+        cornerRadius: CGFloat,
+        side: Side,
+        inset: CGFloat = 0
+    ) {
         self.cornerRadius = cornerRadius
         self.side = side
+        self.insetAmount = inset
     }
 
+    // MARK: - InsettableShape
+
+    public func inset(by amount: CGFloat) -> some InsettableShape {
+        var copy = self
+        copy.insetAmount += amount
+        return copy
+    }
+
+    // MARK: - Shape
+
     public func path(in rect: CGRect) -> Path {
+        // insetAmount 分だけ内側に縮める
+        let rect = rect.insetBy(dx: insetAmount, dy: insetAmount)
+
         let x0 = rect.minX
         let x1 = rect.maxX
         let y0 = rect.minY
         let y1 = rect.maxY
 
-        // はみ出さないように半径を制限
         let r = max(0, min(cornerRadius, (y1 - y0) / 2, (x1 - x0) / 2))
 
         var path = Path()
 
         switch side {
         case .left:
-            // 左側だけ上下が角丸
-
-            // スタート: 上辺の左角丸の右端
             path.move(to: CGPoint(x: x0 + r, y: y0))
-
-            // 上辺 → 右上
             path.addLine(to: CGPoint(x: x1, y: y0))
-
-            // 右辺 ↓
             path.addLine(to: CGPoint(x: x1, y: y1))
-
-            // 下辺 → 左下角丸の右端
             path.addLine(to: CGPoint(x: x0 + r, y: y1))
 
-            // 左下の角丸（90°→180°）
             path.addArc(
                 center: CGPoint(x: x0 + r, y: y1 - r),
                 radius: r,
@@ -75,10 +83,8 @@ public struct DSidePanel: Shape, Sendable {
                 clockwise: false
             )
 
-            // 左辺 ↑
             path.addLine(to: CGPoint(x: x0, y: y0 + r))
 
-            // 左上の角丸（180°→270°）
             path.addArc(
                 center: CGPoint(x: x0 + r, y: y0 + r),
                 radius: r,
@@ -88,15 +94,9 @@ public struct DSidePanel: Shape, Sendable {
             )
 
         case .right:
-            // 右側だけ上下が角丸
-
-            // スタート: 左上
             path.move(to: CGPoint(x: x0, y: y0))
-
-            // 上辺 → 右上角丸の左端
             path.addLine(to: CGPoint(x: x1 - r, y: y0))
 
-            // 右上の角丸（270°→360°）
             path.addArc(
                 center: CGPoint(x: x1 - r, y: y0 + r),
                 radius: r,
@@ -105,10 +105,8 @@ public struct DSidePanel: Shape, Sendable {
                 clockwise: false
             )
 
-            // 右辺 ↓
             path.addLine(to: CGPoint(x: x1, y: y1 - r))
 
-            // 右下の角丸（0°→90°）
             path.addArc(
                 center: CGPoint(x: x1 - r, y: y1 - r),
                 radius: r,
@@ -117,10 +115,7 @@ public struct DSidePanel: Shape, Sendable {
                 clockwise: false
             )
 
-            // 下辺 ←
             path.addLine(to: CGPoint(x: x0, y: y1))
-
-            // 左辺 ↑
             path.addLine(to: CGPoint(x: x0, y: y0))
         }
 
