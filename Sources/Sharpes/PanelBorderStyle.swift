@@ -95,3 +95,23 @@ public extension PanelBorderStyle {
         innerColor: .clear
     )
 }
+
+extension Shape where Self: InsettableShape {
+
+    @ViewBuilder
+    func panelBorder(_ style: PanelBorderStyle) -> some View {
+        switch style.kind {
+        case .single:
+            self.stroke(style.outerColor, lineWidth: style.outerWidth)
+
+        case .double(let gap):
+            self
+                .stroke(style.outerColor, lineWidth: style.outerWidth)
+                .overlay(
+                    self
+                        .inset(by: style.outerWidth + gap)
+                        .stroke(style.innerColor, lineWidth: style.innerWidth)
+                )
+        }
+    }
+}
