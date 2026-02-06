@@ -1,3 +1,15 @@
+//
+//
+//  MBGShapePrimitives.swift
+//  ModernButtonKit2
+//
+//  Created by SNI on 2026/02/05.
+//
+//
+//
+//
+
+
 import SwiftUI
 
 /// 左右どちらか片側だけ丸めた「D 型」パネル。
@@ -9,7 +21,16 @@ public struct DSidePanel: Shape, Sendable {
         case left
         case right
     }
+    
+    // MBGWorldStandardKit 内の Shapes 基盤あたりに
 
+    public enum CornerKind: Equatable, Sendable {
+        case square
+        case convex(CGFloat)     // いまの「普通の角丸」
+        case concave(CGFloat)    // 将来の「内側にえぐる角丸」
+        case capsule             // 高さに応じたカプセル
+    }
+    
     public var cornerRadius: CGFloat
     public var side: Side
 
