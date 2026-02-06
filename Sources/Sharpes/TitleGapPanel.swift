@@ -142,23 +142,3 @@ public struct TitleGapPanel: Shape, InsettableShape, Sendable {
         return path
     }
 }
-public extension InsettableShape where Self: Shape {
-
-    /// PanelBorderStyle に従って枠線を描画する View。
-    /// - 単線: outer を 1 回 strokeBorder
-    /// - 二重線: outer を描いたあと、inset して inner を重ね描き
-    func panelBorder(_ style: PanelBorderStyle) -> some View {
-        ZStack {
-            // 外側の線
-            self.strokeBorder(style.outerColor, lineWidth: style.outerWidth)
-
-            if case .double(let gap) = style.kind {
-                // 外線の中心位置よりさらに gap + innerWidth/2 だけ中に寄せる
-                let insetAmount = style.outerWidth / 2 + gap + style.innerWidth / 2
-
-                self.inset(by: insetAmount)
-                    .strokeBorder(style.innerColor, lineWidth: style.innerWidth)
-            }
-        }
-    }
-}
