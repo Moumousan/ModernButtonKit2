@@ -41,3 +41,27 @@ public extension InsettableShape {
         }
     }
 }
+
+public extension View {
+
+    /// パネル型の枠線装飾を View に適用
+    ///
+    /// - Parameters:
+    ///   - shape: 外形を決定するシェイプ（例: `RoundedRectangle`）
+    ///   - style: 枠線スタイル（単線／二重線／色／幅など）
+    /// - Returns: 枠付きビュー
+    @ViewBuilder
+    func panelFramed<S: InsettableShape>(
+        _ shape: S,
+        style: PanelBorderStyle
+    ) -> some View {
+        self
+            .padding() // ← 内容にスペースが必要な場合（調整可）
+            .background(
+                shape.fill(Color(.gray))
+            )
+            .overlay(
+                shape.panelBorder(style)
+            )
+    }
+}
