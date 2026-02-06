@@ -58,3 +58,26 @@ public extension PanelBorderStyle {
         .init(kind: .single, outerWidth: 1, innerWidth: 0, outerColor: .secondary)
     }
 }
+// PanelBorderStyle.swift
+
+public extension PanelBorderStyle {
+    /// デフォルトの単線ボーダー
+    static let standard = PanelBorderStyle(
+        kind: .single,
+        outerWidth: 1,
+        innerWidth: 0,
+        outerColor: .secondary,
+        innerColor: .clear
+    )
+}
+/*
+    /// QAC のインスペクタ用とかが欲しければ、こんな感じで追加
+    static let inspector = PanelBorderStyle(
+        kind: .double(gap: 3),
+        outerWidth: 2,
+        innerWidth: 1,
+        outerColor: .secondary,
+        innerColor: .primary.opacity(0.7)
+    )
+}
+*/
