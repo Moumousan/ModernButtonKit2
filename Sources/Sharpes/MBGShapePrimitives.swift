@@ -22,28 +22,31 @@ public struct DSidePanel: Shape, InsettableShape, Sendable {
         case right
     }
 
-    public enum CornerKind: Equatable, Sendable {
-        case square
-        case convex(CGFloat)
-        case concave(CGFloat)
-        case capsule
-    }
+    /// 角のスタイル
+        public enum CornerKind: Equatable, Sendable {
+            case square                 // 四角
+            case convex(CGFloat)        // 外側に丸める（普通の角丸）
+            case concave(CGFloat)       // 内側にえぐる
+            case capsule                // 高さに応じたカプセル
+        }
 
-    public var cornerRadius: CGFloat
-    public var side: Side
+        public var cornerRadius: CGFloat
+        public var side: Side
+        public var cornerKind: CornerKind
 
-    // strokeBorder 用のインセット量
-    public var insetAmount: CGFloat = 0
+        /// InsettableShape 用
+        public var insetAmount: CGFloat = 0
 
-    public init(
-        cornerRadius: CGFloat,
-        side: Side,
-        inset: CGFloat = 0
-    ) {
-        self.cornerRadius = cornerRadius
-        self.side = side
-        self.insetAmount = inset
-    }
+        // ★ ここがポイント：cornerKind をパラメータに追加（デフォルト付き）
+        public init(
+            cornerRadius: CGFloat,
+            side: Side,
+            cornerKind: CornerKind = .convex(0)  // とりあえず普通の角丸相当
+        ) {
+            self.cornerRadius = cornerRadius
+            self.side = side
+            self.cornerKind = cornerKind
+        }
 
     // MARK: - InsettableShape
 
