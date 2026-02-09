@@ -72,6 +72,13 @@
     "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSwapToggle.swiftdeps",
     "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSwapToggle.dia"
   },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGTextMetrics.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGTextMetrics.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGTextMetrics.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGTextMetrics~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGTextMetrics.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGTextMetrics.dia"
+  },
   "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggle.swift": {
     "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggle.d",
     "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggle.swift.o",
@@ -92,6 +99,13 @@
     "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModeButtonGroup~partial.swiftmodule",
     "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModeButtonGroup.swiftdeps",
     "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModeButtonGroup.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Core/Views/MBGPanel.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGPanel.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGPanel.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGPanel~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGPanel.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGPanel.dia"
   },
   "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/FOnChangeCompat.swift": {
     "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/FOnChangeCompat.d",
@@ -155,6 +169,27 @@
     "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives~partial.swiftmodule",
     "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.swiftdeps",
     "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/PanelBorderStyle.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelBorderStyle.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelBorderStyle.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelBorderStyle~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelBorderStyle.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelBorderStyle.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/Shape+PanelBorder.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/Shape+PanelBorder.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/Shape+PanelBorder.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/Shape+PanelBorder~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/Shape+PanelBorder.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/Shape+PanelBorder.dia"
+  },
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/TitleGapPanel.swift": {
+    "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/TitleGapPanel.d",
+    "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/TitleGapPanel.swift.o",
+    "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/TitleGapPanel~partial.swiftmodule",
+    "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/TitleGapPanel.swiftdeps",
+    "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/TitleGapPanel.dia"
   },
   "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift": {
     "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGIconTextStyle + extension.d",

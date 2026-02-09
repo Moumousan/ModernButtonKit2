@@ -64,6 +64,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGTextMetrics.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggle.swift"
         },
         {
@@ -73,6 +77,10 @@
         {
           "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/ModeButtonGroup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/Views/MBGPanel.swift"
         },
         {
           "kind" : "file",
@@ -112,6 +120,18 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/PanelBorderStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/Shape+PanelBorder.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/TitleGapPanel.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift"
         },
         {
@@ -141,9 +161,11 @@
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGIconArrayMode.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGLayoutProtocol.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGSwapToggle.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGTextMetrics.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggle.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggleGroup.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModeButtonGroup.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGPanel.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/FOnChangeCompat.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGHybridToolbar.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGRadioGroup.swift.o",
@@ -153,6 +175,9 @@
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShadowBlockStyle.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelBorderStyle.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/Shape+PanelBorder.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/TitleGapPanel.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGIconTextStyle + extension.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/SelectableModeProtocol.swift.o"
       ],
@@ -262,6 +287,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGTextMetrics.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggle.swift.o"
         },
         {
@@ -271,6 +300,10 @@
         {
           "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModeButtonGroup.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGPanel.swift.o"
         },
         {
           "kind" : "file",
@@ -310,6 +343,18 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelBorderStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/Shape+PanelBorder.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/TitleGapPanel.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGIconTextStyle + extension.swift.o"
         },
         {
@@ -333,9 +378,11 @@
         "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGIconArrayMode.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGLayoutProtocol.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGSwapToggle.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGTextMetrics.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggle.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggleGroup.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Core/ModeButtonGroup.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Core/Views/MBGPanel.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/FOnChangeCompat.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGHybridToolbar.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift",
@@ -345,6 +392,9 @@
         "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Modifiers/MBGShadowBlockStyle.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/MBGShapePrimitives.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/PanelBorderStyle.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/Shape+PanelBorder.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/TitleGapPanel.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/SelectableModeProtocol.swift"
       ],
@@ -373,9 +423,11 @@
       "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGIconArrayMode.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGLayoutProtocol.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGSwapToggle.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGTextMetrics.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggle.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggleGroup.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Core/ModeButtonGroup.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Core/Views/MBGPanel.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/FOnChangeCompat.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGHybridToolbar.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift",
@@ -385,6 +437,9 @@
       "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Modifiers/MBGShadowBlockStyle.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/MBGShapePrimitives.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/PanelBorderStyle.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/Shape+PanelBorder.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/TitleGapPanel.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/protocols/SelectableModeProtocol.swift",
       "-I",
@@ -519,6 +574,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGTextMetrics.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggle.swift"
         },
         {
@@ -528,6 +587,10 @@
         {
           "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/ModeButtonGroup.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Core/Views/MBGPanel.swift"
         },
         {
           "kind" : "file",
@@ -564,6 +627,18 @@
         {
           "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/MBGShapePrimitives.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/PanelBorderStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/Shape+PanelBorder.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/TitleGapPanel.swift"
         },
         {
           "kind" : "file",

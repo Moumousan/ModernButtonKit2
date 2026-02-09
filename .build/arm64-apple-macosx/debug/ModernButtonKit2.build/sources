@@ -8,9 +8,11 @@
 /Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGIconArrayMode.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGLayoutProtocol.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGSwapToggle.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGTextMetrics.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggle.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggleGroup.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Core/ModeButtonGroup.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Core/Views/MBGPanel.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Extension/FOnChangeCompat.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGHybridToolbar.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift
@@ -20,5 +22,8 @@
 /Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Modifiers/MBGShadowBlockStyle.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/MBGShapePrimitives.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/PanelBorderStyle.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/Shape+PanelBorder.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/TitleGapPanel.swift
 '/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift'
 /Users/sni/Packages/ModernButtonKit2/Sources/protocols/SelectableModeProtocol.swift
