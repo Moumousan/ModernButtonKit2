@@ -5,6 +5,56 @@
 //  Created by SNI on 2026/02/09.
 //
 
+import SwiftUI
+
+// Cross-platform background color used for labels sitting on top of panels
+private extension Color {
+    static var platformBackground: Color {
+        #if os(iOS) || os(tvOS) || os(visionOS)
+        if #available(iOS 15.0, tvOS 15.0, visionOS 1.0, *) {
+            return Color(uiColor: .systemBackground)
+        } else {
+            return Color.white
+        }
+        #elseif os(macOS)
+        if #available(macOS 12.0, *) {
+            return Color(nsColor: .windowBackgroundColor)
+        } else {
+            return Color(NSColor.windowBackgroundColor)
+        }
+        #else
+        return Color.white
+        #endif
+    }
+}
+
+// Compatibility shim: provide default color and lineWidth for PanelBorderStyle
+private extension PanelBorderStyle {
+    var color: Color {
+        // Provide a sensible default border color
+        if #available(iOS 15.0, macOS 12.0, *) {
+            return Color.secondary
+        } else {
+            return Color.gray
+        }
+    }
+    var lineWidth: CGFloat {
+        // Provide a sensible default border width
+        1.0
+    }
+}
+
+// Helper to conditionally apply fixedSize without changing the return type
+private struct ConditionalFixedSize: ViewModifier {
+    let apply: Bool
+    func body(content: Content) -> some View {
+        if apply {
+            content.fixedSize(horizontal: false, vertical: false)
+        } else {
+            content
+        }
+    }
+}
 
 public struct MBGPanel<Content: View>: View {
 
@@ -30,7 +80,7 @@ public struct MBGPanel<Content: View>: View {
         title: Title = .none,
         borderStyle: PanelBorderStyle = .standard,
         size: Size = .auto,
-        backgroundColor: Color = .platformBackground,
+        backgroundColor: Color = .gray,
         @ViewBuilder content: @escaping () -> Content
     ) {
         self.title = title
@@ -43,21 +93,30 @@ public struct MBGPanel<Content: View>: View {
     public var body: some View {
         let cornerRadius: CGFloat = 16   // とりあえず固定（必要なら引数に）
 
-        // 1) どの Shape を使うか
-        let panelShape: some InsettableShape = {
-            switch title {
-            case .none:
-                return RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-            case .text(_, let gapWidth):
-                return TitleGapPanel(cornerRadius: cornerRadius, gapWidth: gapWidth)
+        // ベースとなるパネルビュー
+        let panel = ZStack(alignment: .top) {
+            Group {
+                switch title {
+                case .none:
+                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                        .fill(backgroundColor)
+                case .text(_, let gapWidth):
+                    TitleGapPanel(cornerRadius: cornerRadius, gapWidth: gapWidth)
+                        .fill(backgroundColor)
+                }
             }
-        }()
-
-        // 2) 中身＋タイトルを ZStack で重ねる
-        var base = ZStack(alignment: .top) {
-            panelShape
-                .fill(backgroundColor)
-                .panelBorder(borderStyle)
+            .overlay(
+                Group {
+                    switch title {
+                    case .none:
+                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                            .stroke(borderStyle.color, lineWidth: borderStyle.lineWidth)
+                    case .text(_, let gapWidth):
+                        TitleGapPanel(cornerRadius: cornerRadius, gapWidth: gapWidth)
+                            .stroke(borderStyle.color, lineWidth: borderStyle.lineWidth)
+                    }
+                }
+            )
 
             // タイトルラベル（切り欠きがあるときだけ）
             if case let .text(label, _) = title {
@@ -65,7 +124,7 @@ public struct MBGPanel<Content: View>: View {
                     .font(.system(size: 14, weight: .semibold))
                     .padding(.horizontal, 12)
                     .padding(.vertical, 4)
-                    .background(Color.systemBackground)
+                    .background(Color.platformBackground)
                     .offset(y: -10)
             }
 
@@ -78,16 +137,18 @@ public struct MBGPanel<Content: View>: View {
             }
         }
 
-        // 3) サイズ指定（auto / fixed）
-        switch size {
-        case .auto:
-            base = base
-                .fixedSize(horizontal: false, vertical: false)
-        case .fixed(let s):
-            base = base
-                .frame(width: s.width, height: s.height)
-        }
+        // サイズ指定（auto / fixed）を最後に一貫したモディファイアで適用
+        let targetSize: CGSize? = {
+            if case let .fixed(s) = size { return s } else { return nil }
+        }()
 
-        return base
+        panel
+            .frame(width: targetSize?.width, height: targetSize?.height)
+            .modifier(
+                ConditionalFixedSize(apply: {
+                    if case .auto = size { return true } else { return false }
+                }())
+            )
     }
 }
+
