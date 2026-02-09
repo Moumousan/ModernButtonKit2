@@ -78,7 +78,7 @@ public struct MBGPanel<Content: View>: View {
 
     public init(
         title: Title = .none,
-        borderStyle: PanelBorderStyle = .standard,
+        borderStyle: PanelBorderStyle, // = .standard,
         size: Size = .auto,
         backgroundColor: Color = .gray,
         @ViewBuilder content: @escaping () -> Content
