@@ -1,3 +1,11 @@
+//
+//  MBGPanel.swift
+//  ModernButtonKit2
+//
+//  Created by SNI on 2026/02/09.
+//
+
+
 public struct MBGPanel<Content: View>: View {
 
     /// タイトルの有無と切り欠き幅
