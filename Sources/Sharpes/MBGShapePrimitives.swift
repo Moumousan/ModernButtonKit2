@@ -23,30 +23,38 @@ public struct DSidePanel: Shape, InsettableShape, Sendable {
     }
 
     /// 角のスタイル
-        public enum CornerKind: Equatable, Sendable {
-            case square                 // 四角
-            case convex(CGFloat)        // 外側に丸める（普通の角丸）
-            case concave(CGFloat)       // 内側にえぐる
-            case capsule                // 高さに応じたカプセル
-        }
+    public enum CornerKind: Equatable, Sendable {
+        case square                 // 四角（角丸なし）
+        case convex(CGFloat)        // 外側に丸める（普通の角丸）
+        case concave(CGFloat)       // 内側にえぐる（将来の拡張用。現状は convex と同じ扱い）
+        case capsule                // 高さに応じたカプセル
+    }
 
-        public var cornerRadius: CGFloat
-        public var side: Side
-        public var cornerKind: CornerKind
+    public var cornerRadius: CGFloat
+    public var side: Side
+    public var cornerKind: CornerKind
 
-        /// InsettableShape 用
-        public var insetAmount: CGFloat = 0
+    /// InsettableShape 用
+    public var insetAmount: CGFloat = 0
 
-        // ★ ここがポイント：cornerKind をパラメータに追加（デフォルト付き）
-        public init(
-            cornerRadius: CGFloat,
-            side: Side,
-            cornerKind: CornerKind = .convex(0)  // とりあえず普通の角丸相当
-        ) {
-            self.cornerRadius = cornerRadius
-            self.side = side
+    /// - Parameters:
+    ///   - cornerRadius: 基本となる角丸半径
+    ///   - side: どちら側を丸めるか
+    ///   - cornerKind: 角のスタイル（省略時は `.convex(cornerRadius)`）
+    public init(
+        cornerRadius: CGFloat,
+        side: Side,
+        cornerKind: CornerKind? = nil
+    ) {
+        self.cornerRadius = cornerRadius
+        self.side = side
+        // 省略時は普通の角丸として扱う
+        if let cornerKind {
             self.cornerKind = cornerKind
+        } else {
+            self.cornerKind = .convex(cornerRadius)
         }
+    }
 
     // MARK: - InsettableShape
 
@@ -67,7 +75,29 @@ public struct DSidePanel: Shape, InsettableShape, Sendable {
         let y0 = rect.minY
         let y1 = rect.maxY
 
-        let r = max(0, min(cornerRadius, (y1 - y0) / 2, (x1 - x0) / 2))
+        // 取り得る最大半径（上下・左右の半分のうち小さい方）
+        let maxR = min((y1 - y0) / 2, (x1 - x0) / 2)
+
+        // CornerKind に応じて実際に使う半径を決める
+        let r: CGFloat
+        switch cornerKind {
+        case .square:
+            r = 0
+
+        case .convex(let value):
+            let base = (value == 0) ? cornerRadius : value
+            r = max(0, min(base, maxR))
+
+        case .concave(let value):
+            // 現時点では convex と同じ半径扱い。
+            // 将来、内側にえぐるパスに差し替えるときもこの r を使う。
+            let base = (value == 0) ? cornerRadius : value
+            r = max(0, min(base, maxR))
+
+        case .capsule:
+            // D 型パネルとして取り得る最大半径 = カプセル
+            r = maxR
+        }
 
         var path = Path()
 
