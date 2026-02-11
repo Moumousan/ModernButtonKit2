@@ -116,6 +116,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/ConcaveRectPanel.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/MBGShapePrimitives.swift"
         },
         {
@@ -174,6 +178,7 @@
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGProtocols.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShadowBlockStyle.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ConcaveRectPanel.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelBorderStyle.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/Shape+PanelBorder.swift.o",
@@ -339,6 +344,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ConcaveRectPanel.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.swift.o"
         },
         {
@@ -391,6 +400,7 @@
         "/Users/sni/Packages/ModernButtonKit2/Sources/MBGProtocols.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Modifiers/MBGShadowBlockStyle.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/ConcaveRectPanel.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/MBGShapePrimitives.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/PanelBorderStyle.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/Shape+PanelBorder.swift",
@@ -436,6 +446,7 @@
       "/Users/sni/Packages/ModernButtonKit2/Sources/MBGProtocols.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Modifiers/MBGShadowBlockStyle.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/ConcaveRectPanel.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/MBGShapePrimitives.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/PanelBorderStyle.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/Shape+PanelBorder.swift",
@@ -623,6 +634,10 @@
         {
           "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Modifiers/MBGShadowBlockStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/ConcaveRectPanel.swift"
         },
         {
           "kind" : "file",
