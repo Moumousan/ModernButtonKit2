@@ -106,14 +106,39 @@ public struct MBGPanel<Content: View>: View {
                 }
             }
             .overlay(
-                Group {
+                ZStack {
                     switch title {
                     case .none:
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(borderStyle.color, lineWidth: borderStyle.lineWidth)
+                        // Fill already applied above. Draw borders according to style.
+                        switch borderStyle.kind {
+                        case .single:
+                            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                                .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
+                                .padding(-borderStyle.outerWidth / 2)
+                        case .double(let gap):
+                            // Outer stroke (outside)
+                            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                                .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
+                                .padding(-borderStyle.outerWidth / 2)
+                            // Inner stroke (inside with gap)
+                            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                                .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
+                                .padding(gap + borderStyle.innerWidth / 2)
+                        }
                     case .text(_, let gapWidth):
-                        TitleGapPanel(cornerRadius: cornerRadius, gapWidth: gapWidth)
-                            .stroke(borderStyle.color, lineWidth: borderStyle.lineWidth)
+                        switch borderStyle.kind {
+                        case .single:
+                            TitleGapPanel(cornerRadius: cornerRadius, gapWidth: gapWidth)
+                                .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
+                                .padding(-borderStyle.outerWidth / 2)
+                        case .double(let gap):
+                            TitleGapPanel(cornerRadius: cornerRadius, gapWidth: gapWidth)
+                                .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
+                                .padding(-borderStyle.outerWidth / 2)
+                            TitleGapPanel(cornerRadius: cornerRadius, gapWidth: gapWidth)
+                                .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
+                                .padding(gap + borderStyle.innerWidth / 2)
+                        }
                     }
                 }
             )
