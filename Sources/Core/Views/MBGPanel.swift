@@ -93,7 +93,7 @@ public struct MBGPanel<Content: View>: View {
     public var body: some View {
         let cornerRadius: CGFloat = 16   // とりあえず固定（必要なら引数に）
 
-        // ベースとなるパネルビュー
+        // ベースとなるパネルビュー ここ パネルの“形”を決めてる
         let panel = ZStack(alignment: .top) {
             Group {
                 switch title {
