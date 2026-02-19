@@ -56,6 +56,32 @@ private struct ConditionalFixedSize: ViewModifier {
     }
 }
 
+/// パネルの角の丸みを示すシグネチャ（外丸 / 内丸）
+public enum PanelCornerKind {
+    case convex(CGFloat)   // 外側に向かって丸める（標準）
+    case concave(CGFloat)  // 内側に抉る（将来の concave 実装用）
+}
+
+private extension PanelCornerKind {
+    /// 実際の cornerRadius 値（絶対値）
+    var radius: CGFloat {
+        switch self {
+        case .convex(let r), .concave(let r):
+            return r
+        }
+    }
+
+    /// 符号付きの cornerRadius（+ = convex, - = concave）
+    var signedRadius: CGFloat {
+        switch self {
+        case .convex(let r):
+            return r
+        case .concave(let r):
+            return -r
+        }
+    }
+}
+
 public struct MBGPanel<Content: View>: View {
 
     /// タイトルの有無と切り欠き幅
@@ -93,7 +119,7 @@ public struct MBGPanel<Content: View>: View {
     public var body: some View {
         let cornerRadius: CGFloat = 16   // とりあえず固定（必要なら引数に）
 
-        // ベースとなるパネルビュー ここ パネルの“形”を決めてる
+        // ベースとなるパネルビュー ここでパネルの“形”を決めてる
         let panel = ZStack(alignment: .top) {
             Group {
                 switch title {
