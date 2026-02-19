@@ -101,21 +101,24 @@ public struct MBGPanel<Content: View>: View {
     let size: Size
     let backgroundColor: Color
     let content: () -> Content
+    let cornerKind: PanelCornerKind
 
     public init(
         title: Title = .none,
         borderStyle: PanelBorderStyle, // = .standard,
         size: Size = .auto,
         backgroundColor: Color = .gray,
+        cornerKind: PanelCornerKind = .convex(16),
         @ViewBuilder content: @escaping () -> Content
     ) {
         self.title = title
         self.borderStyle = borderStyle
         self.size = size
         self.backgroundColor = backgroundColor
+        self.cornerKind = cornerKind
         self.content = content
     }
-
+    
     public var body: some View {
         let cornerRadius: CGFloat = 16   // とりあえず固定（必要なら引数に）
 
