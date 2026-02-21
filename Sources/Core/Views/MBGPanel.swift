@@ -57,7 +57,7 @@ private struct ConditionalFixedSize: ViewModifier {
 }
 
 /// パネルの角の丸みを示すシグネチャ（外丸 / 内丸）
-public enum PanelCornerKind {
+public enum PanelCornerKind :  Sendable{
     case convex(CGFloat)   // 外側に向かって丸める（標準）
     case concave(CGFloat)  // 内側に抉る（将来の concave 実装用）
 }
@@ -82,6 +82,113 @@ private extension PanelCornerKind {
     }
 }
 
+/// パネルのベースシェイプ（四隅を convex / concave で描き分ける）
+///
+/// - convex: 通常の角丸矩形（RoundedRectangle 相当）
+/// - concave: 四隅を内側に抉った矩形（最小実装版）
+struct PanelBaseShape: InsettableShape {
+
+    var cornerKind: PanelCornerKind
+    var cornerRadius: CGFloat
+    var insetAmount: CGFloat = 0
+
+    func inset(by amount: CGFloat) -> some InsettableShape {
+        var copy = self
+        copy.insetAmount += amount
+        return copy
+    }
+
+    func path(in rect: CGRect) -> Path {
+        let rect = rect.insetBy(dx: insetAmount, dy: insetAmount)
+        var path = Path()
+
+        let w = rect.width
+        let h = rect.height
+        guard w > 0, h > 0 else { return path }
+
+        let maxR = min(w, h) / 2
+        let baseR = min(cornerRadius, maxR)
+
+        switch cornerKind {
+        case .convex:
+            // 外向き角丸は RoundedRectangle に委譲
+            path.addRoundedRect(
+                in: rect,
+                cornerSize: CGSize(width: baseR, height: baseR)
+            )
+            return path
+
+        case .concave:
+            // 四隅に「内向き1/4円のくぼみ」を持つ最小実装
+            let r = baseR
+
+            let minX = rect.minX
+            let maxX = rect.maxX
+            let minY = rect.minY
+            let maxY = rect.maxY
+
+            let leftX  = minX + r
+            let rightX = maxX - r
+            let topY   = minY
+            let bottomY = maxY
+
+            // 上辺中央付近から時計回りに一周
+            path.move(to: CGPoint(x: leftX, y: topY))
+
+            // 上辺 → 右上くぼみ手前
+            path.addLine(to: CGPoint(x: rightX, y: topY))
+
+            // 右上：内向き1/4円
+            path.addArc(
+                center: CGPoint(x: maxX - r, y: minY + r),
+                radius: r,
+                startAngle: .degrees(270),
+                endAngle: .degrees(360),
+                clockwise: true
+            )
+
+            // 右辺
+            path.addLine(to: CGPoint(x: maxX, y: bottomY - r))
+
+            // 右下：内向き1/4円
+            path.addArc(
+                center: CGPoint(x: maxX - r, y: maxY - r),
+                radius: r,
+                startAngle: .degrees(0),
+                endAngle: .degrees(90),
+                clockwise: true
+            )
+
+            // 下辺
+            path.addLine(to: CGPoint(x: leftX, y: bottomY))
+
+            // 左下：内向き1/4円
+            path.addArc(
+                center: CGPoint(x: minX + r, y: maxY - r),
+                radius: r,
+                startAngle: .degrees(90),
+                endAngle: .degrees(180),
+                clockwise: true
+            )
+
+            // 左辺
+            path.addLine(to: CGPoint(x: minX, y: topY + r))
+
+            // 左上：内向き1/4円
+            path.addArc(
+                center: CGPoint(x: minX + r, y: minY + r),
+                radius: r,
+                startAngle: .degrees(180),
+                endAngle: .degrees(270),
+                clockwise: true
+            )
+
+            path.closeSubpath()
+            return path
+        }
+    }
+}
+
 public struct MBGPanel<Content: View>: View {
 
     /// タイトルの有無と切り欠き幅
@@ -99,110 +206,159 @@ public struct MBGPanel<Content: View>: View {
     let title: Title
     let borderStyle: PanelBorderStyle
     let size: Size
-    let backgroundColor: Color
-    let content: () -> Content
     let cornerKind: PanelCornerKind
+    let content: () -> Content
 
-    public init(
-        title: Title = .none,
-        borderStyle: PanelBorderStyle, // = .standard,
-        size: Size = .auto,
-        backgroundColor: Color = .gray,
-        cornerKind: PanelCornerKind = .convex(16),
-        @ViewBuilder content: @escaping () -> Content
-    ) {
-        self.title = title
-        self.borderStyle = borderStyle
-        self.size = size
-        self.backgroundColor = backgroundColor
-        self.cornerKind = cornerKind
-        self.content = content
-    }
-    
-    public var body: some View {
-        let cornerRadius: CGFloat = 16   // とりあえず固定（必要なら引数に）
+    @Binding var backgroundColor: Color
 
-        // ベースとなるパネルビュー ここでパネルの“形”を決めてる
-        let panel = ZStack(alignment: .top) {
-            Group {
-                switch title {
-                case .none:
-                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                        .fill(backgroundColor)
-                case .text(_, let gapWidth):
-                    TitleGapPanel(cornerRadius: cornerRadius, gapWidth: gapWidth)
-                        .fill(backgroundColor)
-                }
-            }
-            .overlay(
-                ZStack {
-                    switch title {
-                    case .none:
-                        // Fill already applied above. Draw borders according to style.
-                        switch borderStyle.kind {
-                        case .single:
-                            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                                .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
-                                .padding(-borderStyle.outerWidth / 2)
-                        case .double(let gap):
-                            // Outer stroke (outside)
-                            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                                .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
-                                .padding(-borderStyle.outerWidth / 2)
-                            // Inner stroke (inside with gap)
-                            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                                .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
-                                .padding(gap + borderStyle.innerWidth / 2)
-                        }
-                    case .text(_, let gapWidth):
-                        switch borderStyle.kind {
-                        case .single:
-                            TitleGapPanel(cornerRadius: cornerRadius, gapWidth: gapWidth)
-                                .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
-                                .padding(-borderStyle.outerWidth / 2)
-                        case .double(let gap):
-                            TitleGapPanel(cornerRadius: cornerRadius, gapWidth: gapWidth)
-                                .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
-                                .padding(-borderStyle.outerWidth / 2)
-                            TitleGapPanel(cornerRadius: cornerRadius, gapWidth: gapWidth)
-                                .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
-                                .padding(gap + borderStyle.innerWidth / 2)
-                        }
-                    }
-                }
-            )
+       // Binding 版
+       public init(
+           title: Title = .none,
+           borderStyle: PanelBorderStyle,
+           size: Size = .auto,
+           backgroundColor: Binding<Color>,
+           cornerKind: PanelCornerKind = .convex(16),
+           @ViewBuilder content: @escaping () -> Content
+       ) {
+           self.title = title
+           self.borderStyle = borderStyle
+           self.size = size
+           self._backgroundColor = backgroundColor
+           self.cornerKind = cornerKind
+           self.content = content
+       }
 
-            // タイトルラベル（切り欠きがあるときだけ）
-            if case let .text(label, _) = title {
-                Text(label)
-                    .font(.system(size: 14, weight: .semibold))
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 4)
-                    .background(Color.platformBackground)
-                    .offset(y: -10)
-            }
+       // Color 直指定版（従来互換）
+       public init(
+           title: Title = .none,
+           borderStyle: PanelBorderStyle,
+           size: Size = .auto,
+           backgroundColor: Color = .gray,
+           cornerKind: PanelCornerKind = .convex(16),
+           @ViewBuilder content: @escaping () -> Content
+       ) {
+           self.init(
+               title: title,
+               borderStyle: borderStyle,
+               size: size,
+               backgroundColor: .constant(backgroundColor),
+               cornerKind: cornerKind,
+               content: content
+           )
+       }
 
-            // コンテンツ本体
-            VStack {
-                Spacer(minLength: 16)
-                content()
-                    .padding(16)
-                Spacer(minLength: 16)
-            }
-        }
+       public var body: some View {
+           // ここがポイント：cornerKind を PanelBaseShape に渡す
+           let baseShape = PanelBaseShape(
+               cornerKind: cornerKind,
+               cornerRadius: cornerKind.radius
+           )
 
-        // サイズ指定（auto / fixed）を最後に一貫したモディファイアで適用
-        let targetSize: CGSize? = {
-            if case let .fixed(s) = size { return s } else { return nil }
-        }()
+           // ベースの塗り + 枠線（title 有無で上辺だけ処理を変える）
+           let panelBackground: some View = Group {
+               switch title {
+               case .none:
+                   baseShape
+                       .fill(backgroundColor)
+                       .overlay(borderOverlay(for: baseShape, gapWidth: nil))
 
-        panel
-            .frame(width: targetSize?.width, height: targetSize?.height)
-            .modifier(
-                ConditionalFixedSize(apply: {
-                    if case .auto = size { return true } else { return false }
-                }())
-            )
-    }
-}
+               case .text(_, let gapWidth):
+                   baseShape
+                       .fill(backgroundColor)
+                       .overlay(borderOverlay(for: baseShape, gapWidth: gapWidth))
+               }
+           }
+
+           // タイトルラベル
+           let titleView: some View = Group {
+               if case let .text(label, _) = title {
+                   Text(label)
+                       .font(.system(size: 14, weight: .semibold))
+                       .padding(.horizontal, 12)
+                       .padding(.vertical, 4)
+                       .background(Color.platformBackground)
+                       .offset(y: -10)
+               }
+           }
+
+           // コンテンツ本体
+           let contentView: some View = VStack {
+               Spacer(minLength: 16)
+               content()
+                   .padding(16)
+               Spacer(minLength: 16)
+           }
+
+           let rawPanel = ZStack(alignment: .top) {
+               panelBackground
+               contentView
+               titleView
+           }
+
+           // サイズ指定
+           let targetSize: CGSize? = {
+               if case let .fixed(s) = size { return s } else { return nil }
+           }()
+
+           rawPanel
+               .frame(width: targetSize?.width, height: targetSize?.height)
+               .modifier(
+                   ConditionalFixedSize(apply: {
+                       if case .auto = size { return true } else { return false }
+                   }())
+               )
+       }
+
+       // 単線/二重線の描画ロジック
+       private func borderOverlay(
+           for baseShape: PanelBaseShape,
+           gapWidth: CGFloat?
+       ) -> some View {
+           Group {
+               switch (borderStyle.kind, gapWidth) {
+
+               case (.single, nil):
+                   // タイトルなし・単線
+                   baseShape
+                       .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
+                       .padding(-borderStyle.outerWidth / 2)
+
+               case (.double(let gap), nil):
+                   // タイトルなし・二重線
+                   baseShape
+                       .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
+                       .padding(-borderStyle.outerWidth / 2)
+                   baseShape
+                       .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
+                       .padding(gap + borderStyle.innerWidth / 2)
+
+               case (.single, let gapWidth?):
+                   // タイトルあり・単線（上辺にギャップ）
+                   TitleGapPanel(
+                       cornerRadius: cornerKind.radius,
+                       gapWidth: gapWidth
+                   )
+                   .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
+                   .padding(-borderStyle.outerWidth / 2)
+
+               case (.double(let gap), let gapWidth?):
+                   // タイトルあり・二重線
+                   TitleGapPanel(
+                       cornerRadius: cornerKind.radius,
+                       gapWidth: gapWidth
+                   )
+                   .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
+                   .padding(-borderStyle.outerWidth / 2)
+
+                   TitleGapPanel(
+                       cornerRadius: cornerKind.radius,
+                       gapWidth: gapWidth
+                   )
+                   .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
+                   .padding(gap + borderStyle.innerWidth / 2)
+               }
+           }
+       }
+   }
+
 
