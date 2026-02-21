@@ -15,13 +15,25 @@ import SwiftUI
 public struct TitleGapPanel: InsettableShape {
     
     /// 四隅の角丸半径
-    var cornerRadius: CGFloat
+    public var cornerRadius: CGFloat
     
     /// 上辺中央に空けるギャップの幅
-    var gapWidth: CGFloat
+    public var gapWidth: CGFloat
     
     /// InsettableShape 用のオフセット
-    var insetAmount: CGFloat = 0
+    public var insetAmount: CGFloat = 0
+    
+    // ★ これがないと init はコンパイラが自動生成する memberwise init で internal のままになる。
+       public init(
+           cornerRadius: CGFloat,
+           gapWidth: CGFloat,
+           insetAmount: CGFloat = 0
+       ) {
+           self.cornerRadius = cornerRadius
+           self.gapWidth = gapWidth
+           self.insetAmount = insetAmount
+       }
+
     
     public func inset(by amount: CGFloat) -> some InsettableShape {
         var copy = self
