@@ -91,3 +91,4 @@ public struct ConcaveRectPanel: InsettableShape, Sendable {
         return path
     }
 }
+

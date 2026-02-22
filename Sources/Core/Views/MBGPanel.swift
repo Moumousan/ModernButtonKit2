@@ -209,6 +209,9 @@ public struct MBGPanel<Content: View>: View {
     let cornerKind: PanelCornerKind
     let content: () -> Content
 
+    let outerCornerKind: PanelCornerKind
+    let innerCornerKind: PanelCornerKind?
+
     @Binding var backgroundColor: Color
 
        // Binding 版
@@ -218,6 +221,8 @@ public struct MBGPanel<Content: View>: View {
            size: Size = .auto,
            backgroundColor: Binding<Color>,
            cornerKind: PanelCornerKind = .convex(16),
+           outerCornerKind: PanelCornerKind? = nil,
+           innerCornerKind: PanelCornerKind? = nil,
            @ViewBuilder content: @escaping () -> Content
        ) {
            self.title = title
@@ -225,6 +230,8 @@ public struct MBGPanel<Content: View>: View {
            self.size = size
            self._backgroundColor = backgroundColor
            self.cornerKind = cornerKind
+           self.outerCornerKind = outerCornerKind ?? cornerKind
+           self.innerCornerKind = innerCornerKind
            self.content = content
        }
 
@@ -235,6 +242,8 @@ public struct MBGPanel<Content: View>: View {
            size: Size = .auto,
            backgroundColor: Color = .gray,
            cornerKind: PanelCornerKind = .convex(16),
+           outerCornerKind: PanelCornerKind? = nil,
+           innerCornerKind: PanelCornerKind? = nil,
            @ViewBuilder content: @escaping () -> Content
        ) {
            self.init(
@@ -243,29 +252,35 @@ public struct MBGPanel<Content: View>: View {
                size: size,
                backgroundColor: .constant(backgroundColor),
                cornerKind: cornerKind,
+               outerCornerKind: outerCornerKind,
+               innerCornerKind: innerCornerKind,
                content: content
            )
        }
 
        public var body: some View {
            // ここがポイント：cornerKind を PanelBaseShape に渡す
-           let baseShape = PanelBaseShape(
-               cornerKind: cornerKind,
-               cornerRadius: cornerKind.radius
+           let outerShape = PanelBaseShape(
+               cornerKind: outerCornerKind,
+               cornerRadius: outerCornerKind.radius
+           )
+           let innerShape = PanelBaseShape(
+               cornerKind: (innerCornerKind ?? outerCornerKind),
+               cornerRadius: (innerCornerKind ?? outerCornerKind).radius
            )
 
            // ベースの塗り + 枠線（title 有無で上辺だけ処理を変える）
            let panelBackground: some View = Group {
                switch title {
                case .none:
-                   baseShape
+                   outerShape
                        .fill(backgroundColor)
-                       .overlay(borderOverlay(for: baseShape, gapWidth: nil))
+                       .overlay(borderOverlay(outerShape: outerShape, innerShape: innerShape, gapWidth: nil))
 
                case .text(_, let gapWidth):
-                   baseShape
+                   outerShape
                        .fill(backgroundColor)
-                       .overlay(borderOverlay(for: baseShape, gapWidth: gapWidth))
+                       .overlay(borderOverlay(outerShape: outerShape, innerShape: innerShape, gapWidth: gapWidth))
                }
            }
 
@@ -311,53 +326,152 @@ public struct MBGPanel<Content: View>: View {
 
        // 単線/二重線の描画ロジック
        private func borderOverlay(
-           for baseShape: PanelBaseShape,
+           outerShape: PanelBaseShape,
+           innerShape: PanelBaseShape,
            gapWidth: CGFloat?
        ) -> some View {
            Group {
                switch (borderStyle.kind, gapWidth) {
-
                case (.single, nil):
-                   // タイトルなし・単線
-                   baseShape
+                   outerShape
                        .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
                        .padding(-borderStyle.outerWidth / 2)
-
                case (.double(let gap), nil):
-                   // タイトルなし・二重線
-                   baseShape
+                   outerShape
                        .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
                        .padding(-borderStyle.outerWidth / 2)
-                   baseShape
+                   innerShape
                        .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
                        .padding(gap + borderStyle.innerWidth / 2)
-
-               case (.single, let gapWidth?):
-                   // タイトルあり・単線（上辺にギャップ）
-                   TitleGapPanel(
-                       cornerRadius: cornerKind.radius,
-                       gapWidth: gapWidth
-                   )
-                   .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
-                   .padding(-borderStyle.outerWidth / 2)
-
-               case (.double(let gap), let gapWidth?):
-                   // タイトルあり・二重線
-                   TitleGapPanel(
-                       cornerRadius: cornerKind.radius,
-                       gapWidth: gapWidth
-                   )
-                   .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
-                   .padding(-borderStyle.outerWidth / 2)
-
-                   TitleGapPanel(
-                       cornerRadius: cornerKind.radius,
-                       gapWidth: gapWidth
-                   )
-                   .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
-                   .padding(gap + borderStyle.innerWidth / 2)
+               case (.single, let gw?):
+                   TitleGapPanelShape(cornerKind: outerCornerKind,
+                                      cornerRadius: outerCornerKind.radius,
+                                      gapWidth: gw)
+                       .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
+                       .padding(-borderStyle.outerWidth / 2)
+               case (.double(let gap), let gw?):
+                   TitleGapPanelShape(cornerKind: outerCornerKind,
+                                      cornerRadius: outerCornerKind.radius,
+                                      gapWidth: gw)
+                       .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
+                       .padding(-borderStyle.outerWidth / 2)
+                   TitleGapPanelShape(cornerKind: (innerCornerKind ?? outerCornerKind),
+                                      cornerRadius: (innerCornerKind ?? outerCornerKind).radius,
+                                      gapWidth: gw)
+                       .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
+                       .padding(gap + borderStyle.innerWidth / 2)
                }
            }
        }
    }
 
+private struct TitleGapPanelShape: InsettableShape {
+    var cornerKind: PanelCornerKind
+    var cornerRadius: CGFloat
+    var gapWidth: CGFloat
+    var insetAmount: CGFloat = 0
+
+    func inset(by amount: CGFloat) -> some InsettableShape {
+        var c = self
+        c.insetAmount += amount
+        return c
+    }
+
+    func path(in rect: CGRect) -> Path {
+        let rect = rect.insetBy(dx: insetAmount, dy: insetAmount)
+        var p = Path()
+        guard rect.width > 0, rect.height > 0 else { return p }
+
+        let w = rect.width
+        let h = rect.height
+        let maxR = min(w, h) / 2
+        let r = min(cornerRadius, maxR)
+
+        // Gap on the top edge centered
+        let gap = min(gapWidth, max(0, w - 2*r))
+        let midX = rect.midX
+        let gapLeft = midX - gap/2
+        let gapRight = midX + gap/2
+
+        switch cornerKind {
+        case .convex:
+            // Same as rounded rect but with a gap on top edge
+            // Left arc start
+            p.move(to: CGPoint(x: rect.minX + r, y: rect.minY))
+            // Top-left arc to top-left corner
+            p.addArc(center: CGPoint(x: rect.minX + r, y: rect.minY + r),
+                     radius: r,
+                     startAngle: .degrees(270), endAngle: .degrees(180), clockwise: true)
+            // Left edge down
+            p.addLine(to: CGPoint(x: rect.minX, y: rect.maxY - r))
+            // Bottom-left arc
+            p.addArc(center: CGPoint(x: rect.minX + r, y: rect.maxY - r),
+                     radius: r,
+                     startAngle: .degrees(180), endAngle: .degrees(90), clockwise: true)
+            // Bottom edge
+            p.addLine(to: CGPoint(x: rect.maxX - r, y: rect.maxY))
+            // Bottom-right arc
+            p.addArc(center: CGPoint(x: rect.maxX - r, y: rect.maxY - r),
+                     radius: r,
+                     startAngle: .degrees(90), endAngle: .degrees(0), clockwise: true)
+            // Right edge up
+            p.addLine(to: CGPoint(x: rect.maxX, y: rect.minY + r))
+            // Top-right arc
+            p.addArc(center: CGPoint(x: rect.maxX - r, y: rect.minY + r),
+                     radius: r,
+                     startAngle: .degrees(0), endAngle: .degrees(315), clockwise: true)
+            // Top edge to gap right
+            p.addLine(to: CGPoint(x: gapRight, y: rect.minY))
+            // Move to gap left and continue to top-left start
+            p.move(to: CGPoint(x: gapLeft, y: rect.minY))
+            p.addLine(to: CGPoint(x: rect.minX + r, y: rect.minY))
+            p.closeSubpath()
+            return p
+
+        case .concave:
+            // Concave corners with a gap on top edge
+            let minX = rect.minX
+            let maxX = rect.maxX
+            let minY = rect.minY
+            let maxY = rect.maxY
+
+            let leftX   = minX + r
+            let rightX  = maxX - r
+            let topY    = minY + r
+            let bottomY = maxY - r
+
+            // Start at left of gap on the top edge
+            p.move(to: CGPoint(x: leftX, y: minY))
+            // Top edge to gap left
+            p.addLine(to: CGPoint(x: gapLeft, y: minY))
+            // Move to gap right and continue to rightX
+            p.move(to: CGPoint(x: gapRight, y: minY))
+            p.addLine(to: CGPoint(x: rightX, y: minY))
+
+            // Top-right concave arc
+            p.addArc(center: CGPoint(x: maxX - r, y: minY + r),
+                     radius: r,
+                     startAngle: .degrees(270), endAngle: .degrees(0), clockwise: true)
+            // Right edge
+            p.addLine(to: CGPoint(x: maxX, y: bottomY))
+            // Bottom-right concave arc
+            p.addArc(center: CGPoint(x: maxX - r, y: maxY - r),
+                     radius: r,
+                     startAngle: .degrees(0), endAngle: .degrees(90), clockwise: true)
+            // Bottom edge
+            p.addLine(to: CGPoint(x: leftX, y: maxY))
+            // Bottom-left concave arc
+            p.addArc(center: CGPoint(x: minX + r, y: maxY - r),
+                     radius: r,
+                     startAngle: .degrees(90), endAngle: .degrees(180), clockwise: true)
+            // Left edge
+            p.addLine(to: CGPoint(x: minX, y: topY))
+            // Top-left concave arc
+            p.addArc(center: CGPoint(x: minX + r, y: minY + r),
+                     radius: r,
+                     startAngle: .degrees(180), endAngle: .degrees(270), clockwise: true)
+            p.closeSubpath()
+            return p
+        }
+    }
+}
