@@ -119,7 +119,8 @@ struct PanelBaseShape: InsettableShape {
             return path
 
         case .concave:
-            // 四隅に「内向き1/4円のくぼみ」を持つ最小実装
+            // 四隅を内側に抉った矩形。各辺の中央を通る直線を基準に、
+            // 角で内向き1/4円弧を描いて戻ってくる。
             let r = baseR
 
             let minX = rect.minX
@@ -127,30 +128,29 @@ struct PanelBaseShape: InsettableShape {
             let minY = rect.minY
             let maxY = rect.maxY
 
-            let leftX  = minX + r
-            let rightX = maxX - r
-            let topY   = minY
-            let bottomY = maxY
+            // エッジの基準線（角のr分だけ内側に寄せた位置）
+            let leftX   = minX + r
+            let rightX  = maxX - r
+            let topY    = minY + r
+            let bottomY = maxY - r
 
-            // 上辺中央付近から時計回りに一周
-            path.move(to: CGPoint(x: leftX, y: topY))
+            // 上辺中央から時計回りに一周
+            path.move(to: CGPoint(x: leftX, y: minY))
+            path.addLine(to: CGPoint(x: rightX, y: minY))
 
-            // 上辺 → 右上くぼみ手前
-            path.addLine(to: CGPoint(x: rightX, y: topY))
-
-            // 右上：内向き1/4円
+            // 右上 内向き1/4円
             path.addArc(
                 center: CGPoint(x: maxX - r, y: minY + r),
                 radius: r,
                 startAngle: .degrees(270),
-                endAngle: .degrees(360),
+                endAngle: .degrees(0),
                 clockwise: true
             )
 
-            // 右辺
-            path.addLine(to: CGPoint(x: maxX, y: bottomY - r))
+            // 右辺中央へ
+            path.addLine(to: CGPoint(x: maxX, y: bottomY))
 
-            // 右下：内向き1/4円
+            // 右下 内向き1/4円
             path.addArc(
                 center: CGPoint(x: maxX - r, y: maxY - r),
                 radius: r,
@@ -159,10 +159,10 @@ struct PanelBaseShape: InsettableShape {
                 clockwise: true
             )
 
-            // 下辺
-            path.addLine(to: CGPoint(x: leftX, y: bottomY))
+            // 下辺中央へ
+            path.addLine(to: CGPoint(x: leftX, y: maxY))
 
-            // 左下：内向き1/4円
+            // 左下 内向き1/4円
             path.addArc(
                 center: CGPoint(x: minX + r, y: maxY - r),
                 radius: r,
@@ -171,10 +171,10 @@ struct PanelBaseShape: InsettableShape {
                 clockwise: true
             )
 
-            // 左辺
-            path.addLine(to: CGPoint(x: minX, y: topY + r))
+            // 左辺中央へ
+            path.addLine(to: CGPoint(x: minX, y: topY))
 
-            // 左上：内向き1/4円
+            // 左上 内向き1/4円
             path.addArc(
                 center: CGPoint(x: minX + r, y: minY + r),
                 radius: r,
@@ -360,5 +360,4 @@ public struct MBGPanel<Content: View>: View {
            }
        }
    }
-
 
