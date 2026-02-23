@@ -4,11 +4,16 @@
 //
 //  Created by SNI on 2026/02/09.
 //
+//  ChangeLog:
+//  2026-02-23: Added TitleBackground API (color/material), fixed access for platformBackground, and corrected title background application to avoid ShapeStyle errors.
+//  2026-02-23: Fix: Made Color.platformBackground accessible for default arguments; refactored title background application to avoid generic inference errors.
+//  2026-02-23: Change: Apply option C - use .color(.clear) as default for titleBackground and replace with platformBackground inside init; moved helper into body.
+//
 
 import SwiftUI
 
 // Cross-platform background color used for labels sitting on top of panels
-private extension Color {
+extension Color {
     static var platformBackground: Color {
         #if os(iOS) || os(tvOS) || os(visionOS)
         if #available(iOS 15.0, tvOS 15.0, visionOS 1.0, *) {
@@ -202,6 +207,12 @@ public struct MBGPanel<Content: View>: View {
         case auto                  // コンテンツに合わせる
         case fixed(CGSize)         // 明示的に幅・高さを指定
     }
+    
+    /// タイトル背景の指定（色 or マテリアル）
+    public enum TitleBackground {
+        case color(Color)
+        case material(Material)
+    }
 
     let title: Title
     let borderStyle: PanelBorderStyle
@@ -211,6 +222,7 @@ public struct MBGPanel<Content: View>: View {
 
     let outerCornerKind: PanelCornerKind
     let innerCornerKind: PanelCornerKind?
+    let titleBackground: TitleBackground
 
     @Binding var backgroundColor: Color
 
@@ -220,6 +232,7 @@ public struct MBGPanel<Content: View>: View {
            borderStyle: PanelBorderStyle,
            size: Size = .auto,
            backgroundColor: Binding<Color>,
+           titleBackground: TitleBackground = .color(.clear),
            cornerKind: PanelCornerKind = .convex(16),
            outerCornerKind: PanelCornerKind? = nil,
            innerCornerKind: PanelCornerKind? = nil,
@@ -229,6 +242,12 @@ public struct MBGPanel<Content: View>: View {
            self.borderStyle = borderStyle
            self.size = size
            self._backgroundColor = backgroundColor
+           switch titleBackground {
+           case .color(let c) where c == .clear:
+               self.titleBackground = .color(Color.platformBackground)
+           default:
+               self.titleBackground = titleBackground
+           }
            self.cornerKind = cornerKind
            self.outerCornerKind = outerCornerKind ?? cornerKind
            self.innerCornerKind = innerCornerKind
@@ -241,6 +260,7 @@ public struct MBGPanel<Content: View>: View {
            borderStyle: PanelBorderStyle,
            size: Size = .auto,
            backgroundColor: Color = .gray,
+           titleBackground: TitleBackground = .color(.clear),
            cornerKind: PanelCornerKind = .convex(16),
            outerCornerKind: PanelCornerKind? = nil,
            innerCornerKind: PanelCornerKind? = nil,
@@ -251,6 +271,7 @@ public struct MBGPanel<Content: View>: View {
                borderStyle: borderStyle,
                size: size,
                backgroundColor: .constant(backgroundColor),
+               titleBackground: titleBackground,
                cornerKind: cornerKind,
                outerCornerKind: outerCornerKind,
                innerCornerKind: innerCornerKind,
@@ -259,6 +280,14 @@ public struct MBGPanel<Content: View>: View {
        }
 
        public var body: some View {
+           // Helper to provide a ShapeStyle for title background
+           let titleBackgroundBackgroundStyle: any ShapeStyle = {
+               switch titleBackground {
+               case .color(let c): return c
+               case .material(let m): return m
+               }
+           }()
+
            // ここがポイント：cornerKind を PanelBaseShape に渡す
            let outerShape = PanelBaseShape(
                cornerKind: outerCornerKind,
@@ -291,7 +320,7 @@ public struct MBGPanel<Content: View>: View {
                        .font(.system(size: 14, weight: .semibold))
                        .padding(.horizontal, 12)
                        .padding(.vertical, 4)
-                       .background(Color.platformBackground)
+                       .background( AnyShapeStyle(titleBackgroundBackgroundStyle) )
                        .offset(y: -10)
                }
            }
@@ -475,3 +504,4 @@ private struct TitleGapPanelShape: InsettableShape {
         }
     }
 }
+
