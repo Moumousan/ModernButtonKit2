@@ -61,41 +61,62 @@ public struct SuperellipseCornerAlgorithm: PanelCornerAlgorithm {
 
         switch cornerKind {
         case .convex:
-            // Start at top edge, left of gap or near top-left arc start
-            let startX = minX + r
-            p.move(to: CGPoint(x: startX, y: minY))
-            if let g = gap {
-                // top edge to gap left
-                let gapLeft = rect.midX - g/2
-                let gapRight = rect.midX + g/2
-                p.addLine(to: CGPoint(x: gapLeft, y: minY))
-                // move to gap right
-                p.move(to: CGPoint(x: gapRight, y: minY))
-                // continue to top-right arc start
-                p.addLine(to: CGPoint(x: maxX - r, y: minY))
-            } else {
-                // straight to top-right arc start
-                p.addLine(to: CGPoint(x: maxX - r, y: minY))
+            // Bezier approximation per quarter for smoother superellipse corners
+            let kCircle: CGFloat = 0.5522847498307936
+            // Tune k based on n (n in [>2, ~8]) so that larger n (sharper) pulls control points slightly inward
+            let t = max(0, min((n - 2.0) / 4.0, 1.0)) // map n∈[2..6] -> t∈[0..1]
+            let k = kCircle * (1.0 - 0.18 * t)
+
+            // Radii
+            let rx = r
+            let ry = r
+
+            // Gap handling on top edge
+            let gapLeft: CGFloat? = gap.map { rect.midX - $0/2 }
+            let gapRight: CGFloat? = gap.map { rect.midX + $0/2 }
+
+            // Start at top-left horizontal start point
+            p.move(to: CGPoint(x: minX + rx, y: minY))
+
+            // Top edge to gap or to top-right start
+            if let gl = gapLeft, let gr = gapRight {
+                p.addLine(to: CGPoint(x: gl, y: minY))
+                // skip gap
+                p.move(to: CGPoint(x: gr, y: minY))
             }
-            // top-right quarter
-            let tr = quarterPoints(rx: r, ry: r, start: CGPoint(x: maxX - r, y: minY), to: CGPoint(x: maxX, y: minY + r), orientation: "topRight")
-            tr.forEach { p.addLine(to: $0) }
-            // right edge to bottom-right start
-            p.addLine(to: CGPoint(x: maxX, y: maxY - r))
-            // bottom-right quarter
-            let br = quarterPoints(rx: r, ry: r, start: CGPoint(x: maxX, y: maxY - r), to: CGPoint(x: maxX - r, y: maxY), orientation: "bottomRight")
-            br.forEach { p.addLine(to: $0) }
-            // bottom edge to bottom-left start
-            p.addLine(to: CGPoint(x: minX + r, y: maxY))
-            // bottom-left quarter
-            let bl = quarterPoints(rx: r, ry: r, start: CGPoint(x: minX + r, y: maxY), to: CGPoint(x: minX, y: maxY - r), orientation: "bottomLeft")
-            bl.forEach { p.addLine(to: $0) }
-            // left edge to top-left start
-            p.addLine(to: CGPoint(x: minX, y: minY + r))
-            // top-left quarter
-            let tl = quarterPoints(rx: r, ry: r, start: CGPoint(x: minX, y: minY + r), to: CGPoint(x: minX + r, y: minY), orientation: "topLeft")
-            tl.forEach { p.addLine(to: $0) }
+            p.addLine(to: CGPoint(x: maxX - rx, y: minY))
+
+            // Top-right quarter (to right edge)
+            p.addCurve(to: CGPoint(x: maxX, y: minY + ry),
+                       control1: CGPoint(x: maxX - rx + k*rx, y: minY),
+                       control2: CGPoint(x: maxX, y: minY + ry - k*ry))
+
+            // Right edge
+            p.addLine(to: CGPoint(x: maxX, y: maxY - ry))
+
+            // Bottom-right quarter (to bottom edge)
+            p.addCurve(to: CGPoint(x: maxX - rx, y: maxY),
+                       control1: CGPoint(x: maxX, y: maxY - ry + k*ry),
+                       control2: CGPoint(x: maxX - rx + k*rx, y: maxY))
+
+            // Bottom edge
+            p.addLine(to: CGPoint(x: minX + rx, y: maxY))
+
+            // Bottom-left quarter (to left edge)
+            p.addCurve(to: CGPoint(x: minX, y: maxY - ry),
+                       control1: CGPoint(x: minX + rx - k*rx, y: maxY),
+                       control2: CGPoint(x: minX, y: maxY - ry + k*ry))
+
+            // Left edge
+            p.addLine(to: CGPoint(x: minX, y: minY + ry))
+
+            // Top-left quarter (to top edge)
+            p.addCurve(to: CGPoint(x: minX + rx, y: minY),
+                       control1: CGPoint(x: minX, y: minY + ry - k*ry),
+                       control2: CGPoint(x: minX + rx - k*rx, y: minY))
+
             p.closeSubpath()
+
         case .concave:
             // For simplicity, reuse existing concave implementation for now
             return PanelBaseShape(cornerKind: cornerKind, cornerRadius: cornerRadius).path(in: rect)
@@ -103,4 +124,3 @@ public struct SuperellipseCornerAlgorithm: PanelCornerAlgorithm {
         return p
     }
 }
-
