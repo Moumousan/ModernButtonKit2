@@ -1,3 +1,10 @@
+//
+//  ContinuousCornerAlgorithm.swift
+//  ModernButtonKit2
+//
+//  Created by SNI on 2026/02/23.
+//
+
 import SwiftUI
 
 public struct ContinuousCornerAlgorithm: PanelCornerAlgorithm {

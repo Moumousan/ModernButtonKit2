@@ -19,7 +19,7 @@ private struct PanelCornerAlgorithmKey: EnvironmentKey {
     static let defaultValue: any PanelCornerAlgorithm = CircularCornerAlgorithm()
 }
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
     /// The panel corner algorithm used to draw panel corners.
     public var panelCornerAlgorithm: any PanelCornerAlgorithm {
         get { self[PanelCornerAlgorithmKey.self] }
