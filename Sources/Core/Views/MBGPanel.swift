@@ -574,7 +574,7 @@ private struct TitleGapPanelShape: InsettableShape {
             // Top-right arc
             p.addArc(center: CGPoint(x: rect.maxX - r, y: rect.minY + r),
                      radius: r,
-                     startAngle: .degrees(0), endAngle: .degrees(315), clockwise: true)
+                     startAngle: .degrees(0), endAngle: .degrees(270), clockwise: true) // Fix: endAngle 315° -> 270° to reach the top edge
             // Top edge to gap right
             p.addLine(to: CGPoint(x: gapRight, y: rect.minY))
             // Move to gap left and continue to top-left start
