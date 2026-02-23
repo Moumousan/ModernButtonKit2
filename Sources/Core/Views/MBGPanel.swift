@@ -275,6 +275,7 @@ public struct MBGPanel<PanelContent: View>: View {
     let titleDecoration: TitleDecoration?
 
     @Binding var backgroundColor: Color
+    @Environment(\.panelCornerAlgorithm) private var cornerAlg
 
        // Binding 版
        public init(
@@ -415,11 +416,13 @@ public struct MBGPanel<PanelContent: View>: View {
            }()
 
            // ここがポイント：cornerKind を PanelBaseShape に渡す
-           let outerShape = PanelBaseShape(
+           let outerShape = AlgorithmPanelShape(
+               algorithm: cornerAlg,
                cornerKind: outerCornerKind,
                cornerRadius: outerCornerKind.radius
            )
-           let innerShape = PanelBaseShape(
+           let innerShape = AlgorithmPanelShape(
+               algorithm: cornerAlg,
                cornerKind: (innerCornerKind ?? outerCornerKind),
                cornerRadius: (innerCornerKind ?? outerCornerKind).radius
            )
@@ -481,8 +484,8 @@ public struct MBGPanel<PanelContent: View>: View {
 
        // 単線/二重線の描画ロジック
        private func borderOverlay(
-           outerShape: PanelBaseShape,
-           innerShape: PanelBaseShape,
+           outerShape: AlgorithmPanelShape,
+           innerShape: AlgorithmPanelShape,
            gapWidth: CGFloat?
        ) -> some View {
            Group {
@@ -499,20 +502,23 @@ public struct MBGPanel<PanelContent: View>: View {
                        .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
                        .padding(gap + borderStyle.innerWidth / 2)
                case (.single, let gw?):
-                   TitleGapPanelShape(cornerKind: outerCornerKind,
-                                      cornerRadius: outerCornerKind.radius,
-                                      gapWidth: gw)
+                   AlgorithmGapPanelShape(algorithm: cornerAlg,
+                                          cornerKind: outerCornerKind,
+                                          cornerRadius: outerCornerKind.radius,
+                                          gapWidth: gw)
                        .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
                        .padding(-borderStyle.outerWidth / 2)
                case (.double(let gap), let gw?):
-                   TitleGapPanelShape(cornerKind: outerCornerKind,
-                                      cornerRadius: outerCornerKind.radius,
-                                      gapWidth: gw)
+                   AlgorithmGapPanelShape(algorithm: cornerAlg,
+                                          cornerKind: outerCornerKind,
+                                          cornerRadius: outerCornerKind.radius,
+                                          gapWidth: gw)
                        .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
                        .padding(-borderStyle.outerWidth / 2)
-                   TitleGapPanelShape(cornerKind: (innerCornerKind ?? outerCornerKind),
-                                      cornerRadius: (innerCornerKind ?? outerCornerKind).radius,
-                                      gapWidth: gw)
+                   AlgorithmGapPanelShape(algorithm: cornerAlg,
+                                          cornerKind: (innerCornerKind ?? outerCornerKind),
+                                          cornerRadius: (innerCornerKind ?? outerCornerKind).radius,
+                                          gapWidth: gw)
                        .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
                        .padding(gap + borderStyle.innerWidth / 2)
                }
@@ -520,7 +526,7 @@ public struct MBGPanel<PanelContent: View>: View {
        }
    }
 
-private struct TitleGapPanelShape: InsettableShape {
+struct TitleGapPanelShape: InsettableShape {
     var cornerKind: PanelCornerKind
     var cornerRadius: CGFloat
     var gapWidth: CGFloat

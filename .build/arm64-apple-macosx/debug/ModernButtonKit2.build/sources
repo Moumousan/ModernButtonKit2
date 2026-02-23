@@ -13,10 +13,16 @@
 /Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggleGroup.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Core/ModeButtonGroup.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Core/Views/MBGPanel.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Extension/AlgorithmPanelShape.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Extension/CircularCornerAlgorithm.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Extension/ContinuousCornerAlgorithm.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Extension/EllipticalCornerAlgorithm.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Extension/FOnChangeCompat.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGHybridToolbar.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Extension/PanelCornerAlgorithm.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Extension/SuperellipseCornerAlgorithm.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/MBGNamespace.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/MBGProtocols.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift

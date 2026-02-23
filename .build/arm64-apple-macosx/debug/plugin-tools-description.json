@@ -84,6 +84,22 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/AlgorithmPanelShape.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/CircularCornerAlgorithm.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/ContinuousCornerAlgorithm.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/EllipticalCornerAlgorithm.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/FOnChangeCompat.swift"
         },
         {
@@ -97,6 +113,14 @@
         {
           "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/PanelCornerAlgorithm.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/SuperellipseCornerAlgorithm.swift"
         },
         {
           "kind" : "file",
@@ -170,10 +194,16 @@
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToggleGroup.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModeButtonGroup.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGPanel.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/AlgorithmPanelShape.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/CircularCornerAlgorithm.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ContinuousCornerAlgorithm.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/EllipticalCornerAlgorithm.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/FOnChangeCompat.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGHybridToolbar.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGRadioGroup.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToolbarStyle.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelCornerAlgorithm.swift.o",
+        "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/SuperellipseCornerAlgorithm.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGNamespace.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGProtocols.swift.o",
         "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ModernButtonKit2.swift.o",
@@ -312,6 +342,22 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/AlgorithmPanelShape.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/CircularCornerAlgorithm.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ContinuousCornerAlgorithm.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/EllipticalCornerAlgorithm.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/FOnChangeCompat.swift.o"
         },
         {
@@ -325,6 +371,14 @@
         {
           "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGToolbarStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelCornerAlgorithm.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/SuperellipseCornerAlgorithm.swift.o"
         },
         {
           "kind" : "file",
@@ -392,10 +446,16 @@
         "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggleGroup.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Core/ModeButtonGroup.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Core/Views/MBGPanel.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/AlgorithmPanelShape.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/CircularCornerAlgorithm.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/ContinuousCornerAlgorithm.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/EllipticalCornerAlgorithm.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/FOnChangeCompat.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGHybridToolbar.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/PanelCornerAlgorithm.swift",
+        "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/SuperellipseCornerAlgorithm.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/MBGNamespace.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/MBGProtocols.swift",
         "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift",
@@ -438,10 +498,16 @@
       "/Users/sni/Packages/ModernButtonKit2/Sources/Core/MBGToggleGroup.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Core/ModeButtonGroup.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Core/Views/MBGPanel.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/AlgorithmPanelShape.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/CircularCornerAlgorithm.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/ContinuousCornerAlgorithm.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/EllipticalCornerAlgorithm.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/FOnChangeCompat.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGHybridToolbar.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGRadioGroup.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/PanelCornerAlgorithm.swift",
+      "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/SuperellipseCornerAlgorithm.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/MBGNamespace.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/MBGProtocols.swift",
       "/Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift",
@@ -605,6 +671,22 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/AlgorithmPanelShape.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/CircularCornerAlgorithm.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/ContinuousCornerAlgorithm.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/EllipticalCornerAlgorithm.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/FOnChangeCompat.swift"
         },
         {
@@ -618,6 +700,14 @@
         {
           "kind" : "file",
           "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/MBGToolbarStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/PanelCornerAlgorithm.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/sni/Packages/ModernButtonKit2/Sources/Extension/SuperellipseCornerAlgorithm.swift"
         },
         {
           "kind" : "file",
