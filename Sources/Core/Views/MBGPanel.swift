@@ -8,7 +8,14 @@
 //  2026-02-23: Added TitleBackground API (color/material), fixed access for platformBackground, and corrected title background application to avoid ShapeStyle errors.
 //  2026-02-23: Fix: Made Color.platformBackground accessible for default arguments; refactored title background application to avoid generic inference errors.
 //  2026-02-23: Change: Apply option C - use .color(.clear) as default for titleBackground and replace with platformBackground inside init; moved helper into body.
-//
+//  2026-02-23: Feature: Added titleOffset (CGSize) to control title X/Y offset from callers.
+//  2026-02-23: Feature: Introduced TitleDecoration to configure title background, corner radius, shadow, font, padding, stroke, and offset.
+//  2026-02-23: Fix: Stabilized title view building to avoid generic inference errors across platforms by using a single builder chain and conditional modifiers.
+//  2026-02-23: Fix: Resolved ViewBuilder return issues by avoiding local @ViewBuilder functions and using conditional modifiers inline.
+//  2026-02-23: Fix: Split title label building into a dedicated subview to ease type-checking across platforms by using a single builder chain and conditional modifiers.
+//  2026-02-23: Fix: Rewrote TitleLabelView to avoid reassigning view variables; now returns a composed view with conditional modifiers via helper extensions.
+//  2026-02-23: Fix: Simplified title rendering by prebuilding Text and applying minimal stepwise modifiers to reduce type-checking complexity.
+//  2026-02-23: Fix: Avoided reassigning views by composing title label in nested container (AnyView chain) to satisfy type system.
 
 import SwiftUI
 
@@ -57,6 +64,17 @@ private struct ConditionalFixedSize: ViewModifier {
             content.fixedSize(horizontal: false, vertical: false)
         } else {
             content
+        }
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func ifLet<T, Content: View>(_ value: T?, condition: ((T) -> Bool)? = nil, transform: (Self, T) -> Content) -> some View {
+        if let v = value, condition?(v) ?? true {
+            transform(self, v)
+        } else {
+            self
         }
     }
 }
@@ -194,7 +212,7 @@ struct PanelBaseShape: InsettableShape {
     }
 }
 
-public struct MBGPanel<Content: View>: View {
+public struct MBGPanel<PanelContent: View>: View {
 
     /// タイトルの有無と切り欠き幅
     public enum Title {
@@ -214,15 +232,47 @@ public struct MBGPanel<Content: View>: View {
         case material(Material)
     }
 
+    /// タイトルの装飾一式
+    public struct TitleDecoration {
+        public var background: TitleBackground
+        public var cornerRadius: CGFloat
+        public var shadow: (color: Color, radius: CGFloat, x: CGFloat, y: CGFloat)?
+        public var font: Font
+        public var fontWeight: Font.Weight?
+        public var padding: EdgeInsets
+        public var stroke: (color: Color, lineWidth: CGFloat)?
+        public var offset: CGSize
+
+        public init(background: TitleBackground,
+                    cornerRadius: CGFloat = 0,
+                    shadow: (color: Color, radius: CGFloat, x: CGFloat, y: CGFloat)? = nil,
+                    font: Font = .system(size: 14, weight: .semibold),
+                    fontWeight: Font.Weight? = nil,
+                    padding: EdgeInsets = EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12),
+                    stroke: (color: Color, lineWidth: CGFloat)? = nil,
+                    offset: CGSize = .zero) {
+            self.background = background
+            self.cornerRadius = cornerRadius
+            self.shadow = shadow
+            self.font = font
+            self.fontWeight = fontWeight
+            self.padding = padding
+            self.stroke = stroke
+            self.offset = offset
+        }
+    }
+
     let title: Title
     let borderStyle: PanelBorderStyle
     let size: Size
     let cornerKind: PanelCornerKind
-    let content: () -> Content
+    let content: () -> PanelContent
 
     let outerCornerKind: PanelCornerKind
     let innerCornerKind: PanelCornerKind?
     let titleBackground: TitleBackground
+    let titleOffset: CGSize
+    let titleDecoration: TitleDecoration?
 
     @Binding var backgroundColor: Color
 
@@ -233,10 +283,12 @@ public struct MBGPanel<Content: View>: View {
            size: Size = .auto,
            backgroundColor: Binding<Color>,
            titleBackground: TitleBackground = .color(.clear),
+           titleOffset: CGSize = .zero,
+           titleDecoration: TitleDecoration? = nil,
            cornerKind: PanelCornerKind = .convex(16),
            outerCornerKind: PanelCornerKind? = nil,
            innerCornerKind: PanelCornerKind? = nil,
-           @ViewBuilder content: @escaping () -> Content
+           @ViewBuilder content: @escaping () -> PanelContent
        ) {
            self.title = title
            self.borderStyle = borderStyle
@@ -248,6 +300,8 @@ public struct MBGPanel<Content: View>: View {
            default:
                self.titleBackground = titleBackground
            }
+           self.titleOffset = titleOffset
+           self.titleDecoration = titleDecoration
            self.cornerKind = cornerKind
            self.outerCornerKind = outerCornerKind ?? cornerKind
            self.innerCornerKind = innerCornerKind
@@ -261,10 +315,12 @@ public struct MBGPanel<Content: View>: View {
            size: Size = .auto,
            backgroundColor: Color = .gray,
            titleBackground: TitleBackground = .color(.clear),
+           titleOffset: CGSize = .zero,
+           titleDecoration: TitleDecoration? = nil,
            cornerKind: PanelCornerKind = .convex(16),
            outerCornerKind: PanelCornerKind? = nil,
            innerCornerKind: PanelCornerKind? = nil,
-           @ViewBuilder content: @escaping () -> Content
+           @ViewBuilder content: @escaping () -> PanelContent
        ) {
            self.init(
                title: title,
@@ -272,12 +328,82 @@ public struct MBGPanel<Content: View>: View {
                size: size,
                backgroundColor: .constant(backgroundColor),
                titleBackground: titleBackground,
+               titleOffset: titleOffset,
+               titleDecoration: titleDecoration,
                cornerKind: cornerKind,
                outerCornerKind: outerCornerKind,
                innerCornerKind: innerCornerKind,
                content: content
            )
        }
+
+    // Dedicated subview to simplify type-checking for the title label
+    private struct TitleLabelView: View {
+        let label: String
+        let decoration: TitleDecoration?
+        let legacyBackground: AnyShapeStyle
+        let fallbackOffset: CGSize
+
+        var body: some View {
+            // Decide background style
+            let bgStyle: AnyShapeStyle = {
+                if let deco = decoration {
+                    switch deco.background {
+                    case .color(let c): return AnyShapeStyle(c)
+                    case .material(let m): return AnyShapeStyle(m)
+                    }
+                }
+                return legacyBackground
+            }()
+
+            // Prebuild base text
+            let baseText: Text = {
+                var t = Text(label)
+                // font
+                t = t.font(decoration?.font ?? .system(size: 14, weight: .semibold))
+                // weight (only if provided)
+                if let fw = decoration?.fontWeight {
+                    t = t.fontWeight(fw)
+                }
+                return t
+            }()
+
+            // Compose inside a container to avoid reassigning view values
+            return VStack(spacing: 0) {
+                baseText
+                    .padding(decoration?.padding ?? EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
+                    .background(bgStyle)
+                    .modifier(RoundedStrokeModifier(cornerRadius: decoration?.cornerRadius ?? 0, stroke: decoration?.stroke))
+                    .modifier(ShadowModifier(shadow: decoration?.shadow))
+            }
+            .offset(decoration?.offset ?? fallbackOffset)
+        }
+    }
+
+    private struct RoundedStrokeModifier: ViewModifier {
+        let cornerRadius: CGFloat
+        let stroke: (color: Color, lineWidth: CGFloat)?
+        func body(content: Content) -> some View {
+            var view = AnyView(content)
+            if cornerRadius > 0 {
+                view = AnyView(view.clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)))
+                if let s = stroke {
+                    view = AnyView(view.overlay(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous).stroke(s.color, lineWidth: s.lineWidth)))
+                }
+            } else if let s = stroke {
+                view = AnyView(view.overlay(RoundedRectangle(cornerRadius: 0, style: .continuous).stroke(s.color, lineWidth: s.lineWidth)))
+            }
+            return view
+        }
+    }
+
+    private struct ShadowModifier: ViewModifier {
+        let shadow: (color: Color, radius: CGFloat, x: CGFloat, y: CGFloat)?
+        func body(content: Content) -> some View {
+            guard let sh = shadow else { return AnyView(content) }
+            return AnyView(content.shadow(color: sh.color, radius: sh.radius, x: sh.x, y: sh.y))
+        }
+    }
 
        public var body: some View {
            // Helper to provide a ShapeStyle for title background
@@ -316,12 +442,12 @@ public struct MBGPanel<Content: View>: View {
            // タイトルラベル
            let titleView: some View = Group {
                if case let .text(label, _) = title {
-                   Text(label)
-                       .font(.system(size: 14, weight: .semibold))
-                       .padding(.horizontal, 12)
-                       .padding(.vertical, 4)
-                       .background( AnyShapeStyle(titleBackgroundBackgroundStyle) )
-                       .offset(y: -10)
+                   TitleLabelView(
+                       label: label,
+                       decoration: titleDecoration,
+                       legacyBackground: AnyShapeStyle(titleBackgroundBackgroundStyle),
+                       fallbackOffset: titleOffset
+                   )
                }
            }
 
