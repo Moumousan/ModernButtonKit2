@@ -28,3 +28,10 @@ The Shapes folder was cleaned up to streamline the codebase by removing deprecat
 For detailed migration assistance, consult the updated API documentation associated with MBGPanel.swift and AlgorithmShapes.
 
 ---
+## DSidePanel Move
+
+2026-02-24 — Move DSidePanel
+- Moved DSidePanel from ModernButtonKit2 (MBGShapePrimitives.swift) to MBGWorldStandardKit at Sources/MBGWorldStandardKit/Shapes/DSidePanel.swift.
+- Rationale: Keep ModernButtonKit2 focused on panel/border rendering; place layout-oriented shapes in MBGWorldStandardKit. Enables reuse from StandardA/StandardV.
+- Migration: Import MBGWorldStandardKit and use DSidePanel from there. No API changes expected besides module import.
+
