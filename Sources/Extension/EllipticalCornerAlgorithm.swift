@@ -31,7 +31,7 @@ public struct EllipticalCornerAlgorithm: PanelCornerAlgorithm {
     }
 
     public func gapPanelPath(rect: CGRect, cornerKind: PanelCornerKind, cornerRadius: CGFloat, gapWidth: CGFloat) -> Path {
-        let base = TitleGapPanelShape(cornerKind: cornerKind, cornerRadius: cornerRadius, gapWidth: gapWidth).path(in: rect)
+        let base = CircularCornerAlgorithm().gapPanelPath(rect: rect, cornerKind: cornerKind, cornerRadius: cornerRadius, gapWidth: gapWidth)
         var t = CGAffineTransform.identity
         t = t.translatedBy(x: rect.midX, y: rect.midY)
         t = t.scaledBy(x: 1.0, y: aspect)
@@ -39,3 +39,4 @@ public struct EllipticalCornerAlgorithm: PanelCornerAlgorithm {
         return base.applying(t)
     }
 }
+

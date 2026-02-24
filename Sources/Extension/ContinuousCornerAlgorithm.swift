@@ -24,7 +24,7 @@ public struct ContinuousCornerAlgorithm: PanelCornerAlgorithm {
     public func gapPanelPath(rect: CGRect, cornerKind: PanelCornerKind, cornerRadius: CGFloat, gapWidth: CGFloat) -> Path {
         switch cornerKind {
         case .concave:
-            return TitleGapPanelShape(cornerKind: cornerKind, cornerRadius: cornerRadius, gapWidth: gapWidth).path(in: rect)
+            return CircularCornerAlgorithm().gapPanelPath(rect: rect, cornerKind: cornerKind, cornerRadius: cornerRadius, gapWidth: gapWidth)
         case .convex:
             // Build path like continuous rect, but leave a gap on the top edge
             return continuousRoundedRect(rect: rect, radius: cornerRadius, gapWidth: gapWidth)
@@ -80,4 +80,3 @@ public struct ContinuousCornerAlgorithm: PanelCornerAlgorithm {
         return p
     }
 }
-
