@@ -205,35 +205,35 @@
     "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShadowBlockStyle.swiftdeps",
     "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShadowBlockStyle.dia"
   },
-  "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/ConcaveRectPanel.swift": {
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Shapes/ConcaveRectPanel.swift": {
     "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ConcaveRectPanel.d",
     "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ConcaveRectPanel.swift.o",
     "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ConcaveRectPanel~partial.swiftmodule",
     "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ConcaveRectPanel.swiftdeps",
     "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/ConcaveRectPanel.dia"
   },
-  "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/MBGShapePrimitives.swift": {
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Shapes/MBGShapePrimitives.swift": {
     "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.d",
     "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.swift.o",
     "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives~partial.swiftmodule",
     "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.swiftdeps",
     "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/MBGShapePrimitives.dia"
   },
-  "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/PanelBorderStyle.swift": {
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Shapes/PanelBorderStyle.swift": {
     "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelBorderStyle.d",
     "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelBorderStyle.swift.o",
     "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelBorderStyle~partial.swiftmodule",
     "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelBorderStyle.swiftdeps",
     "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/PanelBorderStyle.dia"
   },
-  "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/Shape+PanelBorder.swift": {
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Shapes/Shape+PanelBorder.swift": {
     "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/Shape+PanelBorder.d",
     "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/Shape+PanelBorder.swift.o",
     "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/Shape+PanelBorder~partial.swiftmodule",
     "swift-dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/Shape+PanelBorder.swiftdeps",
     "diagnostics": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/Shape+PanelBorder.dia"
   },
-  "/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/TitleGapPanel.swift": {
+  "/Users/sni/Packages/ModernButtonKit2/Sources/Shapes/TitleGapPanel.swift": {
     "dependencies": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/TitleGapPanel.d",
     "object": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/TitleGapPanel.swift.o",
     "swiftmodule": "/Users/sni/Packages/ModernButtonKit2/.build/arm64-apple-macosx/debug/ModernButtonKit2.build/TitleGapPanel~partial.swiftmodule",

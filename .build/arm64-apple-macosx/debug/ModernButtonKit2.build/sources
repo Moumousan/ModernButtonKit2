@@ -27,10 +27,10 @@
 /Users/sni/Packages/ModernButtonKit2/Sources/MBGProtocols.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/ModernButtonKit2.swift
 /Users/sni/Packages/ModernButtonKit2/Sources/Modifiers/MBGShadowBlockStyle.swift
-/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/ConcaveRectPanel.swift
-/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/MBGShapePrimitives.swift
-/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/PanelBorderStyle.swift
-/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/Shape+PanelBorder.swift
-/Users/sni/Packages/ModernButtonKit2/Sources/Sharpes/TitleGapPanel.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Shapes/ConcaveRectPanel.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Shapes/MBGShapePrimitives.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Shapes/PanelBorderStyle.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Shapes/Shape+PanelBorder.swift
+/Users/sni/Packages/ModernButtonKit2/Sources/Shapes/TitleGapPanel.swift
 '/Users/sni/Packages/ModernButtonKit2/Sources/protocols/MBGIconTextStyle + extension.swift'
 /Users/sni/Packages/ModernButtonKit2/Sources/protocols/SelectableModeProtocol.swift
