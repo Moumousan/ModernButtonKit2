@@ -262,6 +262,54 @@ public struct MBGPanel<PanelContent: View>: View {
             self.offset = offset
         }
     }
+    
+    // New enum for pseudo scrollbar position
+    public enum PseudoScrollBarPosition {
+        case trailing
+        case bottom
+    }
+
+    // Future-extensible scroll bar options (Title-like style)
+    public struct ScrollBarOptions {
+        public enum Position { case trailing, bottom }
+        public var position: Position
+        public var visible: Bool
+        public var contentGap: CGFloat?
+        public var thickness: CGFloat?
+        public var color: Color?
+        public init(position: Position = .trailing,
+                    visible: Bool = true,
+                    contentGap: CGFloat? = nil,
+                    thickness: CGFloat? = nil,
+                    color: Color? = nil) {
+            self.position = position
+            self.visible = visible
+            self.contentGap = contentGap
+            self.thickness = thickness
+            self.color = color
+        }
+        public static func position(_ p: Position) -> ScrollBarOptions { .init(position: p) }
+        public static func visible(_ v: Bool) -> ScrollBarOptions { .init(visible: v) }
+        public static func contentGap(_ g: CGFloat) -> ScrollBarOptions { .init(contentGap: g) }
+        public static func thickness(_ t: CGFloat) -> ScrollBarOptions { .init(thickness: t) }
+        public static func color(_ c: Color) -> ScrollBarOptions { .init(color: c) }
+        // Merge multiple option items into one
+        public func merging(_ other: ScrollBarOptions) -> ScrollBarOptions {
+            ScrollBarOptions(
+                position: other.position,
+                visible: other.visible,
+                contentGap: other.contentGap ?? self.contentGap,
+                thickness: other.thickness ?? self.thickness,
+                color: other.color ?? self.color
+            )
+        }
+    }
+    
+    // Internal helper to fold an array of option items
+    static func foldScrollBarOptions(_ items: [ScrollBarOptions]) -> ScrollBarOptions {
+        guard let first = items.first else { return ScrollBarOptions() }
+        return items.dropFirst().reduce(first) { $0.merging($1) }
+    }
 
     let title: Title
     let borderStyle: PanelBorderStyle
@@ -277,6 +325,17 @@ public struct MBGPanel<PanelContent: View>: View {
 
     @Binding var backgroundColor: Color
     @Environment(\.panelCornerAlgorithm) private var cornerAlg
+    
+    // New stored properties for pseudo scrollbar
+    let pseudoScrollBarEnabled: Bool
+    let pseudoScrollBarVisible: Bool
+    let pseudoScrollBarPosition: PseudoScrollBarPosition
+    let pseudoScrollBarThickness: CGFloat
+    let pseudoScrollBarInset: CGFloat
+    let pseudoScrollBarColor: Color
+    
+    // New consolidated scrollBarOptions property
+    let scrollBarOptions: ScrollBarOptions?
 
        // Binding 版
        public init(
@@ -290,6 +349,13 @@ public struct MBGPanel<PanelContent: View>: View {
            cornerKind: PanelCornerKind = .convex(16),
            outerCornerKind: PanelCornerKind? = nil,
            innerCornerKind: PanelCornerKind? = nil,
+           pseudoScrollBarEnabled: Bool = true,
+           pseudoScrollBarVisible: Bool = true,
+           pseudoScrollBarPosition: PseudoScrollBarPosition = .trailing,
+           pseudoScrollBarThickness: CGFloat = 3,
+           pseudoScrollBarInset: CGFloat = 2,
+           pseudoScrollBarColor: Color = .secondary.opacity(0.6),
+           scrollBarOptions: [ScrollBarOptions] = [],
            @ViewBuilder content: @escaping () -> PanelContent
        ) {
            self.title = title
@@ -307,6 +373,14 @@ public struct MBGPanel<PanelContent: View>: View {
            self.cornerKind = cornerKind
            self.outerCornerKind = outerCornerKind ?? cornerKind
            self.innerCornerKind = innerCornerKind
+           // Assign new props
+           self.pseudoScrollBarEnabled = pseudoScrollBarEnabled
+           self.pseudoScrollBarVisible = pseudoScrollBarVisible
+           self.pseudoScrollBarPosition = pseudoScrollBarPosition
+           self.pseudoScrollBarThickness = pseudoScrollBarThickness
+           self.pseudoScrollBarInset = pseudoScrollBarInset
+           self.pseudoScrollBarColor = pseudoScrollBarColor
+           self.scrollBarOptions = scrollBarOptions.isEmpty ? nil : MBGPanel.foldScrollBarOptions(scrollBarOptions)
            self.content = content
        }
 
@@ -322,6 +396,13 @@ public struct MBGPanel<PanelContent: View>: View {
            cornerKind: PanelCornerKind = .convex(16),
            outerCornerKind: PanelCornerKind? = nil,
            innerCornerKind: PanelCornerKind? = nil,
+           pseudoScrollBarEnabled: Bool = true,
+           pseudoScrollBarVisible: Bool = true,
+           pseudoScrollBarPosition: PseudoScrollBarPosition = .trailing,
+           pseudoScrollBarThickness: CGFloat = 3,
+           pseudoScrollBarInset: CGFloat = 2,
+           pseudoScrollBarColor: Color = .secondary.opacity(0.6),
+           scrollBarOptions: [ScrollBarOptions] = [],
            @ViewBuilder content: @escaping () -> PanelContent
        ) {
            self.init(
@@ -335,6 +416,13 @@ public struct MBGPanel<PanelContent: View>: View {
                cornerKind: cornerKind,
                outerCornerKind: outerCornerKind,
                innerCornerKind: innerCornerKind,
+               pseudoScrollBarEnabled: pseudoScrollBarEnabled,
+               pseudoScrollBarVisible: pseudoScrollBarVisible,
+               pseudoScrollBarPosition: pseudoScrollBarPosition,
+               pseudoScrollBarThickness: pseudoScrollBarThickness,
+               pseudoScrollBarInset: pseudoScrollBarInset,
+               pseudoScrollBarColor: pseudoScrollBarColor,
+               scrollBarOptions: scrollBarOptions,
                content: content
            )
        }
@@ -428,19 +516,36 @@ public struct MBGPanel<PanelContent: View>: View {
                cornerRadius: (innerCornerKind ?? outerCornerKind).radius
            )
 
-           // ベースの塗り + 枠線（title 有無で上辺だけ処理を変える）
+           // ベースの塗り（枠線は後で描画）
            let panelBackground: some View = Group {
-               switch title {
-               case .none:
-                   outerShape
-                       .fill(backgroundColor)
-                       .overlay(borderOverlay(outerShape: outerShape, innerShape: innerShape, gapWidth: nil))
+               outerShape
+                   .fill(backgroundColor)
+           }
+           
+           // Resolve effective scroll bar config
+           let sbVisible = scrollBarOptions?.visible ?? pseudoScrollBarVisible
+           let sbEnabled = scrollBarOptions != nil ? true : pseudoScrollBarEnabled
+           let sbPosition: PseudoScrollBarPosition = {
+               if let pos = scrollBarOptions?.position {
+                   return (pos == .trailing) ? .trailing : .bottom
+               } else { return pseudoScrollBarPosition }
+           }()
+           let sbThickness = scrollBarOptions?.thickness ?? pseudoScrollBarThickness
+           let sbColor = scrollBarOptions?.color ?? pseudoScrollBarColor
+           let contentGap = scrollBarOptions?.contentGap
 
-               case .text(_, let gapWidth):
-                   outerShape
-                       .fill(backgroundColor)
-                       .overlay(borderOverlay(outerShape: outerShape, innerShape: innerShape, gapWidth: gapWidth))
-               }
+           // Pseudo scrollbar padding calculations
+           let barPadTrailing = (sbEnabled && sbVisible && sbPosition == .trailing) ? ((contentGap ?? 0) + sbThickness) : 0
+           let barPadBottom = (sbEnabled && sbVisible && sbPosition == .bottom) ? ((contentGap ?? 0) + sbThickness) : 0
+
+           // コンテンツ本体
+           let contentView: some View = VStack {
+               Spacer(minLength: 16)
+               content()
+                   .padding(16)
+                   .padding(.trailing, barPadTrailing)
+                   .padding(.bottom, barPadBottom)
+               Spacer(minLength: 16)
            }
 
            // タイトルラベル
@@ -455,18 +560,44 @@ public struct MBGPanel<PanelContent: View>: View {
                }
            }
 
-           // コンテンツ本体
-           let contentView: some View = VStack {
-               Spacer(minLength: 16)
-               content()
-                   .padding(16)
-               Spacer(minLength: 16)
-           }
-
            let rawPanel = ZStack(alignment: .top) {
+               // 1) Background fill
                panelBackground
+               // 2) Content
                contentView
-               titleView
+               // 3) Pseudo scrollbar (before border)
+               Group {
+                   if sbEnabled && sbVisible {
+                       switch sbPosition {
+                       case .trailing:
+                           Color.clear.overlay(alignment: .trailing) {
+                               RoundedRectangle(cornerRadius: sbThickness / 2)
+                                   .fill(sbColor)
+                                   .frame(width: sbThickness)
+                                   .padding(.trailing, pseudoScrollBarInset)
+                                   .padding(.vertical, pseudoScrollBarInset)
+                           }
+                       case .bottom:
+                           Color.clear.overlay(alignment: .bottom) {
+                               RoundedRectangle(cornerRadius: sbThickness / 2)
+                                   .fill(sbColor)
+                                   .frame(height: sbThickness)
+                                   .padding(.bottom, pseudoScrollBarInset)
+                                   .padding(.horizontal, pseudoScrollBarInset)
+                           }
+                       }
+                   }
+               }
+               .allowsHitTesting(false)
+               // 4) Border (topmost)
+               Group {
+                   switch title {
+                   case .none:
+                       borderOverlay(outerShape: outerShape, innerShape: innerShape, gapWidth: nil)
+                   case .text(_, let gapWidth):
+                       borderOverlay(outerShape: outerShape, innerShape: innerShape, gapWidth: gapWidth)
+                   }
+               }
            }
 
            // サイズ指定
@@ -526,3 +657,4 @@ public struct MBGPanel<PanelContent: View>: View {
            }
        }
    }
+
