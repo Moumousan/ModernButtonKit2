@@ -5,11 +5,12 @@
 //
 //  Rereace.
 //  reNewal on 2025/08/16.
-//  Version 1.6 2025/11/06
+//  Version 1.6.1 2025/11/06
 //   - Segmentary: fit outer frame to content width/height
 //   - Add labelColors (selected/unselected) for text foreground color
 //   - Add chromeStyle enum (.none / .flat / .systemLike)
 //   - Add cornerStyle enum (.fixed / .capsule) to auto radius = height/2
+//   - Split: add vertical orientation (.split2)
 //
 
 import SwiftUI
@@ -62,7 +63,8 @@ public enum ModeButtonLayout {
         separatorColor: Color,
         glow: MBGSegmentGlow? = nil
     )
-    case split(splitGap: CGFloat)
+    case split(splitGap: CGFloat) // backward-compatible horizontal split
+    case split2(orientation: Axis, splitGap: CGFloat)
 }
 
 public enum SizeMode {
@@ -383,11 +385,22 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
             segmentaryLayout(separatorColor: separatorColor, glow: glow)
 
         case .split(let splitGap):
-            let count = modes.count
-            let splitIndex = max(0, min(count, count / 2))
+            // Backward-compatible: treat as horizontal split
+            splitLayout(orientation: .horizontal, splitGap: splitGap)
 
-            let gap = max(splitGap, 0)
+        case .split2(let orientation, let splitGap):
+            splitLayout(orientation: orientation, splitGap: splitGap)
+        }
+    }
 
+    @ViewBuilder
+    private func splitLayout(orientation: Axis, splitGap: CGFloat) -> some View {
+        let count = modes.count
+        let splitIndex = max(0, min(count, count / 2))
+        let gap = max(splitGap, 0)
+
+        switch orientation {
+        case .horizontal:
             HStack(spacing: 0) {
                 buttons(for: modes.prefix(splitIndex))
 
@@ -399,6 +412,26 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
                     Spacer().frame(width: gap)
                 }
 
+                buttons(for: modes.suffix(count - splitIndex))
+            }
+        case .vertical:
+            VStack(spacing: 0) {
+                buttons(for: modes.prefix(splitIndex))
+
+                if let middleContent {
+                    Spacer().frame(height: gap / 2)
+                    middleContent.fixedSize()
+                    Spacer().frame(height: gap / 2)
+                } else {
+                    Spacer().frame(height: gap)
+                }
+
+                buttons(for: modes.suffix(count - splitIndex))
+            }
+        @unknown default:
+            HStack(spacing: 0) {
+                buttons(for: modes.prefix(splitIndex))
+                Spacer().frame(width: gap)
                 buttons(for: modes.suffix(count - splitIndex))
             }
         }
@@ -855,5 +888,6 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
     }
 
 
-// End of ModeButtonGroup version 1.6
+// End of ModeButtonGroup version 1.6.1
+
 
