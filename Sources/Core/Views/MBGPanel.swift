@@ -565,13 +565,22 @@ public struct MBGPanel<PanelContent: View>: View {
                panelBackground
                // 2) Content
                contentView
-               // 3) Pseudo scrollbar (before border)
+               // 3) Border (topmost)
+               Group {
+                   switch title {
+                   case .none:
+                       borderOverlay(outerShape: outerShape, innerShape: innerShape, gapWidth: nil)
+                   case .text(_, let gapWidth):
+                       borderOverlay(outerShape: outerShape, innerShape: innerShape, gapWidth: gapWidth)
+                   }
+               }
+               // 4) Pseudo scrollbar (moved here, clipped to outerShape)
                Group {
                    if sbEnabled && sbVisible {
                        switch sbPosition {
                        case .trailing:
                            Color.clear.overlay(alignment: .trailing) {
-                               RoundedRectangle(cornerRadius: sbThickness / 2)
+                               RoundedRectangle(cornerRadius: max(sbThickness / 2 - 0.5, 0))
                                    .fill(sbColor)
                                    .frame(width: sbThickness)
                                    .padding(.trailing, pseudoScrollBarInset)
@@ -579,7 +588,7 @@ public struct MBGPanel<PanelContent: View>: View {
                            }
                        case .bottom:
                            Color.clear.overlay(alignment: .bottom) {
-                               RoundedRectangle(cornerRadius: sbThickness / 2)
+                               RoundedRectangle(cornerRadius: max(sbThickness / 2 - 0.5, 0))
                                    .fill(sbColor)
                                    .frame(height: sbThickness)
                                    .padding(.bottom, pseudoScrollBarInset)
@@ -589,15 +598,9 @@ public struct MBGPanel<PanelContent: View>: View {
                    }
                }
                .allowsHitTesting(false)
-               // 4) Border (topmost)
-               Group {
-                   switch title {
-                   case .none:
-                       borderOverlay(outerShape: outerShape, innerShape: innerShape, gapWidth: nil)
-                   case .text(_, let gapWidth):
-                       borderOverlay(outerShape: outerShape, innerShape: innerShape, gapWidth: gapWidth)
-                   }
-               }
+               .clipShape(outerShape)
+               // 5) Title view (topmost)
+               titleView
            }
 
            // サイズ指定
@@ -623,36 +626,59 @@ public struct MBGPanel<PanelContent: View>: View {
            Group {
                switch (borderStyle.kind, gapWidth) {
                case (.single, nil):
-                   outerShape
-                       .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
-                       .padding(-borderStyle.outerWidth / 2)
+                   Group {
+                       if borderStyle.outerWidth > 0 {
+                           outerShape
+                               .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
+                               .padding(-borderStyle.outerWidth / 2)
+                       }
+                   }
+
                case (.double(let gap), nil):
-                   outerShape
-                       .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
-                       .padding(-borderStyle.outerWidth / 2)
-                   innerShape
-                       .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
-                       .padding(gap + borderStyle.innerWidth / 2)
+                   Group {
+                       if borderStyle.outerWidth > 0 {
+                           outerShape
+                               .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
+                               .padding(-borderStyle.outerWidth / 2)
+                       }
+                       if borderStyle.innerWidth > 0 {
+                           innerShape
+                               .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
+                               .padding(gap + borderStyle.innerWidth / 2)
+                       }
+                   }
+
                case (.single, let gw?):
-                   AlgorithmGapPanelShape(algorithm: cornerAlg,
-                                          cornerKind: outerCornerKind,
-                                          cornerRadius: outerCornerKind.radius,
-                                          gapWidth: gw)
-                       .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
-                       .padding(-borderStyle.outerWidth / 2)
+                   Group {
+                       if borderStyle.outerWidth > 0 {
+                           AlgorithmGapPanelShape(algorithm: cornerAlg,
+                                                  cornerKind: outerCornerKind,
+                                                  cornerRadius: outerCornerKind.radius,
+                                                  gapWidth: gw)
+                               .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
+                               .padding(-borderStyle.outerWidth / 2)
+                       }
+                   }
+
                case (.double(let gap), let gw?):
-                   AlgorithmGapPanelShape(algorithm: cornerAlg,
-                                          cornerKind: outerCornerKind,
-                                          cornerRadius: outerCornerKind.radius,
-                                          gapWidth: gw)
-                       .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
-                       .padding(-borderStyle.outerWidth / 2)
-                   AlgorithmGapPanelShape(algorithm: cornerAlg,
-                                          cornerKind: (innerCornerKind ?? outerCornerKind),
-                                          cornerRadius: (innerCornerKind ?? outerCornerKind).radius,
-                                          gapWidth: gw)
-                       .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
-                       .padding(gap + borderStyle.innerWidth / 2)
+                   Group {
+                       if borderStyle.outerWidth > 0 {
+                           AlgorithmGapPanelShape(algorithm: cornerAlg,
+                                                  cornerKind: outerCornerKind,
+                                                  cornerRadius: outerCornerKind.radius,
+                                                  gapWidth: gw)
+                               .stroke(borderStyle.outerColor, lineWidth: borderStyle.outerWidth)
+                               .padding(-borderStyle.outerWidth / 2)
+                       }
+                       if borderStyle.innerWidth > 0 {
+                           AlgorithmGapPanelShape(algorithm: cornerAlg,
+                                                  cornerKind: (innerCornerKind ?? outerCornerKind),
+                                                  cornerRadius: (innerCornerKind ?? outerCornerKind).radius,
+                                                  gapWidth: gw)
+                               .stroke(borderStyle.innerColor, lineWidth: borderStyle.innerWidth)
+                               .padding(gap + borderStyle.innerWidth / 2)
+                       }
+                   }
                }
            }
        }
