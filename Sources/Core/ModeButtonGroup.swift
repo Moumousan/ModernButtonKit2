@@ -65,6 +65,7 @@ public enum ModeButtonLayout {
     )
     case split(splitGap: CGFloat) // backward-compatible horizontal split
     case split2(orientation: Axis, splitGap: CGFloat)
+    case scrollController(orientation: Axis, gap: CGFloat)
 }
 
 public enum SizeMode {
@@ -390,6 +391,9 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
 
         case .split2(let orientation, let splitGap):
             splitLayout(orientation: orientation, splitGap: splitGap)
+        case .scrollController(orientation: let orientation, gap: let gap):
+            // Alias of split2 for now (implementation will be added later)
+            splitLayout(orientation: orientation, splitGap: gap)
         }
     }
 
@@ -889,5 +893,6 @@ public struct ModeButtonGroup<Mode: Hashable & SelectableModeProtocol>: View {
 
 
 // End of ModeButtonGroup version 1.6.1
+
 
 
